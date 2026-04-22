@@ -72,59 +72,79 @@ footer {
 <header>
   <h1>🌍 World Monitor</h1>
   <div class="meta">
-    <span>更新: 2026-04-22 07:52 UTC</span>
-    <span>イベント数: 150件（記事数最大: 70）</span>
+    <span>更新: 2026-04-22 08:53 UTC</span>
+    <span>イベント数: 150件（記事数最大: 150）</span>
   </div>
 </header>
 
 ```html
-<div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 900px; margin: 20px auto; color: #333;">
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>国際情勢レポート</title>
+<style>
+body { font-family: 'Segoe UI', sans-serif; line-height: 1.8; max-width: 900px; margin: 0 auto; padding: 20px; background: #f5f5f5; }
+.report-header { text-align: center; margin-bottom: 30px; border-bottom: 3px solid #333; padding-bottom: 15px; }
+.report-header h1 { margin: 0; color: #333; }
+.report-header p { color: #666; margin: 5px 0 0 0; }
+.topic { background: white; margin-bottom: 25px; padding: 20px; border-left: 5px solid #d32f2f; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+.topic h2 { margin: 0 0 15px 0; color: #d32f2f; font-size: 20px; }
+.now, .bg, .outlook { margin-bottom: 12px; }
+.label { display: inline-block; background: #d32f2f; color: white; padding: 4px 10px; border-radius: 3px; font-weight: bold; margin-right: 10px; font-size: 12px; }
+</style>
+</head>
+<body>
 
-<h1 style="text-align: center; border-bottom: 3px solid #1a73e8; padding-bottom: 15px;">世界主要ニュース速報（直近1時間）</h1>
-
-<div class="topic">
-  <h2>⚖️ オーストラリア司法事件</h2>
-  <div class="now"><span class="label" style="background-color: #1a73e8; color: white; padding: 2px 8px; border-radius: 3px; font-weight: bold; margin-right: 8px;">現在</span>メルボルンの検察当局が著名俳優に対する胸部接触事件の告発を取り下げた。この決定により、パーラメント関係者やバリスタなどの司法関係者からの厳しい批判が相次いでいる。メディアも大きく報道し、社会的な議論を引き起こしている。</div>
-  <div class="bg"><span class="label" style="background-color: #34a853; color: white; padding: 2px 8px; border-radius: 3px; font-weight: bold; margin-right: 8px;">背景</span>オーストラリアでは司法の透明性と説明責任が長年の課題となっており、特に高名人物に関連する事件で世論の関心が高い。今回の告発取り下げは、検察の判断基準や証拠評価に関する議論を再燃させている。</div>
-  <div class="outlook"><span class="label" style="background-color: #ea4335; color: white; padding: 2px 8px; border-radius: 3px; font-weight: bold; margin-right: 8px;">見通し</span>この事件は司法制度改革や検察の透明性強化に向けた議論につながる可能性がある。政界とメディアの双方で継続的な追及が予想される。</div>
+<div class="report-header">
+<h1>国際情勢レポート</h1>
+<p>GDELT分析：直近1時間のニュース動向（記事数順）</p>
 </div>
 
 <div class="topic">
-  <h2>🇮🇷 米国とイラン和平協議</h2>
-  <div class="now"><span class="label" style="background-color: #1a73e8; color: white; padding: 2px 8px; border-radius: 3px; font-weight: bold; margin-right: 8px;">現在</span>トランプ政権がイランとの停戦を無期限に延長することを発表した。一方、両国間の平和交渉の見通しは依然として不透明であり、イランは譲歩の姿勢を示しながらも慎重な立場を保っている。ホルムズ海峡の戦略的重要性も影響して、国際社会の注視が集まっている。</div>
-  <div class="bg"><span class="label" style="background-color: #34a853; color: white; padding: 2px 8px; border-radius: 3px; font-weight: bold; margin-right: 8px;">背景</span>イランは中東の地政学的に重要な位置にあり、その核問題は国際安全保障の重要な懸案となっている。過去の直接交渉の失敗や相互不信が、現在の停戦が脆弱なものになっている要因である。</div>
-  <div class="outlook"><span class="label" style="background-color: #ea4335; color: white; padding: 2px 8px; border-radius: 3px; font-weight: bold; margin-right: 8px;">見通し</span>停戦の維持か本格的な交渉開始かが焦点となる。湾岸諸国やヨーロッパ諸国も関与する多国間協議への発展も可能性として存在する。</div>
+<h2>🔴 ホルムズ海峡での船舶攻撃と平和協議</h2>
+<div class="now"><span class="label">現在</span>イランの小火器戦闘勢力によるホルムズ海峡での船舶攻撃が報告されている。複数国籍の商船やコンテナ船が標的となり、イラン民兵組織による銃撃が発生している。同時に米国とイランの間で平和交渉の再開に向けた協議が進められている。</div>
+<div class="bg"><span class="label">背景</span>ホルムズ海峡は世界の石油輸送の約3分の1が通過する極めて重要な海上通路である。米国によるイラン制裁強化に伴い、イランの海事活動が緊張化しており、海上での軍事的衝突リスクが高まっている。</div>
+<div class="outlook"><span class="label">見通し</span>平和交渉と軍事的緊張のバランスが今後の鍵となる。国際社会による仲介努力が続く一方で、海上での不測の事態がさらなる対立をもたらす可能性も存在する。</div>
 </div>
 
 <div class="topic">
-  <h2>🇦🇺 NDIS政策変更への反発</h2>
-  <div class="now"><span class="label" style="background-color: #1a73e8; color: white; padding: 2px 8px; border-radius: 3px; font-weight: bold; margin-right: 8px;">現在</span>オーストラリアの州政府指導者たちが、障害者支援制度（NDIS）の急激な変更に対して強く反発している。連邦政府からの事前通知なしに実施された政策変更が、地方自治体の運営に大きな混乱をもたらしている。複数の州が公式に政府への抗議声明を発表している。</div>
-  <div class="bg"><span class="label" style="background-color: #34a853; color: white; padding: 2px 8px; border-radius: 3px; font-weight: bold; margin-right: 8px;">背景</span>NDISはオーストラリア最大の福祉制度改革で、障害者支援の透明性と公平性を目指して導入されたが、実装段階で多くの課題が生じている。連邦と州の権限分担が明確でない部分が、今回の対立の根本原因となっている。</div>
-  <div class="outlook"><span class="label" style="background-color: #ea4335; color: white; padding: 2px 8px; border-radius: 3px; font-weight: bold; margin-right: 8px;">見通し</span>連邦政府と州政府による協議が必須となる。制度の安定性が損なわれれば、障害者コミュニティへの実質的な影響も懸念される。</div>
+<h2>🇬🇧 英国の野党勢力交渉と政治再編</h2>
+<div class="now"><span class="label">現在</span>英国の野党勢力が政治再編に向けた交渉を展開している。自由民主党（Lib Dem）の党首がスコットランド国民党（SNP）の排除と労働党への支持を表明しており、英国議会における野党連携の構図が変化しつつある。</div>
+<div class="bg"><span class="label">背景</span>英国議会ではいかなる単一政党も圧倒的多数派を保有していない状況が続いており、少数与党政権の安定性が継続的な課題となっている。北アイルランド議員を含む様々な政治勢力の合従連衡が政局を左右する状況が常態化している。</div>
+<div class="outlook"><span class="label">見通し</span>野党間の連携強化は現政権への圧力となる可能性が高い。今後の英国議会運営において、野党の統一戦線形成が政権交代につながる可能性も視野に入れる必要がある。</div>
 </div>
 
 <div class="topic">
-  <h2>⚒️ オーストラリアのレアアース産業投資</h2>
-  <div class="now"><span class="label" style="background-color: #1a73e8; color: white; padding: 2px 8px; border-radius: 3px; font-weight: bold; margin-right: 8px;">現在</span>オーストラリアのハスティングス・テクノロジーズが、タイにレアアース製錬施設を建設し、初年度で5300万米ドルの収益を見込んでいる。西オーストラリアのワイロー地域での採掘と連携する戦略的な展開である。この投資はタイ政府の外交協力と企業間の合意に基づいている。</div>
-  <div class="bg"><span class="label" style="background-color: #34a853; color: white; padding: 2px 8px; border-radius: 3px; font-weight: bold; margin-right: 8px;">背景</span>レアアースは半導体やクリーンエネルギー産業に不可欠な資源であり、中国が長年供給を支配してきた。インド太平洋地域でのサプライチェーン多元化は、西側諸国の重要な戦略目標となっている。</div>
-  <div class="outlook"><span class="label" style="background-color: #ea4335; color: white; padding: 2px 8px; border-radius: 3px; font-weight: bold; margin-right: 8px;">見通し</span>この事業モデルが成功すれば、他のアジア太平洋諸国でも同様の投資が増加する可能性がある。オーストラリア経済にも長期的な好影響が期待される。</div>
+<h2>🇦🇿 南コーカサス地域の地政学的再編</h2>
+<div class="now"><span class="label">現在</span>アゼルバイジャンが国際パートナーシップの拡大を推進している。イスラエルとの関係強化、カザフスタンとの協力強化、英国との外交協力など、多角的な外交を展開している。アルメニアは米国との関係強化に向けた動きを示している。</div>
+<div class="bg"><span class="label">背景</span>南コーカサス地域は永年にわたりアルメニア・アゼルバイジャン間の紛争が続いており、地域の地政学的バランスが不安定である。中東、中央アジア、西方諸国が入り乱れる複雑な利害関係がこの地域を特徴づけている。</div>
+<div class="outlook"><span class="label">見通し</span>域内各国の国際パートナーシップ拡大は、地域的な勢力均衡をさらに複雑化させるだろう。イスラエルを含む外部勢力の関与深化により、紛争の再燃リスクも存在する。</div>
 </div>
 
 <div class="topic">
-  <h2>🇪🇺 ハンガリーのLGBT法違憲判決</h2>
-  <div class="now"><span class="label" style="background-color: #1a73e8; color: white; padding: 2px 8px; border-radius: 3px; font-weight: bold; margin-right: 8px;">現在</span>ブダペストの欧州司法裁判所がハンガリーの反LGBT法を違憲と判断した。この判決はEU基本権憲章に違反すると指摘し、ハンガリー政府は重大な人権侵害の疑いで国際的な批判を受けている。欧州機構からの支援提供停止の可能性も言及されている。</div>
-  <div class="bg"><span class="label" style="background-color: #34a853; color: white; padding: 2px 8px; border-radius: 3px; font-weight: bold; margin-right: 8px;">背景</span>ハンガリーはオルバン首相の下で保守的な政策を推し進め、LGBT権利の制限に関する複数の法案を可決してきた。これはEU内での人権水準の低下として批判され、加盟国との緊張関係を生み出してきた。</div>
-  <div class="outlook"><span class="label" style="background-color: #ea4335; color: white; padding: 2px 8px; border-radius: 3px; font-weight: bold; margin-right: 8px;">見通し</span>ハンガリーが判決を受け入れるか、それとも抵抗するかが焦点となる。EU資金配分や制裁措置との連動も検討される可能性が高い。</div>
+<h2>🇮🇪 アイルランド・マルタ間の航空運送紛争</h2>
+<div class="now"><span class="label">現在</span>ライアンエアがマルタへの運航キャンセルを示唆する脅迫的姿勢を示している。雇用条件に関する新規規制に対する反発として、航空路線の大幅削減を警告している。アイルランドとマルタの両国が関係する航空運輸上の摩擦が生じている。</div>
+<div class="bg"><span class="label">背景</span>欧州の航空業界は労働コスト削減と規制環境の変化に直面しており、航空会社の経営戦略が各国政府の政策と衝突することが増加している。ライアンエアは低コスト運営を経営戦略の中核としており、規制強化に敏感に反応する傾向にある。</div>
+<div class="outlook"><span class="label">見通し</span>欧州内の労働規制と航空事業者の経営戦略の調整が継続的な課題となるだろう。観光産業に依存する小規模国家にとって航空路線維持は重要であり、今後の交渉が注視される。</div>
 </div>
 
 <div class="topic">
-  <h2>🇺🇸 NATO 3.0と欧州への防衛費要求</h2>
-  <div class="now"><span class="label" style="background-color: #1a73e8; color: white; padding: 2px 8px; border-radius: 3px; font-weight: bold; margin-right: 8px;">現在</span>米国がNATO同盟国に対して、防衛費の大幅な増加を要求する方針を示している。これは「NATO 3.0」構想の一部で、ウクライナ支援の継続とEU独立防衛力構築の二者択一を迫るもののようだ。ワシントンからのメッセージには脅迫的なニュアンスも含まれており、欧州側で警戒感が高まっている。</div>
-  <div class="bg"><span class="label" style="background-color: #34a853; color: white; padding: 2px 8px; border-radius: 3px; font-weight: bold; margin-right: 8px;">背景</span>米国のウクライナ支援は大規模な財政負担となっており、国内での支援疲労が生じている。トランプ政権は孤立主義的傾向を持ち、同盟国の自己負担強化を強く主張してきた。</div>
-  <div class="outlook"><span class="label" style="background-color: #ea4335; color: white; padding: 2px 8px; border-radius: 3px; font-weight: bold; margin-right: 8px;">見通し</span>欧州はEU独立防衛力の構築加速を迫られ、EUの政治統合が進む可能性がある。ただし経済的な負担と政治的分裂のリスクも同時に高まる。</div>
+<h2>🇮🇷 イランの南アフリカとの協議と外交拡大</h2>
+<div class="now"><span class="label">現在</span>イランが南アフリカとの外交協議を活発化させており、武力行使を含む複数のレベルでの関係構築を進めている。両国間の協力は単なる経済分野にとどまらず、安全保障領域への拡張も示唆されている。</div>
+<div class="bg"><span class="label">背景</span>イランは西側諸国からの制裁下で、グローバルサウスとの連携強化を優先戦略としている。南アフリカはBRICS加盟国として新興国における重要な地位を占めており、イランの戦略的パートナーとしての価値が高まっている。</div>
+<div class="outlook"><span class="label">見通し</span>イラン・南アフリカ間の協力拡大は、国際的な勢力分布をさらに多極化させるであろう。西側陣営とグローバルサウスの分化がより明確になる可能性がある。</div>
 </div>
 
+<div class="topic">
+<h2>🇦🇺 オーストラリアの政治・社会的課題</h2>
+<div class="now"><span class="label">現在</span>オーストラリアにおいて税制提案に関する産業界との対立が激化している。ガス大手企業が新規税制提案に強く反発しており、政府との間で政策をめぐる論争が展開されている。同時に社会安全関連の公式声明も発表されている。</div>
+<div class="bg"><span class="label">背景</span>オーストラリアは資源産業への依存度が高く、政府の税制政策が産業界に与える影響は極めて大きい。エネルギー転換期における産業界と政府の利害の対立が深刻化している。</div>
+<div class="outlook"><span class="label">見通し</span>エネルギー政策と財政政策をめぐる議論は今後も継続するだろう。産業界との調整が政府の政策実現可能性を大きく左右するであろう。</div>
 </div>
+
+</body>
+</html>
 ```
 
 <footer>データ: GDELT 2.0（約1時間遅延） · 分析: Claude AI · 毎時更新</footer>
