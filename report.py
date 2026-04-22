@@ -54,7 +54,7 @@ header h1 {{ font-size: 17px; font-weight: 700; }}
 .location {{ font-size: 13px; font-weight: 600; flex: 1; }}
 .articles {{ font-size: 11px; color: #888; white-space: nowrap; }}
 .event-label {{ font-size: 12px; color: #aaa; margin-bottom: 4px; }}
-.desc {{ font-size: 13px; color: #ddd; margin-bottom: 4px; line-height: 1.5; }}
+.desc {{ font-size: 13px; color: #ddd; margin-bottom: 6px; line-height: 1.7; }}
 .actors {{ font-size: 11px; color: #666; }}
 .source-link {{ display: inline-block; margin-top: 5px; font-size: 11px; color: #4fc3f7;
                 text-decoration: none; overflow: hidden; text-overflow: ellipsis;
