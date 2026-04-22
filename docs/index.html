@@ -72,53 +72,90 @@ footer {
 <header>
   <h1>🌍 World Monitor</h1>
   <div class="meta">
-    <span>更新: 2026-04-22 21:53 UTC</span>
-    <span>イベント数: 150件（記事数最大: 50）</span>
+    <span>更新: 2026-04-22 22:51 UTC</span>
+    <span>イベント数: 150件（記事数最大: 100）</span>
   </div>
 </header>
 
 ```html
-<div class="topic">
-  <h2>🇺🇸 米国議会の信頼危機</h2>
-  <div class="now"><span class="label">現在</span>米国民の議会に対する不支持が記録的な高水準に達している。ギャラップ世論調査によると、議会への不満は過去最高レベルに達し、議会指導部への支援提供や外交協力に関する報道が50件以上に上っている。同時にホワイトハウスと有権者間の協議についても報道が集中している。</div>
-  <div class="bg"><span class="label">背景</span>米国政治における分極化の深刻化と政治的混乱により、国民の政治機関への信頼が著しく低下している。記録的な不支持率は、政策実行能力や代表性に対する国民の根深い不満を反映している。</div>
-  <div class="outlook"><span class="label">見通し</span>議会と行政府の間での協力体制の構築が急務となる。国民の信頼回復には、具体的な政策成果の提示と透明性の強化が求められる。</div>
-</div>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>国際情勢レポート</title>
+    <style>
+        body { font-family: 'Arial', sans-serif; line-height: 1.8; color: #333; background-color: #f5f5f5; padding: 20px; }
+        .report { max-width: 900px; margin: 0 auto; background-color: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .header { text-align: center; margin-bottom: 30px; border-bottom: 3px solid #2c3e50; padding-bottom: 20px; }
+        .header h1 { color: #2c3e50; margin: 0; font-size: 28px; }
+        .header p { color: #7f8c8d; margin: 10px 0 0 0; font-size: 14px; }
+        .topic { margin-bottom: 40px; border-left: 4px solid #3498db; padding-left: 20px; }
+        .topic h2 { color: #2c3e50; margin: 0 0 15px 0; font-size: 20px; display: flex; align-items: center; }
+        .topic h2::before { content: attr(data-emoji); margin-right: 10px; font-size: 24px; }
+        .now, .bg, .outlook { margin-bottom: 12px; padding: 12px; background-color: #f9f9f9; border-radius: 4px; }
+        .label { display: inline-block; background-color: #3498db; color: white; padding: 4px 12px; border-radius: 3px; font-weight: bold; font-size: 12px; margin-right: 10px; min-width: 60px; }
+        .now .label { background-color: #e74c3c; }
+        .bg .label { background-color: #f39c12; }
+        .outlook .label { background-color: #27ae60; }
+        .footer { text-align: center; color: #7f8c8d; font-size: 12px; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ecf0f1; }
+    </style>
+</head>
+<body>
+    <div class="report">
+        <div class="header">
+            <h1>世界情勢ダイジェスト</h1>
+            <p>GDELTデータ分析による直近1時間の主要ニュース</p>
+        </div>
 
-<div class="topic">
-  <h2>⚠️ イスラエル・レバノン紛争激化</h2>
-  <div class="now"><span class="label">現在</span>イスラエルとレバノン間の軍事緊張が高まっており、停戦違反の報告が相次いでいる。特にロンドンではユダヤ人施設を標的とするテロ計画事件が逮捕に至り、極度にネガティブなトーン（-12.1）で報道されている。イスラエルの批判的行動とレバノンのスピーチが対立構造を形成している。</div>
-  <div class="bg"><span class="label">背景</span>中東地域における長期的な対立が激化し、イランも関与する複雑な地政学的状況が展開している。パキスタンなども協議に参画し、地域的な外交的緊張が高まっている。</div>
-  <div class="outlook"><span class="label">見通し</span>米国の外交努力による停戦交渉が重要な局面を迎えている。地域内紛争の拡大阻止と人道的危機の軽減が国際社会の課題となる。</div>
-</div>
+        <div class="topic">
+            <h2>🔴 英国テロ未遂事件</h2>
+            <div class="now"><span class="label">現在</span>ロンドンでユダヤ教関連施設を狙った放火テロ計画に関する捜査が進行中です。テロ対策当局が2名の容疑者を逮捕し、脅迫罪と武力行使の罪で追及しています。当局の声明によると計画的なテロ行為として厳格に対処する方針が示されています。</div>
+            <div class="bg"><span class="label">背景</span>英国ではユダヤ人コミュニティを標的とした脅迫事件が増加傾向にあります。宗教施設への攻撃予告事件は社会的な緊張を反映するもので、警察当局は厳戒態勢を敷いています。</div>
+            <div class="outlook"><span class="label">見通し</span>容疑者の取り調べが進む中、テロ防止法による重大犯罪としての立件が検討されています。英国のテロ対策体制のさらなる強化が予想されます。</div>
+        </div>
 
-<div class="topic">
-  <h2>🌊 ホルムズ海峡の海上緊張</h2>
-  <div class="now"><span class="label">現在</span>イランがホルムズ海峡で船舶を拿捕し、米国がこれに対抗する形で海上ブロケードを敷いている。複数のコンテナ船が関与し、オマーンでも要請と批判が報告されている。米国とイランの対立が海上交通を脅かす状況が続いている。</div>
-  <div class="bg"><span class="label">背景</span>イランの核開発問題と米国の経済制裁が根底にある。ホルムズ海峡は世界的な石油供給ルートであり、この地域の不安定化は国際経済に直結する重要な地点である。</div>
-  <div class="outlook"><span class="label">見通し</span>外交交渉による紛争解決が急務であり、米国を含む国際社会の調停努力が注視される。海上交通の安全確保と経済的影響の最小化が課題となる。</div>
-</div>
+        <div class="topic">
+            <h2>⚠️ シドニー銃撃事件</h2>
+            <div class="now"><span class="label">現在</span>シドニー全域で夜間に複数の銃撃事件が発生し、警察官を含む複数の負傷者が出ています。警察は事件現場を封鎖し、本格的な捜査と容疑者の追跡を実施中です。トーンスコア-9.2と極めて深刻な状況が続いています。</div>
+            <div class="bg"><span class="label">背景</span>オーストラリアは一般的に銃犯罪が少ない国ですが、今回のような複数地点での同時銃撃事件は稀有なケースです。銃の違法所持や暴力犯罪の増加が社会問題化しています。</div>
+            <div class="outlook"><span class="label">見通し</span>警察当局による容疑者の逮捕と事件動機の解明が急務となっています。オーストラリアの銃規制政策についての議論が再燃する可能性があります。</div>
+        </div>
 
-<div class="topic">
-  <h2>🔬 米国公衆衛生政策の透明性問題</h2>
-  <div class="now"><span class="label">現在</span>イリノイ州から強制・圧力を伴う形で、COVID-19ワクチン有効性に関する研究論文の発表が中止された事案が報告されている。米国保健当局による出版物抑制という措置であり、ネガティブなトーン（-2.8）で報道されている。</div>
-  <div class="bg"><span class="label">背景</span>パンデミック以降、ワクチン政策をめぐる政治化と科学的透明性のバランスが問題化している。公衆衛生機関と学術の独立性に関する信頼問題が生じている。</div>
-  <div class="outlook"><span class="label">見通し</span>科学的証拠の開示と政策決定プロセスの透明化が求められる。公衆衛生政策への国民信頼の回復が継続的な課題となる。</div>
-</div>
+        <div class="topic">
+            <h2>🌏 南シナ海での軍事活動</h2>
+            <div class="now"><span class="label">現在</span>ベトナム沖の南シナ海で米国海軍の活動に関する報道が増加しており、地域の海軍力学に緊張が生じています。報告では戦闘態勢や譲歩に関する複数の報道がなされ、地政学的な緊張が高まっています。</div>
+            <div class="bg"><span class="label">背景</span>南シナ海は国際的な海運ルートとして重要であり、複数国による領有権主張が対立しています。米国海軍の「自由航行」作戦はこの地域での安定性維持を目的としています。</div>
+            <div class="outlook"><span class="label">見通し</span>地域の軍事バランスをめぐる交渉が続くと予想されます。国際法に基づいた海洋権の確保に向けた各国の外交努力が重要になります。</div>
+        </div>
 
-<div class="topic">
-  <h2>🛂 米国内の犯罪・安全保障問題</h2>
-  <div class="now"><span class="label">現在</span>オハイオ州コロンバスで銃による傷害事件が報告され、ヴァージニア州ではMS-13関連の容疑者がICEに逮捕されている。児童への危害を含む深刻な犯罪事案が複数報告されており、極めてネガティブなトーン（-9.6から-8.4）で報道されている。</div>
-  <div class="bg"><span class="label">背景</span>米国内の銃暴力と組織犯罪の問題が継続的に存在し、特に児童が被害者となるケースが増加している。国境セキュリティと国内安全保障が政策的課題として重要視されている。</div>
-  <div class="outlook"><span class="label">見通し</span>銃規制と犯罪防止対策の強化が政治的議論の中心となる。児童保護と地域安全確保のための総合的なアプローチが求められている。</div>
-</div>
+        <div class="topic">
+            <h2>🇺🇸 米国行政人事異動</h2>
+            <div class="now"><span class="label">現在</span>ペンタゴン海軍長官ジョン・フェーラン氏がトランプ行政府を離職することが報道されています。この人事異動は国防省の重要な決定であり、複数の報道機関が大きく報じています。</div>
+            <div class="bg"><span class="label">背景</span>フェーラン長官はバイデン政権下で任命された国防関連の重要人物で、その退任はトランプ政権の再始動に伴う組織再編の一環と考えられます。国防政策の方針転換の可能性も指摘されています。</div>
+            <div class="outlook"><span class="label">見通し</span>後任者の選任と承認プロセスが進展する見通しです。国防戦略、とりわけウクライナ支援やアジア太平洋戦略の見直しが予想されます。</div>
+        </div>
 
-<div class="topic">
-  <h2>🌍 国際インフラ・経済協力</h2>
-  <div class="now"><span class="label">現在</span>インドのデリー近郊ジェワルで新空港建設が進展し、アイタリア、スイス、オーストラリアなど複数国による協力意向が報告されている。マイアミビーチでは海事関連の再開発計画が進行中であり、正の経済トーンで報道されている。</div>
-  <div class="bg"><span class="label">背景</span>世界的なインフラ投資の活発化と各国間の経済協力が深まっている。特にアジア地域でのインフラプロジェクトが国際的な関心を集めている。</div>
-  <div class="outlook"><span class="label">見通し</span>多国間協力による大型インフラプロジェクトの完成が経済成長を促進する可能性がある。グローバルサプライチェーンの強化と地域開発の加速が期待されている。</div>
-</div>
+        <div class="topic">
+            <h2>🇺🇦 ウクライナ支援体制</h2>
+            <div class="now"><span class="label">現在</span>米国とウクライナの軍事協力が継続して報道されており、双方の外交協力が複数の報告で確認されています。トーンスコアが0.7で比較的安定的なレベルの協力関係が維持されています。</div>
+            <div class="bg"><span class="label">背景</span>ウクライナはロシアの侵攻に対抗するため米国からの軍事支援に依存しており、この支援体制は欧米の対ロシア政策の重要な柱となっています。</div>
+            <div class="outlook"><span class="label">見通し</span>トランプ政権の外交政策如何によってウクライナへの支援規模や形態が変わる可能性があります。欧州同盟国との調整が重要課題となるでしょう。</div>
+        </div>
+
+        <div class="topic">
+            <h2>🇮🇷 イラン危機と経済影響</h2>
+            <div class="now"><span class="label">現在</span>イランをめぐる軍事的緊張が米国との間で高まっており、海軍活動や政府レベルでの協力意向に関する報道が増加しています。エネルギー供給の混乱に伴い、航空業界でも減便措置が始まっています。</div>
+            <div class="bg"><span class="label">背景</span>米国とイランの関係は経済制裁と核協議の問題を中心に対立が続いており、最近の軍事的緊張は地域の不安定性を高めています。石油価格の変動やエネルギー供給懸念が世界経済に波及しています。</div>
+            <div class="outlook"><span class="label">見通し</span>イラン問題の解決には外交交渉の道が必要とされており、国際社会による仲介努力が期待されます。エネルギー市場の安定化が経済復興の重要課題となります。</div>
+        </div>
+
+        <div class="footer">
+            <p>このレポートはGDELTデータを基に、記事数とトーンスコアを総合判断して作成されています。</p>
+        </div>
+    </div>
+</body>
+</html>
 ```
 
 <footer>データ: GDELT 2.0（約1時間遅延） · 分析: Claude AI · 毎時更新</footer>
