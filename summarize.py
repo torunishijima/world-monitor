@@ -37,16 +37,16 @@ def generate_report(events):
    - 今後の見通し（1〜2文）
 4. 日本語のみ・客観的な論調・合計1500〜2500文字
 
-【出力形式】HTMLで出力してください。以下の構造を使うこと：
+【出力形式】以下のHTMLを繰り返すだけで出力してください。前置き・タイトルブロック・説明文・余分なdivは一切不要です。
 
 <div class="topic">
-  <h2>🔴 トピック名</h2>
-  <div class="now"><span class="label">現在</span>本文</div>
-  <div class="bg"><span class="label">背景</span>本文</div>
-  <div class="outlook"><span class="label">見通し</span>本文</div>
+<h2>絵文字 トピック名</h2>
+<div class="now"><span class="label">現在</span>本文テキスト</div>
+<div class="bg"><span class="label">背景</span>本文テキスト</div>
+<div class="outlook"><span class="label">見通し</span>本文テキスト</div>
 </div>
 
-クラスや構造は必ずこの通りにしてください。他のHTMLタグは使わないこと。"""
+このブロックをトピック数だけ繰り返してください。それ以外のHTMLは出力しないこと。"""
 
     try:
         client  = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
