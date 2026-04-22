@@ -21,10 +21,10 @@ def main():
         print(summary[:200] + '...')
 
     html = generate(events, summary, timestamp)
-    os.makedirs('public', exist_ok=True)
-    with open('public/index.html', 'w', encoding='utf-8') as f:
+    os.makedirs('docs', exist_ok=True)
+    with open('docs/index.html', 'w', encoding='utf-8') as f:
         f.write(html)
-    print('\n✅ 完了: public/index.html')
+    print('\n✅ 完了: docs/index.html')
 
 
 if __name__ == '__main__':
