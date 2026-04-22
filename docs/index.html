@@ -8,8 +8,8 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
-  background: #0f0f1a;
-  color: #e0e0e0;
+  background: #111118;
+  color: #f0f0f0;
   max-width: 680px;
   margin: 0 auto;
   padding: 0 16px 48px;
@@ -41,24 +41,24 @@ header h1 { font-size: 20px; font-weight: 700; color: #fff; }
   line-height: 1.4;
 }
 .now, .bg, .outlook {
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   font-size: 14px;
-  line-height: 1.8;
-  color: #ccc;
+  line-height: 1.85;
+  color: #e8e8e8;
 }
 .label {
   display: inline-block;
   font-size: 10px;
   font-weight: 700;
-  padding: 2px 7px;
+  padding: 2px 8px;
   border-radius: 4px;
   margin-right: 8px;
   vertical-align: middle;
   letter-spacing: 0.5px;
 }
-.now .label   { background: #1a3a5c; color: #5ab4ff; }
-.bg .label    { background: #2a2a1a; color: #c8a84b; }
-.outlook .label { background: #1a3a1a; color: #5aaf5a; }
+.now .label     { background: #2a6496; color: #ffffff; }
+.bg .label      { background: #7a6010; color: #ffffff; }
+.outlook .label { background: #2a7a2a; color: #ffffff; }
 footer {
   padding: 24px 0;
   font-size: 11px;
@@ -72,7 +72,7 @@ footer {
 <header>
   <h1>🌍 World Monitor</h1>
   <div class="meta">
-    <span>更新: 2026-04-22 22:51 UTC</span>
+    <span>更新: 2026-04-22 23:40 UTC</span>
     <span>イベント数: 150件（記事数最大: 100）</span>
   </div>
 </header>
@@ -81,79 +81,71 @@ footer {
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>国際情勢レポート</title>
-    <style>
-        body { font-family: 'Arial', sans-serif; line-height: 1.8; color: #333; background-color: #f5f5f5; padding: 20px; }
-        .report { max-width: 900px; margin: 0 auto; background-color: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-        .header { text-align: center; margin-bottom: 30px; border-bottom: 3px solid #2c3e50; padding-bottom: 20px; }
-        .header h1 { color: #2c3e50; margin: 0; font-size: 28px; }
-        .header p { color: #7f8c8d; margin: 10px 0 0 0; font-size: 14px; }
-        .topic { margin-bottom: 40px; border-left: 4px solid #3498db; padding-left: 20px; }
-        .topic h2 { color: #2c3e50; margin: 0 0 15px 0; font-size: 20px; display: flex; align-items: center; }
-        .topic h2::before { content: attr(data-emoji); margin-right: 10px; font-size: 24px; }
-        .now, .bg, .outlook { margin-bottom: 12px; padding: 12px; background-color: #f9f9f9; border-radius: 4px; }
-        .label { display: inline-block; background-color: #3498db; color: white; padding: 4px 12px; border-radius: 3px; font-weight: bold; font-size: 12px; margin-right: 10px; min-width: 60px; }
-        .now .label { background-color: #e74c3c; }
-        .bg .label { background-color: #f39c12; }
-        .outlook .label { background-color: #27ae60; }
-        .footer { text-align: center; color: #7f8c8d; font-size: 12px; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ecf0f1; }
-    </style>
+<meta charset="UTF-8">
+<title>国際情勢レポート</title>
+<style>
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.8; max-width: 900px; margin: 0 auto; padding: 20px; background-color: #f5f5f5; }
+.report-header { background-color: #2c3e50; color: white; padding: 20px; border-radius: 8px; margin-bottom: 30px; }
+.report-header h1 { margin: 0; font-size: 24px; }
+.report-header p { margin: 10px 0 0 0; font-size: 14px; opacity: 0.9; }
+.topic { background-color: white; padding: 25px; margin-bottom: 25px; border-left: 5px solid #3498db; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+.topic h2 { margin: 0 0 20px 0; font-size: 18px; color: #2c3e50; }
+.topic div { margin-bottom: 15px; }
+.label { display: inline-block; background-color: #3498db; color: white; padding: 4px 10px; border-radius: 3px; font-weight: bold; font-size: 12px; margin-right: 10px; min-width: 50px; }
+.now .label { background-color: #e74c3c; }
+.bg .label { background-color: #f39c12; }
+.outlook .label { background-color: #27ae60; }
+</style>
 </head>
 <body>
-    <div class="report">
-        <div class="header">
-            <h1>世界情勢ダイジェスト</h1>
-            <p>GDELTデータ分析による直近1時間の主要ニュース</p>
-        </div>
 
-        <div class="topic">
-            <h2>🔴 英国テロ未遂事件</h2>
-            <div class="now"><span class="label">現在</span>ロンドンでユダヤ教関連施設を狙った放火テロ計画に関する捜査が進行中です。テロ対策当局が2名の容疑者を逮捕し、脅迫罪と武力行使の罪で追及しています。当局の声明によると計画的なテロ行為として厳格に対処する方針が示されています。</div>
-            <div class="bg"><span class="label">背景</span>英国ではユダヤ人コミュニティを標的とした脅迫事件が増加傾向にあります。宗教施設への攻撃予告事件は社会的な緊張を反映するもので、警察当局は厳戒態勢を敷いています。</div>
-            <div class="outlook"><span class="label">見通し</span>容疑者の取り調べが進む中、テロ防止法による重大犯罪としての立件が検討されています。英国のテロ対策体制のさらなる強化が予想されます。</div>
-        </div>
+<div class="report-header">
+<h1>🌍 国際情勢レポート</h1>
+<p>直近1時間のGDELTデータ分析 | 記事数順トピック抽出</p>
+</div>
 
-        <div class="topic">
-            <h2>⚠️ シドニー銃撃事件</h2>
-            <div class="now"><span class="label">現在</span>シドニー全域で夜間に複数の銃撃事件が発生し、警察官を含む複数の負傷者が出ています。警察は事件現場を封鎖し、本格的な捜査と容疑者の追跡を実施中です。トーンスコア-9.2と極めて深刻な状況が続いています。</div>
-            <div class="bg"><span class="label">背景</span>オーストラリアは一般的に銃犯罪が少ない国ですが、今回のような複数地点での同時銃撃事件は稀有なケースです。銃の違法所持や暴力犯罪の増加が社会問題化しています。</div>
-            <div class="outlook"><span class="label">見通し</span>警察当局による容疑者の逮捕と事件動機の解明が急務となっています。オーストラリアの銃規制政策についての議論が再燃する可能性があります。</div>
-        </div>
+<div class="topic">
+<h2>🇬🇧 英国内閣分裂と政治的混乱</h2>
+<div class="now"><span class="label">現在</span>ロンドンの首相府周辺で内閣内の深刻な分裂が報告されており、上級公務員がマンデルソン議員に関する質問に直面している。複数の記事から、政治指導部間の対立や戦闘的な対立構図が浮かび上がっている。トーンが-2.2と否定的であり、政治的な緊張が高まっていることが示唆されている。</div>
+<div class="bg"><span class="label">背景</span>英国では議員の民主的プロセスへの参加に関する議論が進行中であり、複数の下院議員が特定の民主的協議に参加しないことを表明している。これは政治的な制度や議員の役割に関する根本的な問題を反映している。</div>
+<div class="outlook"><span class="label">見通し</span>内閣内の分裂は政策決定の効率性に影響を与える可能性があり、今後の政治的安定性が注視される。議会内の協議体制の再構築が急務となるだろう。</div>
+</div>
 
-        <div class="topic">
-            <h2>🌏 南シナ海での軍事活動</h2>
-            <div class="now"><span class="label">現在</span>ベトナム沖の南シナ海で米国海軍の活動に関する報道が増加しており、地域の海軍力学に緊張が生じています。報告では戦闘態勢や譲歩に関する複数の報道がなされ、地政学的な緊張が高まっています。</div>
-            <div class="bg"><span class="label">背景</span>南シナ海は国際的な海運ルートとして重要であり、複数国による領有権主張が対立しています。米国海軍の「自由航行」作戦はこの地域での安定性維持を目的としています。</div>
-            <div class="outlook"><span class="label">見通し</span>地域の軍事バランスをめぐる交渉が続くと予想されます。国際法に基づいた海洋権の確保に向けた各国の外交努力が重要になります。</div>
-        </div>
+<div class="topic">
+<h2>🏥 英国の公衆衛生危機</h2>
+<div class="now"><span class="label">現在</span>英国全体でがん患者数が過去最高水準に達したことが報告されている。北アイルランド地域でも脅迫と批判の対象となっており、深刻な公衆衛生上の警告が発せられている。この傾向はトーン値-5.3と極めて悲観的な評価を受けている。</div>
+<div class="bg"><span class="label">背景</span>英国の高齢化社会が進行する中で、がん罹患率の増加は老化に伴う慢性疾患の増加と関連している。医療システムへの圧力が増大し、公衆衛生政策の見直しが求められている状況である。</div>
+<div class="outlook"><span class="label">見通し</span>医療資源の配分と予防医療の強化が今後の重要な課題となるだろう。政府は予算拡大と治療施設の充実を迫られる可能性が高い。</div>
+</div>
 
-        <div class="topic">
-            <h2>🇺🇸 米国行政人事異動</h2>
-            <div class="now"><span class="label">現在</span>ペンタゴン海軍長官ジョン・フェーラン氏がトランプ行政府を離職することが報道されています。この人事異動は国防省の重要な決定であり、複数の報道機関が大きく報じています。</div>
-            <div class="bg"><span class="label">背景</span>フェーラン長官はバイデン政権下で任命された国防関連の重要人物で、その退任はトランプ政権の再始動に伴う組織再編の一環と考えられます。国防政策の方針転換の可能性も指摘されています。</div>
-            <div class="outlook"><span class="label">見通し</span>後任者の選任と承認プロセスが進展する見通しです。国防戦略、とりわけウクライナ支援やアジア太平洋戦略の見直しが予想されます。</div>
-        </div>
+<div class="topic">
+<h2>🇺🇸 米国防衛体制の転換期</h2>
+<div class="now"><span class="label">現在</span>トランプ政権下において海軍長官ジョン・フェーラン氏が職を辞任している。この決定は米国防総省内での方針転換を示唆しており、国防戦略の見直しが進行中であることが示されている。複数の地域から同様の報道が確認されており、重要性の高いイベントである。</div>
+<div class="bg"><span class="label">背景</span>米国は最近のアフガニスタン撤退やインド太平洋地域での戦略転換など、防衛政策の大幅な見直しを進めている。特に海軍運用と国防組織の人事については政治的な議論が続いていた。</div>
+<div class="outlook"><span class="label">見通し</span>新たな海軍指導部の任命によって米国の海洋戦略がどう変わるかが焦点となる。同盟国や地政学的な競争相手への影響も注視される。</div>
+</div>
 
-        <div class="topic">
-            <h2>🇺🇦 ウクライナ支援体制</h2>
-            <div class="now"><span class="label">現在</span>米国とウクライナの軍事協力が継続して報道されており、双方の外交協力が複数の報告で確認されています。トーンスコアが0.7で比較的安定的なレベルの協力関係が維持されています。</div>
-            <div class="bg"><span class="label">背景</span>ウクライナはロシアの侵攻に対抗するため米国からの軍事支援に依存しており、この支援体制は欧米の対ロシア政策の重要な柱となっています。</div>
-            <div class="outlook"><span class="label">見通し</span>トランプ政権の外交政策如何によってウクライナへの支援規模や形態が変わる可能性があります。欧州同盟国との調整が重要課題となるでしょう。</div>
-        </div>
+<div class="topic">
+<h2>🚗 自動車安全品質問題</h2>
+<div class="now"><span class="label">現在</span>フォード社製レンジャーの配線欠陥が原因の火災リスクが報告され、自動車メーカーが大規模なリコールを実施している。ミシガン州などの複数地域で調査が進められており、トーン値-4.5の深刻な製品品質問題として扱われている。</div>
+<div class="bg"><span class="label">背景</span>自動車産業における品質管理の課題は継続的な問題であり、特に電気配線システムの故障は火災事故につながる危険性がある。消費者安全と製造責任の問題が絡み合っている。</div>
+<div class="outlook"><span class="label">見通し</span>リコール対応により一時的に費用負担が発生する見込みだが、消費者信頼の回復が長期的な課題となるだろう。業界全体の品質基準強化につながる可能性もある。</div>
+</div>
 
-        <div class="topic">
-            <h2>🇮🇷 イラン危機と経済影響</h2>
-            <div class="now"><span class="label">現在</span>イランをめぐる軍事的緊張が米国との間で高まっており、海軍活動や政府レベルでの協力意向に関する報道が増加しています。エネルギー供給の混乱に伴い、航空業界でも減便措置が始まっています。</div>
-            <div class="bg"><span class="label">背景</span>米国とイランの関係は経済制裁と核協議の問題を中心に対立が続いており、最近の軍事的緊張は地域の不安定性を高めています。石油価格の変動やエネルギー供給懸念が世界経済に波及しています。</div>
-            <div class="outlook"><span class="label">見通し</span>イラン問題の解決には外交交渉の道が必要とされており、国際社会による仲介努力が期待されます。エネルギー市場の安定化が経済復興の重要課題となります。</div>
-        </div>
+<div class="topic">
+<h2>🌏 インド太平洋地域の外交協調</h2>
+<div class="now"><span class="label">現在</span>スリランカ、マレーシア、パキスタンなどのインド太平洋地域諸国が複数の首脳会談と協議を実施している。特にスリランカのコロンボとマレーシア間での協力意向が報道されており、地域的な外交ネットワークが強化されている。</div>
+<div class="bg"><span class="label">背景</span>インド太平洋地域は地政学的に重要性が高く、米国・中国の大国競争が影響している。各国は地域内での経済的・安全保障上の協力強化を模索している段階である。</div>
+<div class="outlook"><span class="label">見通し</span>これら協議を通じてASEAN諸国と南アジア諸国の連携が深まる可能性がある。地域の経済統合と安全保障枠組みの構築が今後の焦点となるだろう。</div>
+</div>
 
-        <div class="footer">
-            <p>このレポートはGDELTデータを基に、記事数とトーンスコアを総合判断して作成されています。</p>
-        </div>
-    </div>
+<div class="topic">
+<h2>📱 デジタル規制と子どもの安全</h2>
+<div class="now"><span class="label">現在</span>米国カリフォルニア州が16歳未満の児童向けソーシャルメディア利用禁止に向けた規制を検討している。複数州で同様の動きが見られており、デジタルプラットフォームに対する政策的圧力が強化されている。トーン値-1.8と懸念を反映している。</div>
+<div class="bg"><span class="label">背景</span>ソーシャルメディアの若年層への影響、特に心理的健康や依存性に関する医学的証拠が積み重なっている。子どもの安全とプライバシー保護に対する社会的関心が急速に高まっている。</div>
+<div class="outlook"><span class="label">見通し</span>カリフォルニア州の規制が成立すれば、米国全体や他国での類似規制のモデルケースとなるだろう。デジタルプラットフォーム企業のビジネスモデル見直しを迫る可能性がある。</div>
+</div>
+
 </body>
 </html>
 ```
