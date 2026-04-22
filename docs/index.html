@@ -72,89 +72,53 @@ footer {
 <header>
   <h1>🌍 World Monitor</h1>
   <div class="meta">
-    <span>更新: 2026-04-22 20:06 UTC</span>
-    <span>イベント数: 150件（記事数最大: 90）</span>
+    <span>更新: 2026-04-22 21:53 UTC</span>
+    <span>イベント数: 150件（記事数最大: 50）</span>
   </div>
 </header>
 
 ```html
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8">
-<title>国際情勢レポート</title>
-<style>
-body { font-family: 'Segoe UI', sans-serif; line-height: 1.8; color: #333; background: #f5f5f5; padding: 20px; }
-.report { max-width: 900px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-.title { text-align: center; color: #1a1a1a; margin-bottom: 30px; border-bottom: 3px solid #2c3e50; padding-bottom: 15px; }
-.topic { margin-bottom: 35px; padding: 20px; background: #fafafa; border-left: 5px solid #3498db; border-radius: 4px; }
-.topic h2 { margin-top: 0; color: #2c3e50; font-size: 1.4em; }
-.label { display: inline-block; background: #e74c3c; color: white; padding: 4px 10px; border-radius: 3px; margin-right: 10px; font-weight: bold; font-size: 0.9em; }
-.now, .bg, .outlook { margin: 15px 0; line-height: 1.7; }
-.now { color: #2c3e50; }
-.bg { color: #34495e; }
-.outlook { color: #34495e; }
-.timestamp { text-align: right; color: #95a5a6; font-size: 0.9em; margin-top: 20px; }
-</style>
-</head>
-<body>
-
-<div class="report">
-<div class="title">
-<h1>国際情勢ニュース分析レポート</h1>
-<p>直近1時間の主要トピック（記事数順）</p>
+<div class="topic">
+  <h2>🇺🇸 米国議会の信頼危機</h2>
+  <div class="now"><span class="label">現在</span>米国民の議会に対する不支持が記録的な高水準に達している。ギャラップ世論調査によると、議会への不満は過去最高レベルに達し、議会指導部への支援提供や外交協力に関する報道が50件以上に上っている。同時にホワイトハウスと有権者間の協議についても報道が集中している。</div>
+  <div class="bg"><span class="label">背景</span>米国政治における分極化の深刻化と政治的混乱により、国民の政治機関への信頼が著しく低下している。記録的な不支持率は、政策実行能力や代表性に対する国民の根深い不満を反映している。</div>
+  <div class="outlook"><span class="label">見通し</span>議会と行政府の間での協力体制の構築が急務となる。国民の信頼回復には、具体的な政策成果の提示と透明性の強化が求められる。</div>
 </div>
 
 <div class="topic">
-  <h2>🔴 シドニー暴力犯罪事件</h2>
-  <div class="now"><span class="label">現在</span>シドニーでバイカーギャング関連の殺人事件が報道され、これを目撃した元パラメディック（救急隊員）が訴訟を起こしている。この事件は複数の記事で取り上げられており、高い社会的関心を集めている（記事数90件、トーン-7.2）。従業員や労働者からの批判や訴えも相次いでおり、事件の社会的インパクトの大きさが窺える。</div>
-  <div class="bg"><span class="label">背景</span>オーストラリア、特にシドニー近郊ではバイカーギャングによる暴力事件が社会問題となっている。目撃者が法的支援を求めるケースが増える背景には、暴力犯罪への不安と司法制度への信頼問題がある。</div>
-  <div class="outlook"><span class="label">見通し</span>この訴訟の行方は、目撃者保護制度の強化やギャング暴力への対策論議に影響を与える可能性がある。今後、被害者・目撃者支援制度の改善が検討されることが予想される。</div>
+  <h2>⚠️ イスラエル・レバノン紛争激化</h2>
+  <div class="now"><span class="label">現在</span>イスラエルとレバノン間の軍事緊張が高まっており、停戦違反の報告が相次いでいる。特にロンドンではユダヤ人施設を標的とするテロ計画事件が逮捕に至り、極度にネガティブなトーン（-12.1）で報道されている。イスラエルの批判的行動とレバノンのスピーチが対立構造を形成している。</div>
+  <div class="bg"><span class="label">背景</span>中東地域における長期的な対立が激化し、イランも関与する複雑な地政学的状況が展開している。パキスタンなども協議に参画し、地域的な外交的緊張が高まっている。</div>
+  <div class="outlook"><span class="label">見通し</span>米国の外交努力による停戦交渉が重要な局面を迎えている。地域内紛争の拡大阻止と人道的危機の軽減が国際社会の課題となる。</div>
 </div>
 
 <div class="topic">
-  <h2>🟠 イラン核問題とトランプ発言</h2>
-  <div class="now"><span class="label">現在</span>テヘランに関するイラン核問題がニュース記事の主要トピックとなっており、トランプ前大統領によるイラン女性への死刑回避発言に対してテヘランが公式に否定している（記事数50件、トーン-5.7）。米国とイランの間で複数の外交協議が行われている状況が複数の記事で報道されている。</div>
-  <div class="bg"><span class="label">背景</span>イランの人権問題と核開発疑惑は国際社会の重要な懸念事項である。トランプ政権期を含む米国とイランの外交関係は緊張状態が続いており、死刑関連の発言は両国間の対立軸となっている。</div>
-  <div class="outlook"><span class="label">見通し</span>米国とイランの外交チャネルは限定的であり、今後も相互の非難や否定が続く可能性が高い。核協議の進展は予見しがたく、国際的仲介の必要性が増す可能性がある。</div>
+  <h2>🌊 ホルムズ海峡の海上緊張</h2>
+  <div class="now"><span class="label">現在</span>イランがホルムズ海峡で船舶を拿捕し、米国がこれに対抗する形で海上ブロケードを敷いている。複数のコンテナ船が関与し、オマーンでも要請と批判が報告されている。米国とイランの対立が海上交通を脅かす状況が続いている。</div>
+  <div class="bg"><span class="label">背景</span>イランの核開発問題と米国の経済制裁が根底にある。ホルムズ海峡は世界的な石油供給ルートであり、この地域の不安定化は国際経済に直結する重要な地点である。</div>
+  <div class="outlook"><span class="label">見通し</span>外交交渉による紛争解決が急務であり、米国を含む国際社会の調停努力が注視される。海上交通の安全確保と経済的影響の最小化が課題となる。</div>
 </div>
 
 <div class="topic">
-  <h2>🟡 オーストラリア移民政策議論</h2>
-  <div class="now"><span class="label">現在</span>オーストラリア全域で移民数に関する議論が活発化している（記事数50件、トーン-1.3）。メディアとの協議や土地所有者との協力意向が報道されており、移民政策の実施段階に関する様々なステークホルダー間の調整が進行中である。</div>
-  <div class="bg"><span class="label">背景</span>オーストラリアは近年、移民数の多さが社会問題として認識されており、政治家やメディアが移民政策の透明性と正確性について議論を進めている。Amanda Vanstoneなどの識者が移民統計の真実性について言及している。</div>
-  <div class="outlook"><span class="label">見通し</span>移民政策は今後の選挙争点の一つとなる可能性があり、より制限的な政策への転換も検討されるかもしれない。統計の信頼性向上と透明な政策立案が求められている。</div>
+  <h2>🔬 米国公衆衛生政策の透明性問題</h2>
+  <div class="now"><span class="label">現在</span>イリノイ州から強制・圧力を伴う形で、COVID-19ワクチン有効性に関する研究論文の発表が中止された事案が報告されている。米国保健当局による出版物抑制という措置であり、ネガティブなトーン（-2.8）で報道されている。</div>
+  <div class="bg"><span class="label">背景</span>パンデミック以降、ワクチン政策をめぐる政治化と科学的透明性のバランスが問題化している。公衆衛生機関と学術の独立性に関する信頼問題が生じている。</div>
+  <div class="outlook"><span class="label">見通し</span>科学的証拠の開示と政策決定プロセスの透明化が求められる。公衆衛生政策への国民信頼の回復が継続的な課題となる。</div>
 </div>
 
 <div class="topic">
-  <h2>🔵 ペルー防衛相辞任と米国戦闘機取引</h2>
-  <div class="now"><span class="label">現在</span>ペルーのリマで防衛相を含む複数の閣僚が、米国との戦闘機（F-16）売却契約の停滞に抗議して辞任している（記事数30件、トーン-5.7）。これは政府内の深刻な亀裂を示すもので、国防政策の重要な決定が棚上げされた状態である。</div>
-  <div class="bg"><span class="label">背景</span>ペルーは国防力強化の一環として米国からの先進的防衛装備品の調達を計画していたが、政治的・財政的理由から取引が難航している。防衛関係者にとっては重大な政策課題である。</div>
-  <div class="outlook"><span class="label">見通し</span>閣僚辞任は政府内での国防政策の優先度が低いことを示唆しており、当面の契約成立は困難と考えられる。今後、新たな防衛相の就任と政策方針の転換が注目される。</div>
+  <h2>🛂 米国内の犯罪・安全保障問題</h2>
+  <div class="now"><span class="label">現在</span>オハイオ州コロンバスで銃による傷害事件が報告され、ヴァージニア州ではMS-13関連の容疑者がICEに逮捕されている。児童への危害を含む深刻な犯罪事案が複数報告されており、極めてネガティブなトーン（-9.6から-8.4）で報道されている。</div>
+  <div class="bg"><span class="label">背景</span>米国内の銃暴力と組織犯罪の問題が継続的に存在し、特に児童が被害者となるケースが増加している。国境セキュリティと国内安全保障が政策的課題として重要視されている。</div>
+  <div class="outlook"><span class="label">見通し</span>銃規制と犯罪防止対策の強化が政治的議論の中心となる。児童保護と地域安全確保のための総合的なアプローチが求められている。</div>
 </div>
 
 <div class="topic">
-  <h2>🟢 米国西部干ばつと水資源協議</h2>
-  <div class="now"><span class="label">現在</span>グランドキャニオン地域で干ばつに苦しむレイク・パウエルへの給水が協議されており、米国政府から関連地域への要請と譲歩が行われている（記事数21件、トーン-2.7）。このプロジェクトは複数の州の水利用に影響を与える可能性がある。</div>
-  <div class="bg"><span class="label">背景</span>米国西部は過去20年間の干ばつで水資源が極めて逼迫しており、コロラド川流域の水配分が政治・経済的に重要な課題である。レイク・パウエルの水位低下は電力供給にも影響を与えている。</div>
-  <div class="outlook"><span class="label">見通し</span>長期的な気候変動の影響を受け、水資源の再配分は恒久的課題となる可能性が高い。州間の利害対立が深刻化する可能性もあり、連邦政府の調整役としての機能がより重要になるだろう。</div>
+  <h2>🌍 国際インフラ・経済協力</h2>
+  <div class="now"><span class="label">現在</span>インドのデリー近郊ジェワルで新空港建設が進展し、アイタリア、スイス、オーストラリアなど複数国による協力意向が報告されている。マイアミビーチでは海事関連の再開発計画が進行中であり、正の経済トーンで報道されている。</div>
+  <div class="bg"><span class="label">背景</span>世界的なインフラ投資の活発化と各国間の経済協力が深まっている。特にアジア地域でのインフラプロジェクトが国際的な関心を集めている。</div>
+  <div class="outlook"><span class="label">見通し</span>多国間協力による大型インフラプロジェクトの完成が経済成長を促進する可能性がある。グローバルサプライチェーンの強化と地域開発の加速が期待されている。</div>
 </div>
-
-<div class="topic">
-  <h2>🟣 ナイジェリア選挙法改正要求</h2>
-  <div class="now"><span class="label">現在</span>ナイジェリアの野党指導者アティク前副大統領が、2027年大統領選挙に向けて選挙法の改正を要求している（記事数20件、トーン-3.9）。国家議会に対する脅迫的ともいえる強い訴えとなっており、選挙制度の危険な欠陥があると指摘されている。</div>
-  <div class="bg"><span class="label">背景</span>ナイジェリアの選挙制度には複数の構造的問題があり、過去の大統領選挙でも不規則な結果が報告されている。野党指導者はこれらの問題が2027年選挙でも繰り返される可能性を懸念している。</div>
-  <div class="outlook"><span class="label">見通し</span>選挙法改正が実現するか否かは、国家議会の政治的意思によって左右される。改正が行われない場合、2027年選挙の正当性が争われる可能性がある。</div>
-</div>
-
-<div class="timestamp">
-<p>レポート作成日時：2026年4月22日（直近1時間のGDELTデータに基づく）</p>
-</div>
-
-</div>
-
-</body>
-</html>
 ```
 
 <footer>データ: GDELT 2.0（約1時間遅延） · 分析: Claude AI · 毎時更新</footer>
