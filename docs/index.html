@@ -4,401 +4,130 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>World Monitor</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #0f0f1a; color: #eee; }
-header { padding: 14px 16px; background: #16213e; border-bottom: 1px solid #2a2a4a;
-          display: flex; align-items: center; gap: 10px; }
-header h1 { font-size: 17px; font-weight: 700; }
-.updated { font-size: 11px; color: #888; margin-left: auto; }
-.summary { padding: 14px 16px; background: #16213e; border-bottom: 1px solid #2a2a4a; }
-.summary-label { font-size: 11px; color: #888; margin-bottom: 8px; }
-.summary-body { font-size: 13px; color: #ccc; line-height: 1.75; white-space: pre-wrap; }
-#map { height: 45vh; }
-.legend { padding: 7px 14px; background: #16213e; border-bottom: 1px solid #2a2a4a;
-           display: flex; flex-wrap: wrap; gap: 12px; font-size: 11px; color: #aaa; align-items: center; }
-.dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; margin-right: 3px; }
-.section-title { padding: 10px 16px 4px; font-size: 12px; color: #888; letter-spacing: 0.5px; }
-.cards { padding: 0 10px 16px; display: flex; flex-direction: column; gap: 8px; }
-.card { background: #16213e; border-radius: 10px; padding: 12px 14px;
-         border-left: 3px solid #2a2a4a; }
-.card-top { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
-.cat-badge { font-size: 10px; padding: 2px 7px; border-radius: 10px; color: #fff; white-space: nowrap; }
-.location { font-size: 13px; font-weight: 600; flex: 1; }
-.articles { font-size: 11px; color: #888; white-space: nowrap; }
-.event-label { font-size: 12px; color: #aaa; margin-bottom: 4px; }
-.desc { font-size: 13px; color: #ddd; margin-bottom: 6px; line-height: 1.7; }
-.actors { font-size: 11px; color: #666; }
-.source-link { display: inline-block; margin-top: 5px; font-size: 11px; color: #4fc3f7;
-                text-decoration: none; overflow: hidden; text-overflow: ellipsis;
-                white-space: nowrap; max-width: 100%; }
-footer { padding: 12px; font-size: 11px; color: #444; text-align: center; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  background: #0f0f1a;
+  color: #e0e0e0;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 16px 48px;
+}
+header {
+  padding: 20px 0 14px;
+  border-bottom: 1px solid #2a2a4a;
+  margin-bottom: 8px;
+}
+header h1 { font-size: 20px; font-weight: 700; color: #fff; }
+.meta {
+  font-size: 12px;
+  color: #666;
+  margin-top: 6px;
+  display: flex;
+  gap: 16px;
+}
+.topic {
+  margin: 28px 0;
+  padding-bottom: 28px;
+  border-bottom: 1px solid #1e1e35;
+}
+.topic:last-child { border-bottom: none; }
+.topic h2 {
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 14px;
+  line-height: 1.4;
+}
+.now, .bg, .outlook {
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.8;
+  color: #ccc;
+}
+.label {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  margin-right: 8px;
+  vertical-align: middle;
+  letter-spacing: 0.5px;
+}
+.now .label   { background: #1a3a5c; color: #5ab4ff; }
+.bg .label    { background: #2a2a1a; color: #c8a84b; }
+.outlook .label { background: #1a3a1a; color: #5aaf5a; }
+footer {
+  padding: 24px 0;
+  font-size: 11px;
+  color: #444;
+  text-align: center;
+}
 </style>
 </head>
 <body>
 
 <header>
-  <span style="font-size:22px">🌍</span>
-  <h1>World Monitor</h1>
-  <span class="updated">更新: 2026-04-22 06:57 UTC</span>
+  <h1>🌍 World Monitor</h1>
+  <div class="meta">
+    <span>更新: 2026-04-22 07:52 UTC</span>
+    <span>イベント数: 150件（記事数最大: 70）</span>
+  </div>
 </header>
 
-<div class="summary">
-  <div class="summary-label">📝 AI生成ブリーフィング</div>
-  <div class="summary-body"># 🌍 世界情勢ダイジェスト
+```html
+<div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 900px; margin: 20px auto; color: #333;">
 
-## 【イラン・米国間の緊張が高まる】
-ホルムズ海峡でイランが商船に対して砲撃を行ったとされ、米国との対立が深刻化しています。テヘランでの銃撃戦の報道も増加しており、中東地域の不安定性が増している状況です。イスラエルとも関連した戦闘報道が確認されており、地政学的リスクが上昇しています。
+<h1 style="text-align: center; border-bottom: 3px solid #1a73e8; padding-bottom: 15px;">世界主要ニュース速報（直近1時間）</h1>
 
-## 【オーストラリアの規制強化】
-ゲーム大手企業が児童保護違反で巨額罰金に直面しています。シドニーではこの問題に関する公式声明が相次いでおり、政府の厳格な対応姿勢が明確になりました。同時に住宅危機への対応として建築基準の見直しも検討されており、国内の複数の政策課題が同時進行しています。
-
-## 【東南アジアの地政学的動き】
-タイがミャンマーの国際機関加盟を支持する動きが報道されており、フィリピンとの協議も活発化しています。一方でミャンマーの反政府勢力が関連協議を拒否するなど、地域内での複雑な政治状況が続いています。
-
-## 【エネルギー・産業政策の調整】
-オーストラリアのクイーンズランド州では燃料セキュリティの確保が急務となり、ガス企業が新たな課金に反発するなど、エネルギー政策をめぐる対立が激化しています。</div>
+<div class="topic">
+  <h2>⚖️ オーストラリア司法事件</h2>
+  <div class="now"><span class="label" style="background-color: #1a73e8; color: white; padding: 2px 8px; border-radius: 3px; font-weight: bold; margin-right: 8px;">現在</span>メルボルンの検察当局が著名俳優に対する胸部接触事件の告発を取り下げた。この決定により、パーラメント関係者やバリスタなどの司法関係者からの厳しい批判が相次いでいる。メディアも大きく報道し、社会的な議論を引き起こしている。</div>
+  <div class="bg"><span class="label" style="background-color: #34a853; color: white; padding: 2px 8px; border-radius: 3px; font-weight: bold; margin-right: 8px;">背景</span>オーストラリアでは司法の透明性と説明責任が長年の課題となっており、特に高名人物に関連する事件で世論の関心が高い。今回の告発取り下げは、検察の判断基準や証拠評価に関する議論を再燃させている。</div>
+  <div class="outlook"><span class="label" style="background-color: #ea4335; color: white; padding: 2px 8px; border-radius: 3px; font-weight: bold; margin-right: 8px;">見通し</span>この事件は司法制度改革や検察の透明性強化に向けた議論につながる可能性がある。政界とメディアの双方で継続的な追及が予想される。</div>
 </div>
 
-<div id="map"></div>
-
-<div class="legend">
-  <span><span class="dot" style="background:#e74c3c"></span>衝突・暴力</span>
-  <span><span class="dot" style="background:#e67e22"></span>緊張・圧力</span>
-  <span><span class="dot" style="background:#f1c40f"></span>要求・批判</span>
-  <span><span class="dot" style="background:#3498db"></span>外交・協議</span>
-  <span style="color:#555;">｜ 円の大きさ = 記事数</span>
+<div class="topic">
+  <h2>🇮🇷 米国とイラン和平協議</h2>
+  <div class="now"><span class="label" style="background-color: #1a73e8; color: white; padding: 2px 8px; border-radius: 3px; font-weight: bold; margin-right: 8px;">現在</span>トランプ政権がイランとの停戦を無期限に延長することを発表した。一方、両国間の平和交渉の見通しは依然として不透明であり、イランは譲歩の姿勢を示しながらも慎重な立場を保っている。ホルムズ海峡の戦略的重要性も影響して、国際社会の注視が集まっている。</div>
+  <div class="bg"><span class="label" style="background-color: #34a853; color: white; padding: 2px 8px; border-radius: 3px; font-weight: bold; margin-right: 8px;">背景</span>イランは中東の地政学的に重要な位置にあり、その核問題は国際安全保障の重要な懸案となっている。過去の直接交渉の失敗や相互不信が、現在の停戦が脆弱なものになっている要因である。</div>
+  <div class="outlook"><span class="label" style="background-color: #ea4335; color: white; padding: 2px 8px; border-radius: 3px; font-weight: bold; margin-right: 8px;">見通し</span>停戦の維持か本格的な交渉開始かが焦点となる。湾岸諸国やヨーロッパ諸国も関与する多国間協議への発展も可能性として存在する。</div>
 </div>
 
-<div class="section-title">📋 記事数の多いイベント（上位30件）</div>
-<div class="cards"><div class="card" style="border-left-color:#3498db">
-  <div class="card-top">
-    <span class="cat-badge" style="background:#3498db">外交・協議</span>
-    <span class="location">Sydney, New South Wales, Australia</span>
-    <span class="articles">📄 70</span>
-  </div>
-  <div class="desc"># GDELTイベント分析</div>
-  <div class="actors">AUS</div>
-  <a class="source-link" href="https://www.merimbulanewsweekly.com.au/story/9230478/gaming-giants-face-big-fines-for-exposing-kids-to-harm/" target="_blank">🔗 記事を開く</a>
+<div class="topic">
+  <h2>🇦🇺 NDIS政策変更への反発</h2>
+  <div class="now"><span class="label" style="background-color: #1a73e8; color: white; padding: 2px 8px; border-radius: 3px; font-weight: bold; margin-right: 8px;">現在</span>オーストラリアの州政府指導者たちが、障害者支援制度（NDIS）の急激な変更に対して強く反発している。連邦政府からの事前通知なしに実施された政策変更が、地方自治体の運営に大きな混乱をもたらしている。複数の州が公式に政府への抗議声明を発表している。</div>
+  <div class="bg"><span class="label" style="background-color: #34a853; color: white; padding: 2px 8px; border-radius: 3px; font-weight: bold; margin-right: 8px;">背景</span>NDISはオーストラリア最大の福祉制度改革で、障害者支援の透明性と公平性を目指して導入されたが、実装段階で多くの課題が生じている。連邦と州の権限分担が明確でない部分が、今回の対立の根本原因となっている。</div>
+  <div class="outlook"><span class="label" style="background-color: #ea4335; color: white; padding: 2px 8px; border-radius: 3px; font-weight: bold; margin-right: 8px;">見通し</span>連邦政府と州政府による協議が必須となる。制度の安定性が損なわれれば、障害者コミュニティへの実質的な影響も懸念される。</div>
 </div>
-<div class="card" style="border-left-color:#e74c3c">
-  <div class="card-top">
-    <span class="cat-badge" style="background:#e74c3c">衝突・暴力</span>
-    <span class="location">Iran</span>
-    <span class="articles">📄 70</span>
-  </div>
-  <div class="desc">シドニーで複数の国内主体に対する強い要請が発出され、70件の報道で大きく報じられた（トーン:-6.6）。このイベントは高い報道量と極めてネガティブなトーンから、オーストラリア国内の深刻な政治・社会的課題に関連していると考えられる。要請の内容によっては、政府の政策転換や緊急対応の必要性を示唆しており、国内世論の分断や危機的状況への対処が急務となる可能性が高い。</div>
-  <div class="actors">USA / IRN</div>
-  <a class="source-link" href="https://www.thewestmorlandgazette.co.uk/news/national/26041921.iran-fires-container-ship-strait-hormuz/" target="_blank">🔗 記事を開く</a>
-</div>
-<div class="card" style="border-left-color:#e67e22">
-  <div class="card-top">
-    <span class="cat-badge" style="background:#e67e22">緊張・圧力</span>
-    <span class="location">Australia</span>
-    <span class="articles">📄 60</span>
-  </div>
-  <div class="desc">イランとアメリカ間で小火器戦闘が発生し、70件の報道で広く報じられた（トーン:-5.3）。中東地域の緊張が具体的な武力衝突へと エスカレートしたことを示し、米国とイランの対立構造が危機的段階に達していることを示唆している。今後さらなるエスカレーションや、地域大国による軍事介入のリスクが高まり、国際的な仲介努力が急速に進む可能性がある。</div>
-  <div class="actors">AUS</div>
-  <a class="source-link" href="https://www.macleayargus.com.au/story/9231225/gold-plated-building-code-worsening-housing-crisis/" target="_blank">🔗 記事を開く</a>
-</div>
-<div class="card" style="border-left-color:#e74c3c">
-  <div class="card-top">
-    <span class="cat-badge" style="background:#e74c3c">衝突・暴力</span>
-    <span class="location">Taroom, Queensland, Australia</span>
-    <span class="articles">📄 60</span>
-  </div>
-  <div class="desc">オーストラリア政府が強制力を伴う圧力政策を実施し、60件の報道で報じられた（トーン:-1.1）。国内的な規制強化やコンプライアンス強制の可能性があり、政府の統制強化を示唆している。この政策の影響範囲や対象が広がれば、国内産業や市民生活に及ぼす影響が拡大する懸念がある。</div>
-  <div class="actors">GOVERNMENT</div>
-  <a class="source-link" href="https://www.redlandcitybulletin.com.au/story/9230405/search-to-shore-up-fuel-security-strikes-liquid-gold/" target="_blank">🔗 記事を開く</a>
-</div>
-<div class="card" style="border-left-color:#3498db">
-  <div class="card-top">
-    <span class="cat-badge" style="background:#3498db">外交・協議</span>
-    <span class="location">Taroom, Queensland, Australia</span>
-    <span class="articles">📄 60</span>
-  </div>
-  <div class="desc">クイーンズランド州タルームで政府機関による戦闘が発生した（トーン:-0.8）。これは警察や軍などの治安維持機関と何らかの勢力との直接的な衝突を示唆しており、地域の秩序が損なわれている状況を反映している。事態の鎮静化に向けた政府の対応方針と、一般市民への被害の有無が注視される。</div>
-  <div class="actors">AUS / CABINET</div>
-  <a class="source-link" href="https://www.redlandcitybulletin.com.au/story/9230405/search-to-shore-up-fuel-security-strikes-liquid-gold/" target="_blank">🔗 記事を開く</a>
-</div>
-<div class="card" style="border-left-color:#e67e22">
-  <div class="card-top">
-    <span class="cat-badge" style="background:#e67e22">緊張・圧力</span>
-    <span class="location">Taroom, Queensland, Australia</span>
-    <span class="articles">📄 60</span>
-  </div>
-  <div class="desc">オーストラリア内閣が協力の意向を表明し、タルーム地域での対応に当たる姿勢を示した（トーン:-0.8）。中央政府と地方の連携強化により、紛争解決への体制が整備されつつあることを示唆している。全国レベルでの統一的対応が進められることで、事態の早期収束が期待される。</div>
-  <div class="actors">GOVERNMENT</div>
-  <a class="source-link" href="https://www.redlandcitybulletin.com.au/story/9230405/search-to-shore-up-fuel-security-strikes-liquid-gold/" target="_blank">🔗 記事を開く</a>
-</div>
-<div class="card" style="border-left-color:#e74c3c">
-  <div class="card-top">
-    <span class="cat-badge" style="background:#e74c3c">衝突・暴力</span>
-    <span class="location">Taroom, Queensland, Australia</span>
-    <span class="articles">📄 60</span>
-  </div>
-  <div class="desc">政府機関が軍事力を誇示する行動に出た（トーン:-0.8）。これは公式な実力行使の構え、またはその準備を示すもので、対立相手への警告を意図していると考えられる。市民の不安増加や事態のさらなる緊迫化を招くリスクがある。</div>
-  <div class="actors">GOVERNMENT</div>
-  <a class="source-link" href="https://www.redlandcitybulletin.com.au/story/9230405/search-to-shore-up-fuel-security-strikes-liquid-gold/" target="_blank">🔗 記事を開く</a>
-</div>
-<div class="card" style="border-left-color:#e74c3c">
-  <div class="card-top">
-    <span class="cat-badge" style="background:#e74c3c">衝突・暴力</span>
-    <span class="location">Tehran, Tehran, Iran</span>
-    <span class="articles">📄 48</span>
-  </div>
-  <div class="desc">政府機関との間で戦闘が発生したことが別途報じられた（トーン:-0.8）。複数の報道フレームから戦闘状況が確認されることで、事態の深刻さが増していることを示唆している。継続的な衝突の可能性と治安悪化への懸念が高まる。</div>
-  <div class="actors">IRN / IRN</div>
-  <a class="source-link" href="https://www.readingchronicle.co.uk/news/national/26041921.iran-fires-container-ship-strait-hormuz/" target="_blank">🔗 記事を開く</a>
-</div>
-<div class="card" style="border-left-color:#e74c3c">
-  <div class="card-top">
-    <span class="cat-badge" style="background:#e74c3c">衝突・暴力</span>
-    <span class="location">Tehran, Tehran, Iran</span>
-    <span class="articles">📄 48</span>
-  </div>
-  <div class="desc">テヘランで国内勢力同士による小火器戦闘が発生し、48件の報道で報じられた（トーン:-3.9）。イラン国内における権力構造や体制への挑戦の可能性を示唆し、内部分裂の深刻さを反映している。イランの国際的な立場の弱体化や、最高指導部の支配力喪失の危険性がある。</div>
-  <div class="actors">USA / IRN</div>
-  <a class="source-link" href="https://www.readingchronicle.co.uk/news/national/26041921.iran-fires-container-ship-strait-hormuz/" target="_blank">🔗 記事を開く</a>
-</div>
-<div class="card" style="border-left-color:#3498db">
-  <div class="card-top">
-    <span class="cat-badge" style="background:#3498db">外交・協議</span>
-    <span class="location">Sydney, New South Wales, Australia</span>
-    <span class="articles">📄 48</span>
-  </div>
-  <div class="desc">テヘランでアメリカとイランの間で小火器戦闘が発生した（トーン:-3.9）。米国が直接的にイラン国内での軍事活動に従事していることを示し、米イラン対立が極度に高まったことを意味している。地域全体の安定性喪失と、他国による軍事介入のリスク増加につながる恐れがある。</div>
-  <div class="actors">AUS</div>
-  <a class="source-link" href="https://www.redlandcitybulletin.com.au/story/9230405/search-to-shore-up-fuel-security-strikes-liquid-gold/" target="_blank">🔗 記事を開く</a>
-</div>
-<div class="card" style="border-left-color:#3498db">
-  <div class="card-top">
-    <span class="cat-badge" style="background:#3498db">外交・協議</span>
-    <span class="location">Taroom, Queensland, Australia</span>
-    <span class="articles">📄 48</span>
-  </div>
-  <div class="desc">シドニーからオーストラリア政府への支援提供が報じられ、48件で報道された（トーン:-0.8）。国内的な危機対応のための物資・人的資源の動員が進行していることを示唆する。支援が効果的に機能すれば事態の改善が期待されるが、供給不足が続けば国民生活への深刻な影響が避けられない。</div>
-  <div class="actors">AUS</div>
-  <a class="source-link" href="https://www.redlandcitybulletin.com.au/story/9230405/search-to-shore-up-fuel-security-strikes-liquid-gold/" target="_blank">🔗 記事を開く</a>
-</div>
-<div class="card" style="border-left-color:#e74c3c">
-  <div class="card-top">
-    <span class="cat-badge" style="background:#e74c3c">衝突・暴力</span>
-    <span class="location">Israel</span>
-    <span class="articles">📄 36</span>
-  </div>
-  <div class="desc">タルーム地域でオーストラリア政府による支援提供が実施され、48件で報道された（トーン:-0.8）。被害地域への直接的な救援活動が行われている状況を示し、政府の危機管理体制が機能していることを示唆する。継続的な支援により、地域の復興と安定の回復が進む可能性がある。</div>
-  <div class="actors">IRN / PGS</div>
-  <a class="source-link" href="https://www.readingchronicle.co.uk/news/national/26041921.iran-fires-container-ship-strait-hormuz/" target="_blank">🔗 記事を開く</a>
-</div>
-<div class="card" style="border-left-color:#3498db">
-  <div class="card-top">
-    <span class="cat-badge" style="background:#3498db">外交・協議</span>
-    <span class="location">Sydney, New South Wales, Australia</span>
-    <span class="articles">📄 36</span>
-  </div>
-  <div class="desc">イランとパレスチナ(武装勢力)の間でイスラエル領域内で戦闘が発生した（トーン:-3.9）。中東の代理戦争的構図が深刻化し、イランがパレスチナ武装勢力への支援を通じてイスラエルと対抗していることを示している。イスラエル・アメリカ・イランの三国間の対立が極度に高まり、大規模戦争勃発のリスクが急速に増加している。</div>
-  <div class="actors">AUS</div>
-  <a class="source-link" href="https://www.crookwellgazette.com.au/story/9230478/gaming-giants-face-big-fines-for-exposing-kids-to-harm/" target="_blank">🔗 記事を開く</a>
-</div>
-<div class="card" style="border-left-color:#3498db">
-  <div class="card-top">
-    <span class="cat-badge" style="background:#3498db">外交・協議</span>
-    <span class="location">Australia</span>
-    <span class="articles">📄 36</span>
-  </div>
-  <div class="desc">シドニーからオーストラリア政府による公式声明が発表され、36件の報道で非常にネガティブな内容が報じられた（トーン:-6.6）。政府指導部による重大な発表がなされたことを示し、国家的危機への認識が公式に表明された可能性が高い。国民の不安増加と、今後の政策大転換の可能性が高い。</div>
-  <div class="actors">INDUSTRY / GOVERNMENT</div>
-  <a class="source-link" href="https://www.bluemountainsgazette.com.au/story/9230381/gas-giants-push-back-on-prospect-of-further-levy/" target="_blank">🔗 記事を開く</a>
-</div>
-<div class="card" style="border-left-color:#3498db">
-  <div class="card-top">
-    <span class="cat-badge" style="background:#3498db">外交・協議</span>
-    <span class="location">Philippines</span>
-    <span class="articles">📄 30</span>
-  </div>
-  <div class="desc">オーストラリアで産業界が政府に対する要請・訴えを行い、36件で報道された（トーン:-3.4）。経済部門が深刻な困難に直面していることを示し、政府の支援や規制緩和を求める産業界の危機感を反映している。政府の対応如何によって、経済危機の深刻化または緩和が決まり、雇用・失業問題に波及する可能性がある。</div>
-  <div class="actors">SEA / PHL</div>
-  <a class="source-link" href="https://www.yahoo.com/news/articles/thailand-offers-backing-myanmars-bid-061114828.html" target="_blank">🔗 記事を開く</a>
-</div>
-<div class="card" style="border-left-color:#3498db">
-  <div class="card-top">
-    <span class="cat-badge" style="background:#3498db">外交・協議</span>
-    <span class="location">Philippines</span>
-    <span class="articles">📄 30</span>
-  </div>
-  <div class="desc">フィリピンと東南アジア主体(SEA)の間で協議が開始され、30件で報道された（トーン:-2.8）。地域課題への対話的対応が図られていることを示し、多国間の利益調整が進行している。協議が建設的に進めば地域の安定につながるが、利害対立が激化すれば東南アジア情勢の不安定化につながる恐れがある。</div>
-  <div class="actors">PHL / SEA</div>
-  <a class="source-link" href="https://www.yahoo.com/news/articles/thailand-offers-backing-myanmars-bid-061114828.html" target="_blank">🔗 記事を開く</a>
-</div>
-<div class="card" style="border-left-color:#3498db">
-  <div class="card-top">
-    <span class="cat-badge" style="background:#3498db">外交・協議</span>
-    <span class="location">Colombo, Western, Sri Lanka</span>
-    <span class="articles">📄 30</span>
-  </div>
-  <div class="desc">フィリピンが東南アジア主体との協議を主導し、30件で報道された（トーン:-2.8）。フィリピンが地域外交で主導的役割を果たそうとする姿勢を示し、同国の国際的影響力強化を意図していると考えられる。地域内でのフィリピンの地位向上と、ASEAN内での多極化の進展が予想される。</div>
-  <div class="actors">WORSHIPPER</div>
-  <a class="source-link" href="https://srilankamirror.com/news/probe-on-easter-sunday-bombings-to-be-concluded-shortly-minister/" target="_blank">🔗 記事を開く</a>
-</div>
-<div class="card" style="border-left-color:#3498db">
-  <div class="card-top">
-    <span class="cat-badge" style="background:#3498db">外交・協議</span>
-    <span class="location">Bangkok, Krung Thep Mahanakhon, Thailand</span>
-    <span class="articles">📄 30</span>
-  </div>
-  <div class="desc">スリランカのコロンボで宗教信仰者グループが外交協力を実施し、30件で報道された（トーン:-2.7）。宗教コミュニティが国家外交に参加する異例の事態であり、国家の政治的正当性が弱化している可能性を示唆している。宗教的分裂の深刻化や、市民社会の政治的権力化につながる懸念がある。</div>
-  <div class="actors">THA / SEA</div>
-  <a class="source-link" href="https://www.yahoo.com/news/articles/thailand-offers-backing-myanmars-bid-061114828.html" target="_blank">🔗 記事を開く</a>
-</div>
-<div class="card" style="border-left-color:#3498db">
-  <div class="card-top">
-    <span class="cat-badge" style="background:#3498db">外交・協議</span>
-    <span class="location">Bangkok, Krung Thep Mahanakhon, Thailand</span>
-    <span class="articles">📄 30</span>
-  </div>
-  <div class="desc">タイがバンコクで東南アジア主体との外交協力を実施し、30件で報道された（トーン:-2.8）。タイが地域外交の中心的役割を担っていることを示し、同国の外交的プレゼンス強化を示唆している。タイの地域内での影響力増加が予想されるが、他国との利害対立も深刻化する可能性がある。</div>
-  <div class="actors">THA / MMR</div>
-  <a class="source-link" href="https://www.yahoo.com/news/articles/thailand-offers-backing-myanmars-bid-061114828.html" target="_blank">🔗 記事を開く</a>
-</div>
-<div class="card" style="border-left-color:#3498db">
-  <div class="card-top">
-    <span class="cat-badge" style="background:#3498db">外交・協議</span>
-    <span class="location">Bangkok, Krung Thep Mahanakhon, Thailand</span>
-    <span class="articles">📄 30</span>
-  </div>
-  <div class="desc">タイがミャンマーとの協力意向を示し、30件で報道された（トーン:-2.8）。ミャンマーの政治的混乱に対してタイが支援的姿勢を示していることを示唆し、両国関係の緊密化を意図していると考えられる。地域の安定化に向けたタイの主導的役割が強化される一方、他の大国との競争関係が激化する恐れがある。</div>
-  <div class="actors">THA / SEA</div>
-  <a class="source-link" href="https://www.yahoo.com/news/articles/thailand-offers-backing-myanmars-bid-061114828.html" target="_blank">🔗 記事を開く</a>
-</div>
-<div class="card" style="border-left-color:#3498db">
-  <div class="card-top">
-    <span class="cat-badge" style="background:#3498db">外交・協議</span>
-    <span class="location">Bangkok, Krung Thep Mahanakhon, Thailand</span>
-    <span class="articles">📄 28</span>
-  </div>
-  
-  <div class="actors">THA / PRESIDENT</div>
-  <a class="source-link" href="https://www.yahoo.com/news/articles/thailand-offers-backing-myanmars-bid-061114828.html" target="_blank">🔗 記事を開く</a>
-</div>
-<div class="card" style="border-left-color:#3498db">
-  <div class="card-top">
-    <span class="cat-badge" style="background:#3498db">外交・協議</span>
-    <span class="location">Sydney, New South Wales, Australia</span>
-    <span class="articles">📄 24</span>
-  </div>
-  
-  <div class="actors">AUS / AUS</div>
-  <a class="source-link" href="https://www.crookwellgazette.com.au/story/9230478/gaming-giants-face-big-fines-for-exposing-kids-to-harm/" target="_blank">🔗 記事を開く</a>
-</div>
-<div class="card" style="border-left-color:#3498db">
-  <div class="card-top">
-    <span class="cat-badge" style="background:#3498db">外交・協議</span>
-    <span class="location">United Kingdom</span>
-    <span class="articles">📄 24</span>
-  </div>
-  
-  <div class="actors">GBR</div>
-  <a class="source-link" href="https://www.witneygazette.co.uk/news/national/uk-today/26041917.former-gladiators-star-gold-dies-aged-60-cancer-battle/" target="_blank">🔗 記事を開く</a>
-</div>
-<div class="card" style="border-left-color:#3498db">
-  <div class="card-top">
-    <span class="cat-badge" style="background:#3498db">外交・協議</span>
-    <span class="location">Yandal, Western Australia, Australia</span>
-    <span class="articles">📄 24</span>
-  </div>
-  
-  <div class="actors">AUS</div>
-  <a class="source-link" href="https://www.brisbanetimes.com.au/business/companies/gateway-hits-end-of-hole-gold-at-wa-yandal-play-20260422-p5zq76.html" target="_blank">🔗 記事を開く</a>
-</div>
-<div class="card" style="border-left-color:#f1c40f">
-  <div class="card-top">
-    <span class="cat-badge" style="background:#f1c40f">要求・批判</span>
-    <span class="location">Philippines</span>
-    <span class="articles">📄 22</span>
-  </div>
-  
-  <div class="actors">REBEL GROUP</div>
-  <a class="source-link" href="https://www.yahoo.com/news/articles/thailand-offers-backing-myanmars-bid-061114828.html" target="_blank">🔗 記事を開く</a>
-</div>
-<div class="card" style="border-left-color:#3498db">
-  <div class="card-top">
-    <span class="cat-badge" style="background:#3498db">外交・協議</span>
-    <span class="location">Philippines</span>
-    <span class="articles">📄 22</span>
-  </div>
-  
-  <div class="actors">ARMED GROUP</div>
-  <a class="source-link" href="https://www.yahoo.com/news/articles/thailand-offers-backing-myanmars-bid-061114828.html" target="_blank">🔗 記事を開く</a>
-</div>
-<div class="card" style="border-left-color:#3498db">
-  <div class="card-top">
-    <span class="cat-badge" style="background:#3498db">外交・協議</span>
-    <span class="location">Philippines</span>
-    <span class="articles">📄 22</span>
-  </div>
-  
-  <div class="actors">ARMED GROUP</div>
-  <a class="source-link" href="https://www.yahoo.com/news/articles/thailand-offers-backing-myanmars-bid-061114828.html" target="_blank">🔗 記事を開く</a>
-</div>
-<div class="card" style="border-left-color:#3498db">
-  <div class="card-top">
-    <span class="cat-badge" style="background:#3498db">外交・協議</span>
-    <span class="location">Philippines</span>
-    <span class="articles">📄 22</span>
-  </div>
-  
-  <div class="actors">ARMED GROUP</div>
-  <a class="source-link" href="https://www.yahoo.com/news/articles/thailand-offers-backing-myanmars-bid-061114828.html" target="_blank">🔗 記事を開く</a>
-</div>
-<div class="card" style="border-left-color:#3498db">
-  <div class="card-top">
-    <span class="cat-badge" style="background:#3498db">外交・協議</span>
-    <span class="location">Jundee, Western Australia, Australia</span>
-    <span class="articles">📄 21</span>
-  </div>
-  
-  <div class="actors">AUS</div>
-  <a class="source-link" href="https://www.brisbanetimes.com.au/business/companies/gateway-hits-end-of-hole-gold-at-wa-yandal-play-20260422-p5zq76.html" target="_blank">🔗 記事を開く</a>
-</div>
-<div class="card" style="border-left-color:#e74c3c">
-  <div class="card-top">
-    <span class="cat-badge" style="background:#e74c3c">衝突・暴力</span>
-    <span class="location">Florida State University, Florida, United States</span>
-    <span class="articles">📄 20</span>
-  </div>
-  
-  <div class="actors">USA / GUNMAN</div>
-  <a class="source-link" href="https://dunyanews.tv/en/Technology/947300-florida-launches-criminal-probe-into-openai-and-chatgpt-over-deadly-sh" target="_blank">🔗 記事を開く</a>
-</div></div>
 
-<footer>データ: GDELT 2.0（約1時間遅延） · AI要約: Claude</footer>
+<div class="topic">
+  <h2>⚒️ オーストラリアのレアアース産業投資</h2>
+  <div class="now"><span class="label" style="background-color: #1a73e8; color: white; padding: 2px 8px; border-radius: 3px; font-weight: bold; margin-right: 8px;">現在</span>オーストラリアのハスティングス・テクノロジーズが、タイにレアアース製錬施設を建設し、初年度で5300万米ドルの収益を見込んでいる。西オーストラリアのワイロー地域での採掘と連携する戦略的な展開である。この投資はタイ政府の外交協力と企業間の合意に基づいている。</div>
+  <div class="bg"><span class="label" style="background-color: #34a853; color: white; padding: 2px 8px; border-radius: 3px; font-weight: bold; margin-right: 8px;">背景</span>レアアースは半導体やクリーンエネルギー産業に不可欠な資源であり、中国が長年供給を支配してきた。インド太平洋地域でのサプライチェーン多元化は、西側諸国の重要な戦略目標となっている。</div>
+  <div class="outlook"><span class="label" style="background-color: #ea4335; color: white; padding: 2px 8px; border-radius: 3px; font-weight: bold; margin-right: 8px;">見通し</span>この事業モデルが成功すれば、他のアジア太平洋諸国でも同様の投資が増加する可能性がある。オーストラリア経済にも長期的な好影響が期待される。</div>
+</div>
 
-<script>
-const events = [{"event_id": "1300408034", "lat": -33.8833, "lon": 151.217, "event_code": "020", "event_label": "要請", "event_root": "02", "root_label": "要請・訴え", "category": "diplomatic", "goldstein": 3.0, "num_articles": 70, "avg_tone": -6.56543144303998, "actor1": "AUS", "actor2": "", "country": "AS", "location": "Sydney, New South Wales, Australia", "source_url": "https://www.merimbulanewsweekly.com.au/story/9230478/gaming-giants-face-big-fines-for-exposing-kids-to-harm/"}, {"event_id": "1300407113", "lat": 32.0, "lon": 53.0, "event_code": "193", "event_label": "小火器戦闘", "event_root": "19", "root_label": "戦闘", "category": "conflict", "goldstein": -10.0, "num_articles": 70, "avg_tone": -5.26315789473684, "actor1": "USA", "actor2": "IRN", "country": "IR", "location": "Iran", "source_url": "https://www.thewestmorlandgazette.co.uk/news/national/26041921.iran-fires-container-ship-strait-hormuz/"}, {"event_id": "1300408011", "lat": -25.0, "lon": 135.0, "event_code": "1712", "event_label": "強制・圧力", "event_root": "17", "root_label": "強制・圧力", "category": "tension", "goldstein": -9.2, "num_articles": 60, "avg_tone": -1.10126473911891, "actor1": "AUS", "actor2": "", "country": "AS", "location": "Australia", "source_url": "https://www.macleayargus.com.au/story/9231225/gold-plated-building-code-worsening-housing-crisis/"}, {"event_id": "1300404511", "lat": -25.6392, "lon": 149.8, "event_code": "190", "event_label": "戦闘", "event_root": "19", "root_label": "戦闘", "category": "conflict", "goldstein": -10.0, "num_articles": 60, "avg_tone": -0.755176812978656, "actor1": "", "actor2": "GOVERNMENT", "country": "AS", "location": "Taroom, Queensland, Australia", "source_url": "https://www.redlandcitybulletin.com.au/story/9230405/search-to-shore-up-fuel-security-strikes-liquid-gold/"}, {"event_id": "1300404640", "lat": -25.6392, "lon": 149.8, "event_code": "036", "event_label": "協力意向", "event_root": "03", "root_label": "協力意向", "category": "diplomatic", "goldstein": 4.0, "num_articles": 60, "avg_tone": -0.755176812978656, "actor1": "AUS", "actor2": "CABINET", "country": "AS", "location": "Taroom, Queensland, Australia", "source_url": "https://www.redlandcitybulletin.com.au/story/9230405/search-to-shore-up-fuel-security-strikes-liquid-gold/"}, {"event_id": "1300404793", "lat": -25.6392, "lon": 149.8, "event_code": "150", "event_label": "軍事力誇示", "event_root": "15", "root_label": "軍事示威", "category": "tension", "goldstein": -7.2, "num_articles": 60, "avg_tone": -0.755176812978656, "actor1": "GOVERNMENT", "actor2": "", "country": "AS", "location": "Taroom, Queensland, Australia", "source_url": "https://www.redlandcitybulletin.com.au/story/9230405/search-to-shore-up-fuel-security-strikes-liquid-gold/"}, {"event_id": "1300404794", "lat": -25.6392, "lon": 149.8, "event_code": "190", "event_label": "戦闘", "event_root": "19", "root_label": "戦闘", "category": "conflict", "goldstein": -10.0, "num_articles": 60, "avg_tone": -0.755176812978656, "actor1": "GOVERNMENT", "actor2": "", "country": "AS", "location": "Taroom, Queensland, Australia", "source_url": "https://www.redlandcitybulletin.com.au/story/9230405/search-to-shore-up-fuel-security-strikes-liquid-gold/"}, {"event_id": "1300410503", "lat": 35.75, "lon": 51.5148, "event_code": "193", "event_label": "小火器戦闘", "event_root": "19", "root_label": "戦闘", "category": "conflict", "goldstein": -10.0, "num_articles": 48, "avg_tone": -3.86473429951691, "actor1": "IRN", "actor2": "IRN", "country": "IR", "location": "Tehran, Tehran, Iran", "source_url": "https://www.readingchronicle.co.uk/news/national/26041921.iran-fires-container-ship-strait-hormuz/"}, {"event_id": "1300410977", "lat": 35.75, "lon": 51.5148, "event_code": "193", "event_label": "小火器戦闘", "event_root": "19", "root_label": "戦闘", "category": "conflict", "goldstein": -10.0, "num_articles": 48, "avg_tone": -3.86473429951691, "actor1": "USA", "actor2": "IRN", "country": "IR", "location": "Tehran, Tehran, Iran", "source_url": "https://www.readingchronicle.co.uk/news/national/26041921.iran-fires-container-ship-strait-hormuz/"}, {"event_id": "1300404635", "lat": -33.8833, "lon": 151.217, "event_code": "071", "event_label": "支援提供", "event_root": "07", "root_label": "支援提供", "category": "diplomatic", "goldstein": 7.4, "num_articles": 48, "avg_tone": -0.755176812978655, "actor1": "AUS", "actor2": "", "country": "AS", "location": "Sydney, New South Wales, Australia", "source_url": "https://www.redlandcitybulletin.com.au/story/9230405/search-to-shore-up-fuel-security-strikes-liquid-gold/"}, {"event_id": "1300404636", "lat": -25.6392, "lon": 149.8, "event_code": "071", "event_label": "支援提供", "event_root": "07", "root_label": "支援提供", "category": "diplomatic", "goldstein": 7.4, "num_articles": 48, "avg_tone": -0.755176812978655, "actor1": "AUS", "actor2": "", "country": "AS", "location": "Taroom, Queensland, Australia", "source_url": "https://www.redlandcitybulletin.com.au/story/9230405/search-to-shore-up-fuel-security-strikes-liquid-gold/"}, {"event_id": "1300410476", "lat": 31.5, "lon": 34.75, "event_code": "190", "event_label": "戦闘", "event_root": "19", "root_label": "戦闘", "category": "conflict", "goldstein": -10.0, "num_articles": 36, "avg_tone": -3.86473429951691, "actor1": "IRN", "actor2": "PGS", "country": "IS", "location": "Israel", "source_url": "https://www.readingchronicle.co.uk/news/national/26041921.iran-fires-container-ship-strait-hormuz/"}, {"event_id": "1300408033", "lat": -33.8833, "lon": 151.217, "event_code": "010", "event_label": "公式声明", "event_root": "01", "root_label": "声明・発表", "category": "diplomatic", "goldstein": 0.0, "num_articles": 36, "avg_tone": -6.61800335021331, "actor1": "AUS", "actor2": "", "country": "AS", "location": "Sydney, New South Wales, Australia", "source_url": "https://www.crookwellgazette.com.au/story/9230478/gaming-giants-face-big-fines-for-exposing-kids-to-harm/"}, {"event_id": "1300404668", "lat": -25.0, "lon": 135.0, "event_code": "025", "event_label": "要請・訴え", "event_root": "02", "root_label": "要請・訴え", "category": "diplomatic", "goldstein": -0.3, "num_articles": 36, "avg_tone": -3.41943466845231, "actor1": "INDUSTRY", "actor2": "GOVERNMENT", "country": "AS", "location": "Australia", "source_url": "https://www.bluemountainsgazette.com.au/story/9230381/gas-giants-push-back-on-prospect-of-further-levy/"}, {"event_id": "1300407829", "lat": 13.0, "lon": 122.0, "event_code": "040", "event_label": "協議", "event_root": "04", "root_label": "協議", "category": "diplomatic", "goldstein": 1.0, "num_articles": 30, "avg_tone": -2.81960401849077, "actor1": "SEA", "actor2": "PHL", "country": "RP", "location": "Philippines", "source_url": "https://www.yahoo.com/news/articles/thailand-offers-backing-myanmars-bid-061114828.html"}, {"event_id": "1300407830", "lat": 13.0, "lon": 122.0, "event_code": "040", "event_label": "協議", "event_root": "04", "root_label": "協議", "category": "diplomatic", "goldstein": 1.0, "num_articles": 30, "avg_tone": -2.81960401849077, "actor1": "PHL", "actor2": "SEA", "country": "RP", "location": "Philippines", "source_url": "https://www.yahoo.com/news/articles/thailand-offers-backing-myanmars-bid-061114828.html"}, {"event_id": "1300408829", "lat": 6.93194, "lon": 79.8478, "event_code": "051", "event_label": "外交協力", "event_root": "05", "root_label": "外交協力", "category": "diplomatic", "goldstein": 3.4, "num_articles": 30, "avg_tone": -2.67779102532081, "actor1": "WORSHIPPER", "actor2": "", "country": "CE", "location": "Colombo, Western, Sri Lanka", "source_url": "https://srilankamirror.com/news/probe-on-easter-sunday-bombings-to-be-concluded-shortly-minister/"}, {"event_id": "1300408868", "lat": 13.75, "lon": 100.517, "event_code": "050", "event_label": "外交協力", "event_root": "05", "root_label": "外交協力", "category": "diplomatic", "goldstein": 3.5, "num_articles": 30, "avg_tone": -2.81960401849077, "actor1": "THA", "actor2": "SEA", "country": "TH", "location": "Bangkok, Krung Thep Mahanakhon, Thailand", "source_url": "https://www.yahoo.com/news/articles/thailand-offers-backing-myanmars-bid-061114828.html"}, {"event_id": "1300408869", "lat": 13.75, "lon": 100.517, "event_code": "036", "event_label": "協力意向", "event_root": "03", "root_label": "協力意向", "category": "diplomatic", "goldstein": 4.0, "num_articles": 30, "avg_tone": -2.81960401849077, "actor1": "THA", "actor2": "MMR", "country": "TH", "location": "Bangkok, Krung Thep Mahanakhon, Thailand", "source_url": "https://www.yahoo.com/news/articles/thailand-offers-backing-myanmars-bid-061114828.html"}, {"event_id": "1300408873", "lat": 13.75, "lon": 100.517, "event_code": "050", "event_label": "外交協力", "event_root": "05", "root_label": "外交協力", "category": "diplomatic", "goldstein": 3.5, "num_articles": 30, "avg_tone": -2.81960401849077, "actor1": "THA", "actor2": "SEA", "country": "TH", "location": "Bangkok, Krung Thep Mahanakhon, Thailand", "source_url": "https://www.yahoo.com/news/articles/thailand-offers-backing-myanmars-bid-061114828.html"}, {"event_id": "1300408867", "lat": 13.75, "lon": 100.517, "event_code": "026", "event_label": "要請・訴え", "event_root": "02", "root_label": "要請・訴え", "category": "diplomatic", "goldstein": 4.0, "num_articles": 28, "avg_tone": -2.81524298865339, "actor1": "THA", "actor2": "PRESIDENT", "country": "TH", "location": "Bangkok, Krung Thep Mahanakhon, Thailand", "source_url": "https://www.yahoo.com/news/articles/thailand-offers-backing-myanmars-bid-061114828.html"}, {"event_id": "1300408037", "lat": -33.8833, "lon": 151.217, "event_code": "010", "event_label": "公式声明", "event_root": "01", "root_label": "声明・発表", "category": "diplomatic", "goldstein": 0.0, "num_articles": 24, "avg_tone": -6.61800335021331, "actor1": "AUS", "actor2": "AUS", "country": "AS", "location": "Sydney, New South Wales, Australia", "source_url": "https://www.crookwellgazette.com.au/story/9230478/gaming-giants-face-big-fines-for-exposing-kids-to-harm/"}, {"event_id": "1300408264", "lat": 54.0, "lon": -4.0, "event_code": "046", "event_label": "協議", "event_root": "04", "root_label": "協議", "category": "diplomatic", "goldstein": 7.0, "num_articles": 24, "avg_tone": 4.44444444444444, "actor1": "GBR", "actor2": "", "country": "UK", "location": "United Kingdom", "source_url": "https://www.witneygazette.co.uk/news/national/uk-today/26041917.former-gladiators-star-gold-dies-aged-60-cancer-battle/"}, {"event_id": "1300404591", "lat": -27.55, "lon": 121.117, "event_code": "043", "event_label": "協議", "event_root": "04", "root_label": "協議", "category": "diplomatic", "goldstein": 2.8, "num_articles": 24, "avg_tone": 1.05820105820105, "actor1": "AUS", "actor2": "", "country": "AS", "location": "Yandal, Western Australia, Australia", "source_url": "https://www.brisbanetimes.com.au/business/companies/gateway-hits-end-of-hole-gold-at-wa-yandal-play-20260422-p5zq76.html"}, {"event_id": "1300407951", "lat": 13.0, "lon": 122.0, "event_code": "120", "event_label": "拒否", "event_root": "12", "root_label": "拒否", "category": "demand", "goldstein": -4.0, "num_articles": 22, "avg_tone": -2.83070482171317, "actor1": "", "actor2": "REBEL GROUP", "country": "RP", "location": "Philippines", "source_url": "https://www.yahoo.com/news/articles/thailand-offers-backing-myanmars-bid-061114828.html"}, {"event_id": "1300407959", "lat": 13.0, "lon": 122.0, "event_code": "036", "event_label": "協力意向", "event_root": "03", "root_label": "協力意向", "category": "diplomatic", "goldstein": 4.0, "num_articles": 22, "avg_tone": -2.83070482171317, "actor1": "", "actor2": "ARMED GROUP", "country": "RP", "location": "Philippines", "source_url": "https://www.yahoo.com/news/articles/thailand-offers-backing-myanmars-bid-061114828.html"}, {"event_id": "1300407961", "lat": 13.0, "lon": 122.0, "event_code": "046", "event_label": "協議", "event_root": "04", "root_label": "協議", "category": "diplomatic", "goldstein": 7.0, "num_articles": 22, "avg_tone": -2.83070482171317, "actor1": "", "actor2": "ARMED GROUP", "country": "RP", "location": "Philippines", "source_url": "https://www.yahoo.com/news/articles/thailand-offers-backing-myanmars-bid-061114828.html"}, {"event_id": "1300408882", "lat": 13.0, "lon": 122.0, "event_code": "046", "event_label": "協議", "event_root": "04", "root_label": "協議", "category": "diplomatic", "goldstein": 7.0, "num_articles": 22, "avg_tone": -2.83070482171317, "actor1": "ARMED GROUP", "actor2": "", "country": "RP", "location": "Philippines", "source_url": "https://www.yahoo.com/news/articles/thailand-offers-backing-myanmars-bid-061114828.html"}, {"event_id": "1300404484", "lat": -26.3484, "lon": 120.641, "event_code": "042", "event_label": "首脳会談", "event_root": "04", "root_label": "協議", "category": "diplomatic", "goldstein": 1.9, "num_articles": 21, "avg_tone": 1.05820105820105, "actor1": "", "actor2": "AUS", "country": "AS", "location": "Jundee, Western Australia, Australia", "source_url": "https://www.brisbanetimes.com.au/business/companies/gateway-hits-end-of-hole-gold-at-wa-yandal-play-20260422-p5zq76.html"}, {"event_id": "1300409830", "lat": 30.4408, "lon": -84.2918, "event_code": "190", "event_label": "戦闘", "event_root": "19", "root_label": "戦闘", "category": "conflict", "goldstein": -10.0, "num_articles": 20, "avg_tone": -9.67437167492206, "actor1": "USA", "actor2": "GUNMAN", "country": "US", "location": "Florida State University, Florida, United States", "source_url": "https://dunyanews.tv/en/Technology/947300-florida-launches-criminal-probe-into-openai-and-chatgpt-over-deadly-sh"}, {"event_id": "1300409834", "lat": -34.4366, "lon": 148.716, "event_code": "036", "event_label": "協力意向", "event_root": "03", "root_label": "協力意向", "category": "diplomatic", "goldstein": 4.0, "num_articles": 20, "avg_tone": -2.54640944899792, "actor1": "", "actor2": "AUS", "country": "AS", "location": "Boorowa, New South Wales, Australia", "source_url": "https://www.centralwesterndaily.com.au/story/9230294/orange-earthquake-continents-pressure-behind-45-magnitude-tremor/"}, {"event_id": "1300409932", "lat": -34.4366, "lon": 148.716, "event_code": "010", "event_label": "公式声明", "event_root": "01", "root_label": "声明・発表", "category": "diplomatic", "goldstein": 0.0, "num_articles": 20, "avg_tone": -2.54640944899792, "actor1": "AUS", "actor2": "", "country": "AS", "location": "Boorowa, New South Wales, Australia", "source_url": "https://www.centralwesterndaily.com.au/story/9230294/orange-earthquake-continents-pressure-behind-45-magnitude-tremor/"}, {"event_id": "1300409935", "lat": -34.4366, "lon": 148.716, "event_code": "036", "event_label": "協力意向", "event_root": "03", "root_label": "協力意向", "category": "diplomatic", "goldstein": 4.0, "num_articles": 20, "avg_tone": -2.54640944899792, "actor1": "AUS", "actor2": "", "country": "AS", "location": "Boorowa, New South Wales, Australia", "source_url": "https://www.centralwesterndaily.com.au/story/9230294/orange-earthquake-continents-pressure-behind-45-magnitude-tremor/"}, {"event_id": "1300410086", "lat": -37.8167, "lon": 144.967, "event_code": "190", "event_label": "戦闘", "event_root": "19", "root_label": "戦闘", "category": "conflict", "goldstein": -10.0, "num_articles": 20, "avg_tone": -22.9166666666667, "actor1": "CRIMINAL", "actor2": "AUS", "country": "AS", "location": "Melbourne, Victoria, Australia", "source_url": "https://www.smh.com.au/national/man-sentenced-to-11-years-in-prison-over-unprovoked-stabbing-spree-20260422-p5zq7v.html"}, {"event_id": "1300410365", "lat": 42.833333, "lon": 12.833333, "event_code": "070", "event_label": "支援提供", "event_root": "07", "root_label": "支援提供", "category": "diplomatic", "goldstein": 7.0, "num_articles": 20, "avg_tone": -1.20199146514936, "actor1": "GRC", "actor2": "ITA", "country": "IT", "location": "Italy", "source_url": "https://athens-times.com/greece-energy-protected-amid-italys-soaring-electricity-prices/"}, {"event_id": "1300407902", "lat": 28.1667, "lon": 76.4167, "event_code": "043", "event_label": "協議", "event_root": "04", "root_label": "協議", "category": "diplomatic", "goldstein": 2.8, "num_articles": 20, "avg_tone": -3.0690537084399, "actor1": "", "actor2": "PRESIDENT", "country": "IN", "location": "Bhalki, Haryana, India", "source_url": "https://aninews.in/news/national/general-news/vice-president-cp-radhakrishnan-arrives-in-karnataka-received-by-governor-thaawarchand-gehlot20260422104800/"}, {"event_id": "1300408309", "lat": 28.1667, "lon": 76.4167, "event_code": "042", "event_label": "首脳会談", "event_root": "04", "root_label": "協議", "category": "diplomatic", "goldstein": 1.9, "num_articles": 20, "avg_tone": -3.0690537084399, "actor1": "PRESIDENT", "actor2": "", "country": "IN", "location": "Bhalki, Haryana, India", "source_url": "https://aninews.in/news/national/general-news/vice-president-cp-radhakrishnan-arrives-in-karnataka-received-by-governor-thaawarchand-gehlot20260422104800/"}, {"event_id": "1300408365", "lat": 28.1667, "lon": 76.4167, "event_code": "042", "event_label": "首脳会談", "event_root": "04", "root_label": "協議", "category": "diplomatic", "goldstein": 1.9, "num_articles": 20, "avg_tone": -3.0690537084399, "actor1": "PRESIDENT", "actor2": "IND", "country": "IN", "location": "Bhalki, Haryana, India", "source_url": "https://aninews.in/news/national/general-news/vice-president-cp-radhakrishnan-arrives-in-karnataka-received-by-governor-thaawarchand-gehlot20260422104800/"}, {"event_id": "1300408382", "lat": 34.5, "lon": 77.5, "event_code": "040", "event_label": "協議", "event_root": "04", "root_label": "協議", "category": "diplomatic", "goldstein": 1.0, "num_articles": 20, "avg_tone": -3.0690537084399, "actor1": "PRESIDENT", "actor2": "LIEUTENANT", "country": "IN", "location": "Ladakh, Jammu and Kashmir, India", "source_url": "https://aninews.in/news/national/general-news/vice-president-cp-radhakrishnan-arrives-in-karnataka-received-by-governor-thaawarchand-gehlot20260422104800/"}, {"event_id": "1300408462", "lat": 28.1667, "lon": 76.4167, "event_code": "043", "event_label": "協議", "event_root": "04", "root_label": "協議", "category": "diplomatic", "goldstein": 2.8, "num_articles": 20, "avg_tone": -3.0690537084399, "actor1": "IND", "actor2": "PRESIDENT", "country": "IN", "location": "Bhalki, Haryana, India", "source_url": "https://aninews.in/news/national/general-news/vice-president-cp-radhakrishnan-arrives-in-karnataka-received-by-governor-thaawarchand-gehlot20260422104800/"}, {"event_id": "1300408602", "lat": 32.8925, "lon": 13.18, "event_code": "012", "event_label": "声明・発表", "event_root": "01", "root_label": "声明・発表", "category": "diplomatic", "goldstein": -0.4, "num_articles": 20, "avg_tone": -1.79028132992327, "actor1": "LBY", "actor2": "", "country": "LY", "location": "Tripoli, Tarabulus, Libya", "source_url": "https://english.news.cn/africa/20260422/e51e7008fcb24a7f98d22c16dffb4f91/c.html"}, {"event_id": "1300408603", "lat": 32.8925, "lon": 13.18, "event_code": "020", "event_label": "要請", "event_root": "02", "root_label": "要請・訴え", "category": "diplomatic", "goldstein": 3.0, "num_articles": 20, "avg_tone": -1.79028132992327, "actor1": "LBY", "actor2": "", "country": "LY", "location": "Tripoli, Tarabulus, Libya", "source_url": "https://english.news.cn/africa/20260422/e51e7008fcb24a7f98d22c16dffb4f91/c.html"}, {"event_id": "1300408691", "lat": 34.5, "lon": 77.5, "event_code": "040", "event_label": "協議", "event_root": "04", "root_label": "協議", "category": "diplomatic", "goldstein": 1.0, "num_articles": 20, "avg_tone": -3.0690537084399, "actor1": "LIEUTENANT", "actor2": "PRESIDENT", "country": "IN", "location": "Ladakh, Jammu and Kashmir, India", "source_url": "https://aninews.in/news/national/general-news/vice-president-cp-radhakrishnan-arrives-in-karnataka-received-by-governor-thaawarchand-gehlot20260422104800/"}, {"event_id": "1300408845", "lat": 62.15, "lon": 152.2, "event_code": "011", "event_label": "スピーチ", "event_root": "01", "root_label": "声明・発表", "category": "diplomatic", "goldstein": -0.1, "num_articles": 20, "avg_tone": -5.77505931115717, "actor1": "RUS", "actor2": "", "country": "RS", "location": "Kinzhal, Magadanskaya Oblast', Russia", "source_url": "https://www.internazionale.it/ultime-notizie-reuters/2026/04/22/exclusive-ukraine-says-some-russian-missiles-fly-near-chornobyl-risking-major-accident"}, {"event_id": "1300407046", "lat": 41.5834, "lon": -72.7622, "event_code": "090", "event_label": "調査", "event_root": "09", "root_label": "調査", "category": "diplomatic", "goldstein": -2.0, "num_articles": 20, "avg_tone": 0.961538461538458, "actor1": "USA", "actor2": "", "country": "US", "location": "Connecticut, United States", "source_url": "https://www.4029tv.com/article/bear-cam-doritos-porch-theft/71091338"}, {"event_id": "1300404489", "lat": -33.8833, "lon": 151.217, "event_code": "020", "event_label": "要請", "event_root": "02", "root_label": "要請・訴え", "category": "diplomatic", "goldstein": 3.0, "num_articles": 20, "avg_tone": -5.13661202185792, "actor1": "", "actor2": "BOSS", "country": "AS", "location": "Sydney, New South Wales, Australia", "source_url": "https://www.smh.com.au/business/companies/don-t-bother-coming-back-kyle-s-alleged-rant-at-jackie-o-20260421-p5zpn9.html"}, {"event_id": "1300404946", "lat": -33.8833, "lon": 151.217, "event_code": "114", "event_label": "批判・反対", "event_root": "11", "root_label": "批判・反対", "category": "demand", "goldstein": -2.0, "num_articles": 20, "avg_tone": -5.13661202185792, "actor1": "LAWYER", "actor2": "", "country": "AS", "location": "Sydney, New South Wales, Australia", "source_url": "https://www.smh.com.au/business/companies/don-t-bother-coming-back-kyle-s-alleged-rant-at-jackie-o-20260421-p5zpn9.html"}, {"event_id": "1300407988", "lat": -30.0943, "lon": 20.0971, "event_code": "018", "event_label": "声明・発表", "event_root": "01", "root_label": "声明・発表", "category": "diplomatic", "goldstein": 3.4, "num_articles": 18, "avg_tone": 4.44444444444444, "actor1": "AFR", "actor2": "", "country": "SF", "location": "Van Der Walt, Northern Cape, South Africa", "source_url": "https://www.witneygazette.co.uk/news/national/uk-today/26041917.former-gladiators-star-gold-dies-aged-60-cancer-battle/"}, {"event_id": "1300408338", "lat": -25.0, "lon": 135.0, "event_code": "012", "event_label": "声明・発表", "event_root": "01", "root_label": "声明・発表", "category": "diplomatic", "goldstein": -0.4, "num_articles": 18, "avg_tone": -1.10126473911891, "actor1": "CHIEF EXECUTIVE", "actor2": "AUS", "country": "AS", "location": "Australia", "source_url": "https://www.macleayargus.com.au/story/9231225/gold-plated-building-code-worsening-housing-crisis/"}, {"event_id": "1300408872", "lat": 13.0, "lon": 122.0, "event_code": "051", "event_label": "外交協力", "event_root": "05", "root_label": "外交協力", "category": "diplomatic", "goldstein": 3.4, "num_articles": 18, "avg_tone": -2.81960401849077, "actor1": "THA", "actor2": "MMR", "country": "RP", "location": "Philippines", "source_url": "https://www.yahoo.com/news/articles/thailand-offers-backing-myanmars-bid-061114828.html"}, {"event_id": "1300408951", "lat": 39.9523, "lon": -75.1638, "event_code": "139", "event_label": "脅迫", "event_root": "13", "root_label": "脅迫", "category": "tension", "goldstein": -7.0, "num_articles": 18, "avg_tone": 3.20896389095077, "actor1": "USA", "actor2": "", "country": "US", "location": "Philadelphia, Pennsylvania, United States", "source_url": "https://www.fingerlakes1.com/2026/04/22/cornell-womens-track-delivers-strong-showing-at-ithaca-meet/"}, {"event_id": "1300404909", "lat": 32.0, "lon": 53.0, "event_code": "193", "event_label": "小火器戦闘", "event_root": "19", "root_label": "戦闘", "category": "conflict", "goldstein": -10.0, "num_articles": 18, "avg_tone": -4.87065036789061, "actor1": "IRN", "actor2": "IRN", "country": "IR", "location": "Iran", "source_url": "https://www.winnipegfreepress.com/arts-and-life/life/faith/2026/04/22/iran-fires-on-container-ship-in-strait-of-hormuz"}, {"event_id": "1300409881", "lat": 53.0, "lon": -8.0, "event_code": "036", "event_label": "協力意向", "event_root": "03", "root_label": "協力意向", "category": "diplomatic", "goldstein": 4.0, "num_articles": 17, "avg_tone": 0.943333774659075, "actor1": "", "actor2": "IRL", "country": "EI", "location": "Ireland", "source_url": "https://www.irishtimes.com/life-style/people/2026/04/22/sean-moncrieff-the-woman-said-i-hope-youre-not-going-to-write-about-this-for-the-irish-times/"}, {"event_id": "1300407957", "lat": 33.325, "lon": 35.4006, "event_code": "017", "event_label": "声明・発表", "event_root": "01", "root_label": "声明・発表", "category": "diplomatic", "goldstein": 0.0, "num_articles": 16, "avg_tone": -6.42270709234099, "actor1": "", "actor2": "FIGHTER", "country": "LE", "location": "Kfar Sir, Nabatî, Lebanon", "source_url": "https://www.thehour.com/business/article/the-latest-uncertainty-shrouds-possible-us-iran-22219384.php"}, {"event_id": "1300407964", "lat": 31.5, "lon": 34.75, "event_code": "190", "event_label": "戦闘", "event_root": "19", "root_label": "戦闘", "category": "conflict", "goldstein": -10.0, "num_articles": 16, "avg_tone": -6.42270709234099, "actor1": "", "actor2": "FIGHTER", "country": "IS", "location": "Israel", "source_url": "https://www.thehour.com/business/article/the-latest-uncertainty-shrouds-possible-us-iran-22219384.php"}, {"event_id": "1300408866", "lat": 13.75, "lon": 100.517, "event_code": "042", "event_label": "首脳会談", "event_root": "04", "root_label": "協議", "category": "diplomatic", "goldstein": 1.9, "num_articles": 16, "avg_tone": 6.56535415469119, "actor1": "THA", "actor2": "BUSINESS", "country": "TH", "location": "Bangkok, Krung Thep Mahanakhon, Thailand", "source_url": "https://portal.sina.com.hk/finance/finance-mediaoutreachnewswire/media-outreach/2026/04/22/1718563/policy20-at-money20-20-asia-2026-asias-leaders-call-for-co-creation-as-finance-enters-a-new-era-of-sovereign-intelligence/"}, {"event_id": "1300405182", "lat": 42.1497, "lon": -74.9384, "event_code": "046", "event_label": "協議", "event_root": "04", "root_label": "協議", "category": "diplomatic", "goldstein": 7.0, "num_articles": 16, "avg_tone": 1.09860279441118, "actor1": "USA", "actor2": "CRIMINAL", "country": "US", "location": "New York, United States", "source_url": "https://www.scotusblog.com/staff/"}, {"event_id": "1300407848", "lat": -30.2614, "lon": 26.338, "event_code": "042", "event_label": "首脳会談", "event_root": "04", "root_label": "協議", "category": "diplomatic", "goldstein": 1.9, "num_articles": 15, "avg_tone": 4.44444444444444, "actor1": "", "actor2": "AFR", "country": "SF", "location": "Hermanus, Free State, South Africa", "source_url": "https://www.witneygazette.co.uk/news/national/uk-today/26041917.former-gladiators-star-gold-dies-aged-60-cancer-battle/"}, {"event_id": "1300407917", "lat": 13.75, "lon": 100.517, "event_code": "042", "event_label": "首脳会談", "event_root": "04", "root_label": "協議", "category": "diplomatic", "goldstein": 1.9, "num_articles": 15, "avg_tone": -2.81960401849077, "actor1": "", "actor2": "SEA", "country": "TH", "location": "Bangkok, Krung Thep Mahanakhon, Thailand", "source_url": "https://www.yahoo.com/news/articles/thailand-offers-backing-myanmars-bid-061114828.html"}, {"event_id": "1300407989", "lat": -30.2614, "lon": 26.338, "event_code": "043", "event_label": "協議", "event_root": "04", "root_label": "協議", "category": "diplomatic", "goldstein": 2.8, "num_articles": 15, "avg_tone": 4.44444444444444, "actor1": "AFR", "actor2": "", "country": "SF", "location": "Hermanus, Free State, South Africa", "source_url": "https://www.witneygazette.co.uk/news/national/uk-today/26041917.former-gladiators-star-gold-dies-aged-60-cancer-battle/"}, {"event_id": "1300408435", "lat": 13.75, "lon": 100.517, "event_code": "043", "event_label": "協議", "event_root": "04", "root_label": "協議", "category": "diplomatic", "goldstein": 2.8, "num_articles": 15, "avg_tone": -2.81960401849077, "actor1": "SEA", "actor2": "", "country": "TH", "location": "Bangkok, Krung Thep Mahanakhon, Thailand", "source_url": "https://www.yahoo.com/news/articles/thailand-offers-backing-myanmars-bid-061114828.html"}, {"event_id": "1300408468", "lat": 12.9833, "lon": 77.5833, "event_code": "112", "event_label": "糾弾", "event_root": "11", "root_label": "批判・反対", "category": "demand", "goldstein": -2.0, "num_articles": 15, "avg_tone": -13.4897360703813, "actor1": "IND", "actor2": "SPECIAL COURT", "country": "IN", "location": "Bengaluru, Karnataka, India", "source_url": "http://www.asiabulletin.com/news/279003750/nia-court-convicts-7-in-let-linked-bengaluru-prison-radicalisation-case-mastermind-t-naseer-among-accused"}, {"event_id": "1300408490", "lat": 38.365, "lon": 47.3979, "event_code": "173", "event_label": "強制・圧力", "event_root": "17", "root_label": "強制・圧力", "category": "tension", "goldstein": -5.0, "num_articles": 14, "avg_tone": -7.48102139406487, "actor1": "IRN", "actor2": "ISR", "country": "IR", "location": "Mizan, Ardabil, Iran", "source_url": "https://www.spacewar.com/afp/260422060300.1k43i5nx.html"}, {"event_id": "1300410079", "lat": 30.4408, "lon": -84.2918, "event_code": "010", "event_label": "公式声明", "event_root": "01", "root_label": "声明・発表", "category": "diplomatic", "goldstein": 0.0, "num_articles": 12, "avg_tone": -9.67437167492207, "actor1": "CRIMINAL", "actor2": "", "country": "US", "location": "Florida State University, Florida, United States", "source_url": "https://dunyanews.tv/en/Technology/947300-florida-launches-criminal-probe-into-openai-and-chatgpt-over-deadly-sh"}, {"event_id": "1300410084", "lat": 30.4408, "lon": -84.2918, "event_code": "091", "event_label": "調査", "event_root": "09", "root_label": "調査", "category": "diplomatic", "goldstein": -2.0, "num_articles": 12, "avg_tone": -9.67437167492207, "actor1": "CRIMINAL", "actor2": "", "country": "US", "location": "Florida State University, Florida, United States", "source_url": "https://dunyanews.tv/en/Technology/947300-florida-launches-criminal-probe-into-openai-and-chatgpt-over-deadly-sh"}, {"event_id": "1300410477", "lat": 31.5, "lon": 34.75, "event_code": "190", "event_label": "戦闘", "event_root": "19", "root_label": "戦闘", "category": "conflict", "goldstein": -10.0, "num_articles": 12, "avg_tone": -3.86473429951691, "actor1": "IRN", "actor2": "PGS", "country": "IS", "location": "Israel", "source_url": "https://www.readingchronicle.co.uk/news/national/26041921.iran-fires-container-ship-strait-hormuz/"}, {"event_id": "1300410478", "lat": 31.5, "lon": 34.75, "event_code": "190", "event_label": "戦闘", "event_root": "19", "root_label": "戦闘", "category": "conflict", "goldstein": -10.0, "num_articles": 12, "avg_tone": -3.86473429951691, "actor1": "IRN", "actor2": "PGS", "country": "IS", "location": "Israel", "source_url": "https://www.readingchronicle.co.uk/news/national/26041921.iran-fires-container-ship-strait-hormuz/"}, {"event_id": "1300410787", "lat": 31.5, "lon": 34.75, "event_code": "051", "event_label": "外交協力", "event_root": "05", "root_label": "外交協力", "category": "diplomatic", "goldstein": 3.4, "num_articles": 12, "avg_tone": -3.86473429951691, "actor1": "PAK", "actor2": "USA", "country": "IS", "location": "Israel", "source_url": "https://www.readingchronicle.co.uk/news/national/26041921.iran-fires-container-ship-strait-hormuz/"}, {"event_id": "1300410976", "lat": 21.0, "lon": 57.0, "event_code": "193", "event_label": "小火器戦闘", "event_root": "19", "root_label": "戦闘", "category": "conflict", "goldstein": -10.0, "num_articles": 12, "avg_tone": -3.86473429951691, "actor1": "USA", "actor2": "IRN", "country": "MU", "location": "Oman", "source_url": "https://www.readingchronicle.co.uk/news/national/26041921.iran-fires-container-ship-strait-hormuz/"}, {"event_id": "1300407890", "lat": -30.0943, "lon": 20.0971, "event_code": "046", "event_label": "協議", "event_root": "04", "root_label": "協議", "category": "diplomatic", "goldstein": 7.0, "num_articles": 12, "avg_tone": 4.44444444444444, "actor1": "", "actor2": "GBR", "country": "SF", "location": "Van Der Walt, Northern Cape, South Africa", "source_url": "https://www.witneygazette.co.uk/news/national/uk-today/26041917.former-gladiators-star-gold-dies-aged-60-cancer-battle/"}, {"event_id": "1300407892", "lat": 54.0, "lon": -4.0, "event_code": "046", "event_label": "協議", "event_root": "04", "root_label": "協議", "category": "diplomatic", "goldstein": 7.0, "num_articles": 12, "avg_tone": 4.44444444444444, "actor1": "", "actor2": "GBR", "country": "UK", "location": "United Kingdom", "source_url": "https://www.witneygazette.co.uk/news/national/uk-today/26041917.former-gladiators-star-gold-dies-aged-60-cancer-battle/"}, {"event_id": "1300408005", "lat": -25.0, "lon": 135.0, "event_code": "012", "event_label": "声明・発表", "event_root": "01", "root_label": "声明・発表", "category": "diplomatic", "goldstein": -0.4, "num_articles": 12, "avg_tone": -1.10126473911891, "actor1": "AUS", "actor2": "", "country": "AS", "location": "Australia", "source_url": "https://www.macleayargus.com.au/story/9231225/gold-plated-building-code-worsening-housing-crisis/"}, {"event_id": "1300408018", "lat": -33.8833, "lon": 151.217, "event_code": "010", "event_label": "公式声明", "event_root": "01", "root_label": "声明・発表", "category": "diplomatic", "goldstein": 0.0, "num_articles": 12, "avg_tone": -1.80032733224222, "actor1": "AUS", "actor2": "COLLEGE", "country": "AS", "location": "Sydney, New South Wales, Australia", "source_url": "https://www.theage.com.au/national/police-called-to-embattled-medical-college-board-meeting-20260422-p5zq66.html"}, {"event_id": "1300408020", "lat": -25.0, "lon": 135.0, "event_code": "012", "event_label": "声明・発表", "event_root": "01", "root_label": "声明・発表", "category": "diplomatic", "goldstein": -0.4, "num_articles": 12, "avg_tone": -1.10126473911891, "actor1": "AUS", "actor2": "CHIEF EXECUTIVE", "country": "AS", "location": "Australia", "source_url": "https://www.macleayargus.com.au/story/9231225/gold-plated-building-code-worsening-housing-crisis/"}, {"event_id": "1300408046", "lat": -25.0, "lon": 135.0, "event_code": "010", "event_label": "公式声明", "event_root": "01", "root_label": "声明・発表", "category": "diplomatic", "goldstein": 0.0, "num_articles": 12, "avg_tone": -1.10126473911891, "actor1": "AUS", "actor2": "", "country": "AS", "location": "Australia", "source_url": "https://www.macleayargus.com.au/story/9231225/gold-plated-building-code-worsening-housing-crisis/"}, {"event_id": "1300408132", "lat": -33.8833, "lon": 151.217, "event_code": "026", "event_label": "要請・訴え", "event_root": "02", "root_label": "要請・訴え", "category": "diplomatic", "goldstein": 4.0, "num_articles": 12, "avg_tone": -1.80032733224222, "actor1": "POLICE", "actor2": "", "country": "AS", "location": "Sydney, New South Wales, Australia", "source_url": "https://www.theage.com.au/national/police-called-to-embattled-medical-college-board-meeting-20260422-p5zq66.html"}, {"event_id": "1300408133", "lat": -33.8833, "lon": 151.217, "event_code": "036", "event_label": "協力意向", "event_root": "03", "root_label": "協力意向", "category": "diplomatic", "goldstein": 4.0, "num_articles": 12, "avg_tone": -1.80032733224222, "actor1": "POLICE", "actor2": "", "country": "AS", "location": "Sydney, New South Wales, Australia", "source_url": "https://www.theage.com.au/national/police-called-to-embattled-medical-college-board-meeting-20260422-p5zq66.html"}, {"event_id": "1300408366", "lat": 34.5, "lon": 77.5, "event_code": "042", "event_label": "首脳会談", "event_root": "04", "root_label": "協議", "category": "diplomatic", "goldstein": 1.9, "num_articles": 12, "avg_tone": -3.0690537084399, "actor1": "PRESIDENT", "actor2": "IND", "country": "IN", "location": "Ladakh, Jammu and Kashmir, India", "source_url": "https://aninews.in/news/national/general-news/vice-president-cp-radhakrishnan-arrives-in-karnataka-received-by-governor-thaawarchand-gehlot20260422104800/"}, {"event_id": "1300408438", "lat": 62.15, "lon": 152.2, "event_code": "012", "event_label": "声明・発表", "event_root": "01", "root_label": "声明・発表", "category": "diplomatic", "goldstein": -0.4, "num_articles": 12, "avg_tone": -5.77505931115717, "actor1": "IAEA", "actor2": "", "country": "RS", "location": "Kinzhal, Magadanskaya Oblast', Russia", "source_url": "https://www.internazionale.it/ultime-notizie-reuters/2026/04/22/exclusive-ukraine-says-some-russian-missiles-fly-near-chornobyl-risking-major-accident"}, {"event_id": "1300408658", "lat": -25.0, "lon": 135.0, "event_code": "010", "event_label": "公式声明", "event_root": "01", "root_label": "声明・発表", "category": "diplomatic", "goldstein": 0.0, "num_articles": 12, "avg_tone": -1.10126473911891, "actor1": "SPOKESMAN", "actor2": "AUS", "country": "AS", "location": "Australia", "source_url": "https://www.macleayargus.com.au/story/9231225/gold-plated-building-code-worsening-housing-crisis/"}, {"event_id": "1300408768", "lat": -36.75, "lon": 174.583, "event_code": "173", "event_label": "強制・圧力", "event_root": "17", "root_label": "強制・圧力", "category": "tension", "goldstein": -5.0, "num_articles": 12, "avg_tone": -5.69583911975216, "actor1": "NZL", "actor2": "DETECTIVE", "country": "NZ", "location": "Auckland, Auckland, New Zealand", "source_url": "https://livenews.co.nz/2026/04/22/operation-beverly-police-make-further-arrest-in-historical-sexual-offending-case/"}, {"event_id": "1300408906", "lat": 55.7522, "lon": 37.6156, "event_code": "195", "event_label": "航空攻撃", "event_root": "19", "root_label": "戦闘", "category": "conflict", "goldstein": -10.0, "num_articles": 12, "avg_tone": -5.77505931115717, "actor1": "UKR", "actor2": "RUS", "country": "RS", "location": "Kremlin, Moskva, Russia", "source_url": "https://www.internazionale.it/ultime-notizie-reuters/2026/04/22/exclusive-ukraine-says-some-russian-missiles-fly-near-chornobyl-risking-major-accident"}, {"event_id": "1300408908", "lat": 55.7522, "lon": 37.6156, "event_code": "051", "event_label": "外交協力", "event_root": "05", "root_label": "外交協力", "category": "diplomatic", "goldstein": 3.4, "num_articles": 12, "avg_tone": -5.77505931115717, "actor1": "UKR", "actor2": "RUS", "country": "RS", "location": "Kremlin, Moskva, Russia", "source_url": "https://www.internazionale.it/ultime-notizie-reuters/2026/04/22/exclusive-ukraine-says-some-russian-missiles-fly-near-chornobyl-risking-major-accident"}, {"event_id": "1300409011", "lat": 47.3917, "lon": -121.571, "event_code": "051", "event_label": "外交協力", "event_root": "05", "root_label": "外交協力", "category": "diplomatic", "goldstein": 3.4, "num_articles": 12, "avg_tone": 1.3155702289751, "actor1": "USA", "actor2": "MILITARY", "country": "US", "location": "Washington, United States", "source_url": "https://www.koaa.com/news/local-news/cspd-issues-more-than-350-expired-registration-tickets-during-surge-enforcement"}, {"event_id": "1300404606", "lat": -25.0, "lon": 135.0, "event_code": "025", "event_label": "要請・訴え", "event_root": "02", "root_label": "要請・訴え", "category": "diplomatic", "goldstein": -0.3, "num_articles": 12, "avg_tone": -3.41943466845231, "actor1": "AUS", "actor2": "GOVERNMENT", "country": "AS", "location": "Australia", "source_url": "https://www.bluemountainsgazette.com.au/story/9230381/gas-giants-push-back-on-prospect-of-further-levy/"}, {"event_id": "1300404637", "lat": -33.8833, "lon": 151.217, "event_code": "071", "event_label": "支援提供", "event_root": "07", "root_label": "支援提供", "category": "diplomatic", "goldstein": 7.4, "num_articles": 12, "avg_tone": -0.755176812978655, "actor1": "AUS", "actor2": "AUS", "country": "AS", "location": "Sydney, New South Wales, Australia", "source_url": "https://www.redlandcitybulletin.com.au/story/9230405/search-to-shore-up-fuel-security-strikes-liquid-gold/"}, {"event_id": "1300404638", "lat": -25.6392, "lon": 149.8, "event_code": "071", "event_label": "支援提供", "event_root": "07", "root_label": "支援提供", "category": "diplomatic", "goldstein": 7.4, "num_articles": 12, "avg_tone": -0.755176812978655, "actor1": "AUS", "actor2": "AUS", "country": "AS", "location": "Taroom, Queensland, Australia", "source_url": "https://www.redlandcitybulletin.com.au/story/9230405/search-to-shore-up-fuel-security-strikes-liquid-gold/"}, {"event_id": "1300404639", "lat": -25.0, "lon": 135.0, "event_code": "025", "event_label": "要請・訴え", "event_root": "02", "root_label": "要請・訴え", "category": "diplomatic", "goldstein": -0.3, "num_articles": 12, "avg_tone": -3.41943466845231, "actor1": "AUS", "actor2": "GOVERNMENT", "country": "AS", "location": "Australia", "source_url": "https://www.bluemountainsgazette.com.au/story/9230381/gas-giants-push-back-on-prospect-of-further-levy/"}, {"event_id": "1300404889", "lat": 32.0, "lon": 53.0, "event_code": "193", "event_label": "小火器戦闘", "event_root": "19", "root_label": "戦闘", "category": "conflict", "goldstein": -10.0, "num_articles": 12, "avg_tone": -4.87065036789061, "actor1": "IRN", "actor2": "IRN", "country": "IR", "location": "Iran", "source_url": "https://www.winnipegfreepress.com/arts-and-life/life/faith/2026/04/22/iran-fires-on-container-ship-in-strait-of-hormuz"}, {"event_id": "1300409823", "lat": -35.2833, "lon": 149.217, "event_code": "172", "event_label": "強制・圧力", "event_root": "17", "root_label": "強制・圧力", "category": "tension", "goldstein": -5.0, "num_articles": 10, "avg_tone": -5.76271186440678, "actor1": "MEDIA", "actor2": "AUS", "country": "AS", "location": "Canberra, Australian Capital Territory, Australia", "source_url": "https://www.pakistantoday.com.pk/2026/04/22/australias-online-watchdog-targets-roblox-and-minecraft-over-extreme-content"}, {"event_id": "1300409828", "lat": 27.8333, "lon": -81.717, "event_code": "090", "event_label": "調査", "event_root": "09", "root_label": "調査", "category": "diplomatic", "goldstein": -2.0, "num_articles": 10, "avg_tone": -7.40740740740741, "actor1": "USA", "actor2": "UNIVERSITY", "country": "US", "location": "Florida, United States", "source_url": "https://www.thejournal.ie/florida-launches-investigation-into-chatgpts-role-in-mass-shooting-7019790-Apr2026/"}, {"event_id": "1300409829", "lat": 27.8333, "lon": -81.717, "event_code": "090", "event_label": "調査", "event_root": "09", "root_label": "調査", "category": "diplomatic", "goldstein": -2.0, "num_articles": 10, "avg_tone": -7.40740740740741, "actor1": "USA", "actor2": "INTELLIGENCE", "country": "US", "location": "Florida, United States", "source_url": "https://www.thejournal.ie/florida-launches-investigation-into-chatgpts-role-in-mass-shooting-7019790-Apr2026/"}, {"event_id": "1300409831", "lat": 27.8333, "lon": -81.717, "event_code": "193", "event_label": "小火器戦闘", "event_root": "19", "root_label": "戦闘", "category": "conflict", "goldstein": -10.0, "num_articles": 10, "avg_tone": -7.40740740740741, "actor1": "USA", "actor2": "USA", "country": "US", "location": "Florida, United States", "source_url": "https://www.thejournal.ie/florida-launches-investigation-into-chatgpts-role-in-mass-shooting-7019790-Apr2026/"}, {"event_id": "1300409833", "lat": 8.35361, "lon": -72.5492, "event_code": "020", "event_label": "要請", "event_root": "02", "root_label": "要請・訴え", "category": "diplomatic", "goldstein": 3.0, "num_articles": 10, "avg_tone": -4.63362068965517, "actor1": "", "actor2": "ARE", "country": "CO", "location": "La Silla, Departamento de Norte de Santander, Colombia", "source_url": "https://www.yahoo.com/news/articles/phone-tracking-shows-colombian-mercenaries-040156749.html"}, {"event_id": "1300409836", "lat": 34.0522, "lon": -118.244, "event_code": "051", "event_label": "外交協力", "event_root": "05", "root_label": "外交協力", "category": "diplomatic", "goldstein": 3.4, "num_articles": 10, "avg_tone": 5.02283105022831, "actor1": "", "actor2": "INDUSTRY", "country": "US", "location": "Los Angeles, California, United States", "source_url": "https://www.traveldailymedia.com/hozpitality-group-unveils-2026-leadership-forum/"}, {"event_id": "1300409837", "lat": 41.6478, "lon": 123.494, "event_code": "042", "event_label": "首脳会談", "event_root": "04", "root_label": "協議", "category": "diplomatic", "goldstein": 1.9, "num_articles": 10, "avg_tone": -3.59712230215827, "actor1": "", "actor2": "CHN", "country": "CH", "location": "Taoxian, Liaoning, China", "source_url": "https://english.news.cn/20260422/2ffe239a00254b01b5b3f03f1ab774a2/c.html"}, {"event_id": "1300409841", "lat": 51.8306, "lon": -8.22972, "event_code": "120", "event_label": "拒否", "event_root": "12", "root_label": "拒否", "category": "demand", "goldstein": -4.0, "num_articles": 10, "avg_tone": -6.63058186738836, "actor1": "", "actor2": "CRIMINAL", "country": "EI", "location": "Whitegate, Cork, Ireland", "source_url": "https://www.irishmirror.ie/news/irish-news/this-serious-matter-me-irelands-37050329"}, {"event_id": "1300409842", "lat": 34.5258, "lon": 72.6899, "event_code": "042", "event_label": "首脳会談", "event_root": "04", "root_label": "協議", "category": "diplomatic", "goldstein": 1.9, "num_articles": 10, "avg_tone": -7.71349862258953, "actor1": "", "actor2": "VILLAGE", "country": "PK", "location": "Tirah, North-West Frontier, Pakistan", "source_url": "https://www.pakistantoday.com.pk/2026/04/22/six-terrorists-killed-in-separate-operations-in-khyber-and-bannu"}, {"event_id": "1300409843", "lat": 32.9866, "lon": -83.6487, "event_code": "043", "event_label": "協議", "event_root": "04", "root_label": "協議", "category": "diplomatic", "goldstein": 2.8, "num_articles": 10, "avg_tone": 7.66129032258065, "actor1": "", "actor2": "COMMUNITY", "country": "US", "location": "Georgia, United States", "source_url": "https://www.wjcl.com/article/pooler-4-year-old-surprised-with-disney-trip-thanks-to-make-a-wish/71090480"}, {"event_id": "1300409848", "lat": -6.193, "lon": 106.877, "event_code": "040", "event_label": "協議", "event_root": "04", "root_label": "協議", "category": "diplomatic", "goldstein": 1.0, "num_articles": 10, "avg_tone": 1.19352088661551, "actor1": "", "actor2": "UNIVERSITY", "country": "ID", "location": "Universitas Indonesia, Jakarta Raya, Indonesia", "source_url": "https://weekender.thejakartapost.com/life/2026/04/22/dating-according-to-the-algorithm.html"}, {"event_id": "1300409849", "lat": 52.6114, "lon": -9.11028, "event_code": "043", "event_label": "協議", "event_root": "04", "root_label": "協議", "category": "diplomatic", "goldstein": 2.8, "num_articles": 10, "avg_tone": -1.73010380622838, "actor1": "", "actor2": "STUDENT", "country": "EI", "location": "Foynes, Limerick, Ireland", "source_url": "https://www.irishtimes.com/opinion/2026/04/22/paul-davis-energy-crisis-could-force-a-return-to-hybrid-learning-thats-not-all-bad-news/"}, {"event_id": "1300409857", "lat": 52.5167, "lon": 13.4, "event_code": "020", "event_label": "要請", "event_root": "02", "root_label": "要請・訴え", "category": "diplomatic", "goldstein": 3.0, "num_articles": 10, "avg_tone": -3.7122969837587, "actor1": "", "actor2": "FRA", "country": "GM", "location": "Berlin, Berlin, Germany", "source_url": "https://timesofindia.indiatimes.com/entertainment/english/hollywood/news/michael-jackson-biopic-did-janet-and-paris-jackson-skip-the-los-angeles-premiere-amid-family-feud-heres-what-we-know/articleshow/130433687.cms"}, {"event_id": "1300409858", "lat": 52.5167, "lon": 13.4, "event_code": "190", "event_label": "戦闘", "event_root": "19", "root_label": "戦闘", "category": "conflict", "goldstein": -10.0, "num_articles": 10, "avg_tone": -3.7122969837587, "actor1": "", "actor2": "FRA", "country": "GM", "location": "Berlin, Berlin, Germany", "source_url": "https://timesofindia.indiatimes.com/entertainment/english/hollywood/news/michael-jackson-biopic-did-janet-and-paris-jackson-skip-the-los-angeles-premiere-amid-family-feud-heres-what-we-know/articleshow/130433687.cms"}, {"event_id": "1300409863", "lat": 37.9833, "lon": 23.7333, "event_code": "036", "event_label": "協力意向", "event_root": "03", "root_label": "協力意向", "category": "diplomatic", "goldstein": 4.0, "num_articles": 10, "avg_tone": -4.3778801843318, "actor1": "", "actor2": "MINIST OF JUSTICE", "country": "GR", "location": "Athens, AttikíR, Greece", "source_url": "https://athens-times.com/laura-codruta-kovesi-in-athens-for-meeting-with-justice-minister-floridis/"}, {"event_id": "1300409864", "lat": 28.6, "lon": 77.2, "event_code": "040", "event_label": "協議", "event_root": "04", "root_label": "協議", "category": "diplomatic", "goldstein": 1.0, "num_articles": 10, "avg_tone": -2.00445434298441, "actor1": "", "actor2": "EXTERNAL AFFAIRS MINIST", "country": "IN", "location": "New Delhi, Delhi, India", "source_url": "https://dailypioneer.com/news/india-bangladesh-visa-thaw-on-cards"}, {"event_id": "1300409879", "lat": 53.0, "lon": -8.0, "event_code": "013", "event_label": "報道発表", "event_root": "01", "root_label": "声明・発表", "category": "diplomatic", "goldstein": 0.4, "num_articles": 10, "avg_tone": 0.54945054945055, "actor1": "", "actor2": "IRL", "country": "EI", "location": "Ireland", "source_url": "https://www.irishtimes.com/life-style/people/2026/04/22/sean-moncrieff-the-woman-said-i-hope-youre-not-going-to-write-about-this-for-the-irish-times/"}, {"event_id": "1300409885", "lat": 36.0, "lon": 138.0, "event_code": "057", "event_label": "外交協力", "event_root": "05", "root_label": "外交協力", "category": "diplomatic", "goldstein": 8.0, "num_articles": 10, "avg_tone": 1.29032258064516, "actor1": "", "actor2": "JPN", "country": "JA", "location": "Japan", "source_url": "https://www.marketscreener.com/news/india-s-l-t-energy-greentech-japan-s-itochu-ink-long-term-green-ammonia-supply-deal-ce7f59d8d980f027"}, {"event_id": "1300409886", "lat": -17.8178, "lon": 31.0447, "event_code": "1014", "event_label": "要求", "event_root": "10", "root_label": "要求", "category": "demand", "goldstein": -5.0, "num_articles": 10, "avg_tone": -3.98773006134969, "actor1": "", "actor2": "LAWYER", "country": "ZI", "location": "Harare, Mashonaland East, Zimbabwe", "source_url": "https://www.newzimbabwe.com/international-lawyer-bodies-oppose-judicial-reforms-warn-of-threat-to-democracy/"}, {"event_id": "1300409888", "lat": 59.15, "lon": -2.61667, "event_code": "042", "event_label": "首脳会談", "event_root": "04", "root_label": "協議", "category": "diplomatic", "goldstein": 1.9, "num_articles": 10, "avg_tone": -2.61052631578947, "actor1": "", "actor2": "PARLIAMENT", "country": "UK", "location": "Whitehall, Orkney Islands, United Kingdom", "source_url": "https://www.newstatesman.com/politics/labour/2026/04/keir-starmer-is-all-alone"}, {"event_id": "1300409889", "lat": 24.8667, "lon": 67.05, "event_code": "190", "event_label": "戦闘", "event_root": "19", "root_label": "戦闘", "category": "conflict", "goldstein": -10.0, "num_articles": 10, "avg_tone": -10.5978260869565, "actor1": "", "actor2": "CHAMBER", "country": "PK", "location": "Karachi, Sindh, Pakistan", "source_url": "https://www.pakistantoday.com.pk/2026/04/22/kcci-condemns-shooting-of-industrialist-in-new-karachi"}, {"event_id": "1300409890", "lat": -25.0, "lon": 135.0, "event_code": "190", "event_label": "戦闘", "event_root": "19", "root_label": "戦闘", "category": "conflict", "goldstein": -10.0, "num_articles": 10, "avg_tone": -5.53745928338763, "actor1": "", "actor2": "SENATOR", "country": "AS", "location": "Australia", "source_url": "https://www.perthnow.com.au/news/appalling-gas-giants-clash-with-senators-over-proposed-export-tax-and-prrt-payments-c-22177638"}, {"event_id": "1300409894", "lat": 30.0, "lon": 70.0, "event_code": "0841", "event_label": "譲歩", "event_root": "08", "root_label": "譲歩", "category": "diplomatic", "goldstein": 7.0, "num_articles": 10, "avg_tone": -2.88379983036472, "actor1": "", "actor2": "SPECIAL FORCES", "country": "PK", "location": "Pakistan", "source_url": "https://organiser.org/2026/04/22/349856/bharat/operation-mahadev-and-the-93-day-hunt-inside-indias-calculated-response-to-the-pahalgam-terror-attack-2025/"}, {"event_id": "1300409899", "lat": 21.5, "lon": 81.75, "event_code": "043", "event_label": "協議", "event_root": "04", "root_label": "協議", "category": "diplomatic", "goldstein": 2.8, "num_articles": 10, "avg_tone": -3.20987654320987, "actor1": "", "actor2": "INSURGENCY", "country": "IN", "location": "Chhattisgarh, Chhattisgarh, India", "source_url": "https://organiser.org/2026/04/22/349832/bharat/from-insurgency-to-elimination-indias-strategy-against-maoist-violence/"}, {"event_id": "1300409900", "lat": -25.0, "lon": 135.0, "event_code": "046", "event_label": "協議", "event_root": "04", "root_label": "協議", "category": "diplomatic", "goldstein": 7.0, "num_articles": 10, "avg_tone": 0.58479532163743, "actor1": "", "actor2": "REVOLUTIONARY MOVEMENT", "country": "AS", "location": "Australia", "source_url": "https://vietnamnet.vn/en/australian-veteran-s-son-returns-diary-of-vietnamese-martyr-2508909.html"}, {"event_id": "1300409905", "lat": 7.83333, "lon": 98.3833, "event_code": "043", "event_label": "協議", "event_root": "04", "root_label": "協議", "category": "diplomatic", "goldstein": 2.8, "num_articles": 10, "avg_tone": 3.06513409961686, "actor1": "", "actor2": "THA", "country": "TH", "location": "Phuket, Phuket, Thailand", "source_url": "https://ianslive.in/mini-mathur-embarks-on-first-solo-trip-to-phuket-at-49--20260422103150"}, {"event_id": "1300409915", "lat": 53.0, "lon": -8.0, "event_code": "192", "event_label": "占領", "event_root": "19", "root_label": "戦闘", "category": "conflict", "goldstein": -9.5, "num_articles": 10, "avg_tone": -3.49650349650349, "actor1": "", "actor2": "USA", "country": "EI", "location": "Ireland", "source_url": "https://www.irishtimes.com/podcasts/early-edition/kinahan-to-be-tried-on-single-charge-school-patronage-and-the-michael-jackson-biopic/"}, {"event_id": "1300409937", "lat": -27.5, "lon": 153.017, "event_code": "046", "event_label": "協議", "event_root": "04", "root_label": "協議", "category": "diplomatic", "goldstein": 7.0, "num_articles": 10, "avg_tone": 0.95541401273886, "actor1": "AUS", "actor2": "", "country": "AS", "location": "Brisbane, Queensland, Australia", "source_url": "https://spotlightreport.net/music/violent-soho-announce-australian-headline-tour"}, {"event_id": "1300409940", "lat": -35.2833, "lon": 149.217, "event_code": "172", "event_label": "強制・圧力", "event_root": "17", "root_label": "強制・圧力", "category": "tension", "goldstein": -5.0, "num_articles": 10, "avg_tone": -5.76271186440678, "actor1": "AUS", "actor2": "", "country": "AS", "location": "Canberra, Australian Capital Territory, Australia", "source_url": "https://www.pakistantoday.com.pk/2026/04/22/australias-online-watchdog-targets-roblox-and-minecraft-over-extreme-content"}, {"event_id": "1300409968", "lat": 53.9, "lon": 27.5667, "event_code": "012", "event_label": "声明・発表", "event_root": "01", "root_label": "声明・発表", "category": "diplomatic", "goldstein": -0.4, "num_articles": 10, "avg_tone": -2.8045574057844, "actor1": "BLR", "actor2": "", "country": "BO", "location": "Minsk, Belarus (general), Belarus", "source_url": "https://www.thetimes.com/world/europe/article/trump-bromance-lukashenko-putin-tr325cbx6"}, {"event_id": "1300409988", "lat": 10.6893, "lon": -61.6395, "event_code": "173", "event_label": "強制・圧力", "event_root": "17", "root_label": "強制・圧力", "category": "tension", "goldstein": -5.0, "num_articles": 10, "avg_tone": -3.36322869955157, "actor1": "BRB", "actor2": "CRIMINAL", "country": "TD", "location": "Chaguaramas, Saint George, Trinidad And Tobago", "source_url": "https://jamaica-gleaner.com/article/commentary/20260422/editorial-holness-undercuts-caricom-secretary-general"}, {"event_id": "1300409989", "lat": 33.7, "lon": 73.1667, "event_code": "010", "event_label": "公式声明", "event_root": "01", "root_label": "声明・発表", "category": "diplomatic", "goldstein": 0.0, "num_articles": 10, "avg_tone": -0.625, "actor1": "COMPANY", "actor2": "", "country": "PK", "location": "Islamabad, Islamabad, Pakistan", "source_url": "https://pakobserver.net/azerbaijan-offers-lng-supply-to-pakistan-amid-energy-shortfall/"}, {"event_id": "1300409990", "lat": 24.8667, "lon": 67.05, "event_code": "010", "event_label": "公式声明", "event_root": "01", "root_label": "声明・発表", "category": "diplomatic", "goldstein": 0.0, "num_articles": 10, "avg_tone": -10.5978260869565, "actor1": "BUSINESS", "actor2": "", "country": "PK", "location": "Karachi, Sindh, Pakistan", "source_url": "https://www.pakistantoday.com.pk/2026/04/22/kcci-condemns-shooting-of-industrialist-in-new-karachi"}, {"event_id": "1300409991", "lat": 10.75, "lon": 106.667, "event_code": "010", "event_label": "公式声明", "event_root": "01", "root_label": "声明・発表", "category": "diplomatic", "goldstein": 0.0, "num_articles": 10, "avg_tone": 4.6474358974359, "actor1": "BUSINESS", "actor2": "", "country": "VM", "location": "Ho Chi Minh City, H? Chíinh, Vietnam, Republic Of", "source_url": "https://vietnamnet.vn/en/state-private-synergy-key-to-vietnam-s-growth-ambitions-2508927.html"}, {"event_id": "1300409992", "lat": 35.7449, "lon": -86.7489, "event_code": "010", "event_label": "公式声明", "event_root": "01", "root_label": "声明・発表", "category": "diplomatic", "goldstein": 0.0, "num_articles": 10, "avg_tone": 2.69230769230769, "actor1": "BUSINESS", "actor2": "", "country": "US", "location": "Tennessee, United States", "source_url": "https://www.defenseworld.net/2026/04/22/pinnacle-financial-partners-inc-nysepnfp-receives-consensus-rating-of-moderate-buy-from-analysts.html"}, {"event_id": "1300409995", "lat": 42.1497, "lon": -74.9384, "event_code": "020", "event_label": "要請", "event_root": "02", "root_label": "要請・訴え", "category": "diplomatic", "goldstein": 3.0, "num_articles": 10, "avg_tone": -4.10958904109589, "actor1": "AIRLINE", "actor2": "", "country": "US", "location": "New York, United States", "source_url": "https://athens-times.com/airline-tickets-surge-amid-fuel-price-crisis/"}, {"event_id": "1300409996", "lat": 38.468, "lon": -80.9696, "event_code": "030", "event_label": "協力意向", "event_root": "03", "root_label": "協力意向", "category": "diplomatic", "goldstein": 4.0, "num_articles": 10, "avg_tone": -4.47761194029851, "actor1": "COMPANIES", "actor2": "", "country": "US", "location": "West Virginia, United States", "source_url": "https://www.thejakartapost.com/world/2026/04/22/australia-asks-roblox-minecraft-to-detail-child-safety-measures.html"}, {"event_id": "1300409997", "lat": 53.8898, "lon": -166.542, "event_code": "051", "event_label": "外交協力", "event_root": "05", "root_label": "外交協力", "category": "diplomatic", "goldstein": 3.4, "num_articles": 10, "avg_tone": -3.48583877995643, "actor1": "INDUSTRY", "actor2": "", "country": "US", "location": "Dutch Harbor, Alaska, United States", "source_url": "https://www.alaskasnewssource.com/2026/04/22/coast-guard-removes-release-social-media-posts-65k-alaska-roe-seizure/"}, {"event_id": "1300409999", "lat": -17.9594, "lon": 25.8611, "event_code": "070", "event_label": "支援提供", "event_root": "07", "root_label": "支援提供", "category": "diplomatic", "goldstein": 7.0, "num_articles": 10, "avg_tone": 0.57636887608069, "actor1": "COMPANY", "actor2": "", "country": "ZI", "location": "Masuwe, Matabeleland North, Zimbabwe", "source_url": "https://www.newzimbabwe.com/zimbabwe-cedes-61-stake-to-jr-goddard-in-victoria-falls-project/"}, {"event_id": "1300410002", "lat": 53.8898, "lon": -166.542, "event_code": "110", "event_label": "批判", "event_root": "11", "root_label": "批判・反対", "category": "demand", "goldstein": -2.0, "num_articles": 10, "avg_tone": -3.48583877995643, "actor1": "COMPANY", "actor2": "", "country": "US", "location": "Dutch Harbor, Alaska, United States", "source_url": "https://www.alaskasnewssource.com/2026/04/22/coast-guard-removes-release-social-media-posts-65k-alaska-roe-seizure/"}, {"event_id": "1300410003", "lat": -25.0, "lon": 135.0, "event_code": "110", "event_label": "批判", "event_root": "11", "root_label": "批判・反対", "category": "demand", "goldstein": -2.0, "num_articles": 10, "avg_tone": -5.53745928338763, "actor1": "INDUSTRY", "actor2": "", "country": "AS", "location": "Australia", "source_url": "https://www.perthnow.com.au/news/appalling-gas-giants-clash-with-senators-over-proposed-export-tax-and-prrt-payments-c-22177638"}, {"event_id": "1300410016", "lat": 24.8667, "lon": 67.05, "event_code": "111", "event_label": "非難", "event_root": "11", "root_label": "批判・反対", "category": "demand", "goldstein": -2.0, "num_articles": 10, "avg_tone": -10.5978260869565, "actor1": "INDUSTRY", "actor2": "PAK", "country": "PK", "location": "Karachi, Sindh, Pakistan", "source_url": "https://www.pakistantoday.com.pk/2026/04/22/kcci-condemns-shooting-of-industrialist-in-new-karachi"}, {"event_id": "1300410018", "lat": 40.6187, "lon": -80.5773, "event_code": "036", "event_label": "協力意向", "event_root": "03", "root_label": "協力意向", "category": "diplomatic", "goldstein": 4.0, "num_articles": 10, "avg_tone": 1.28205128205128, "actor1": "BUSINESS", "actor2": "USA", "country": "US", "location": "East Liverpool, Ohio, United States", "source_url": "https://www.reviewonline.com/news/community-news/2026/04/area-briefing-1081/"}, {"event_id": "1300410019", "lat": 24.8667, "lon": 67.05, "event_code": "012", "event_label": "声明・発表", "event_root": "01", "root_label": "声明・発表", "category": "diplomatic", "goldstein": -0.4, "num_articles": 10, "avg_tone": -10.5978260869565, "actor1": "BUSINESS", "actor2": "", "country": "PK", "location": "Karachi, Sindh, Pakistan", "source_url": "https://www.pakistantoday.com.pk/2026/04/22/kcci-condemns-shooting-of-industrialist-in-new-karachi"}, {"event_id": "1300410020", "lat": 24.8667, "lon": 67.05, "event_code": "012", "event_label": "声明・発表", "event_root": "01", "root_label": "声明・発表", "category": "diplomatic", "goldstein": -0.4, "num_articles": 10, "avg_tone": -10.5978260869565, "actor1": "BUSINESS", "actor2": "TRADER", "country": "PK", "location": "Karachi, Sindh, Pakistan", "source_url": "https://www.pakistantoday.com.pk/2026/04/22/kcci-condemns-shooting-of-industrialist-in-new-karachi"}, {"event_id": "1300410024", "lat": 41.6478, "lon": 123.494, "event_code": "043", "event_label": "協議", "event_root": "04", "root_label": "協議", "category": "diplomatic", "goldstein": 2.8, "num_articles": 10, "avg_tone": -3.59712230215827, "actor1": "CHN", "actor2": "", "country": "CH", "location": "Taoxian, Liaoning, China", "source_url": "https://english.news.cn/20260422/2ffe239a00254b01b5b3f03f1ab774a2/c.html"}, {"event_id": "1300410045", "lat": 35.0, "lon": 105.0, "event_code": "042", "event_label": "首脳会談", "event_root": "04", "root_label": "協議", "category": "diplomatic", "goldstein": 1.9, "num_articles": 10, "avg_tone": 5.4016620498615, "actor1": "CHN", "actor2": "VNM", "country": "CH", "location": "China", "source_url": "https://vietnamnet.vn/en/china-ambassador-highlights-three-firsts-in-to-lam-s-landmark-visit-2508977.html"}, {"event_id": "1300410055", "lat": 55.85, "lon": 24.3167, "event_code": "090", "event_label": "調査", "event_root": "09", "root_label": "調査", "category": "diplomatic", "goldstein": -2.0, "num_articles": 10, "avg_tone": -4.24528301886793, "actor1": "POLICE", "actor2": "", "country": "LH", "location": "Paliukai, Lithuania (general), Lithuania", "source_url": "https://www.lrt.lt/en/news-in-english/19/2906070/missing-paramedic-found-dead-in-northern-lithuania"}, {"event_id": "1300410058", "lat": 55.85, "lon": 24.3167, "event_code": "190", "event_label": "戦闘", "event_root": "19", "root_label": "戦闘", "category": "conflict", "goldstein": -10.0, "num_articles": 10, "avg_tone": -4.24528301886793, "actor1": "POLICE", "actor2": "", "country": "LH", "location": "Paliukai, Lithuania (general), Lithuania", "source_url": "https://www.lrt.lt/en/news-in-english/19/2906070/missing-paramedic-found-dead-in-northern-lithuania"}, {"event_id": "1300410069", "lat": 34.0333, "lon": 75.3333, "event_code": "010", "event_label": "公式声明", "event_root": "01", "root_label": "声明・発表", "category": "diplomatic", "goldstein": 0.0, "num_articles": 10, "avg_tone": -13.1630648330059, "actor1": "POLICE", "actor2": "TERRORIST", "country": "IN", "location": "Pahalgam, Jammu and Kashmir, India", "source_url": "https://indianexpress.com/article/cities/pune/pahalgam-one-year-later-how-cyber-fraudsters-weaponised-public-fear-to-target-victims-in-digital-arrest-scams-10649628/"}, {"event_id": "1300410071", "lat": 31.2833, "lon": 73.25, "event_code": "190", "event_label": "戦闘", "event_root": "19", "root_label": "戦闘", "category": "conflict", "goldstein": -10.0, "num_articles": 10, "avg_tone": -7.71349862258953, "actor1": "SECURITY FORCE", "actor2": "TERRORIST", "country": "PK", "location": "Bannu, Punjab, Pakistan", "source_url": "https://www.pakistantoday.com.pk/2026/04/22/six-terrorists-killed-in-separate-operations-in-khyber-and-bannu"}, {"event_id": "1300410074", "lat": 21.0333, "lon": 105.85, "event_code": "060", "event_label": "物的協力", "event_root": "06", "root_label": "物的協力", "category": "diplomatic", "goldstein": 6.0, "num_articles": 10, "avg_tone": -1.79372197309417, "actor1": "DEPUTY", "actor2": "", "country": "VM", "location": "Hanoi, Ha N?i, Vietnam, Republic Of", "source_url": "https://vietnamnet.vn/en/hanoi-under-scrutiny-for-mismanaging-land-for-social-housing-2508939.html"}, {"event_id": "1300410088", "lat": 32.9866, "lon": -83.6487, "event_code": "042", "event_label": "首脳会談", "event_root": "04", "root_label": "協議", "category": "diplomatic", "goldstein": 1.9, "num_articles": 10, "avg_tone": 7.66129032258065, "actor1": "COMMUNITY", "actor2": "", "country": "US", "location": "Georgia, United States", "source_url": "https://www.wjcl.com/article/pooler-4-year-old-surprised-with-disney-trip-thanks-to-make-a-wish/71090480"}, {"event_id": "1300410089", "lat": 34.5258, "lon": 72.6899, "event_code": "043", "event_label": "協議", "event_root": "04", "root_label": "協議", "category": "diplomatic", "goldstein": 2.8, "num_articles": 10, "avg_tone": -7.71349862258953, "actor1": "VILLAGE", "actor2": "", "country": "PK", "location": "Tirah, North-West Frontier, Pakistan", "source_url": "https://www.pakistantoday.com.pk/2026/04/22/six-terrorists-killed-in-separate-operations-in-khyber-and-bannu"}, {"event_id": "1300410090", "lat": 32.9866, "lon": -83.6487, "event_code": "051", "event_label": "外交協力", "event_root": "05", "root_label": "外交協力", "category": "diplomatic", "goldstein": 3.4, "num_articles": 10, "avg_tone": 7.66129032258065, "actor1": "COMMUNITY", "actor2": "", "country": "US", "location": "Georgia, United States", "source_url": "https://www.wjcl.com/article/pooler-4-year-old-surprised-with-disney-trip-thanks-to-make-a-wish/71090480"}, {"event_id": "1300410106", "lat": 31.5, "lon": 34.75, "event_code": "042", "event_label": "首脳会談", "event_root": "04", "root_label": "協議", "category": "diplomatic", "goldstein": 1.9, "num_articles": 10, "avg_tone": -1.0989010989011, "actor1": "IMMIGRANT", "actor2": "ISR", "country": "IS", "location": "Israel", "source_url": "https://www.jns.org/news/israel-news/israeli-population-hits-10-244-million"}, {"event_id": "1300410128", "lat": -6.193, "lon": 106.877, "event_code": "040", "event_label": "協議", "event_root": "04", "root_label": "協議", "category": "diplomatic", "goldstein": 1.0, "num_articles": 10, "avg_tone": 1.19352088661551, "actor1": "UNIVERSITY", "actor2": "", "country": "ID", "location": "Universitas Indonesia, Jakarta Raya, Indonesia", "source_url": "https://weekender.thejakartapost.com/life/2026/04/22/dating-according-to-the-algorithm.html"}, {"event_id": "1300410131", "lat": 33.6, "lon": 73.0667, "event_code": "070", "event_label": "支援提供", "event_root": "07", "root_label": "支援提供", "category": "diplomatic", "goldstein": 7.0, "num_articles": 10, "avg_tone": 4.14691943127963, "actor1": "STUDENT", "actor2": "", "country": "PK", "location": "Rawalpindi, Punjab, Pakistan", "source_url": "https://www.dailykos.com/stories/2026/4/21/800025328/community/how-to-choose-the-best-civil-surveying-course-in-rawalpindi/"}, {"event_id": "1300410133", "lat": 16.166667, "lon": 107.833333, "event_code": "020", "event_label": "要請", "event_root": "02", "root_label": "要請・訴え", "category": "diplomatic", "goldstein": 3.0, "num_articles": 10, "avg_tone": 5.10948905109489, "actor1": "UNIVERSITY", "actor2": "SCIENTIST", "country": "VM", "location": "Vietnam, Republic Of", "source_url": "https://vietnamnet.vn/en/vietnam-s-largest-university-sets-goal-to-invite-68-visiting-professors-2508938.html"}, {"event_id": "1300410150", "lat": 21.1098, "lon": -157.531, "event_code": "173", "event_label": "強制・圧力", "event_root": "17", "root_label": "強制・圧力", "category": "tension", "goldstein": -5.0, "num_articles": 10, "avg_tone": -6.16740088105727, "actor1": "SCHOOL", "actor2": "", "country": "US", "location": "Hawaii, United States", "source_url": "https://www.hawaiinewsnow.com/2026/04/22/kamehameha-schools-employee-indicted-internal-theft/"}, {"event_id": "1300410167", "lat": 35.75, "lon": 51.5148, "event_code": "046", "event_label": "協議", "event_root": "04", "root_label": "協議", "category": "diplomatic", "goldstein": 7.0, "num_articles": 10, "avg_tone": -3.77358490566037, "actor1": "EUR", "actor2": "IRN", "country": "IR", "location": "Tehran, Tehran, Iran", "source_url": "https://www.rttnews.com/story.aspx?Id=3640985"}];
+<div class="topic">
+  <h2>🇪🇺 ハンガリーのLGBT法違憲判決</h2>
+  <div class="now"><span class="label" style="background-color: #1a73e8; color: white; padding: 2px 8px; border-radius: 3px; font-weight: bold; margin-right: 8px;">現在</span>ブダペストの欧州司法裁判所がハンガリーの反LGBT法を違憲と判断した。この判決はEU基本権憲章に違反すると指摘し、ハンガリー政府は重大な人権侵害の疑いで国際的な批判を受けている。欧州機構からの支援提供停止の可能性も言及されている。</div>
+  <div class="bg"><span class="label" style="background-color: #34a853; color: white; padding: 2px 8px; border-radius: 3px; font-weight: bold; margin-right: 8px;">背景</span>ハンガリーはオルバン首相の下で保守的な政策を推し進め、LGBT権利の制限に関する複数の法案を可決してきた。これはEU内での人権水準の低下として批判され、加盟国との緊張関係を生み出してきた。</div>
+  <div class="outlook"><span class="label" style="background-color: #ea4335; color: white; padding: 2px 8px; border-radius: 3px; font-weight: bold; margin-right: 8px;">見通し</span>ハンガリーが判決を受け入れるか、それとも抵抗するかが焦点となる。EU資金配分や制裁措置との連動も検討される可能性が高い。</div>
+</div>
 
-const renderer = L.canvas({ padding: 0.5 });
-const map = L.map('map').setView([20, 10], 2);
-L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-  attribution: '&copy; OpenStreetMap &copy; CARTO'
-}).addTo(map);
+<div class="topic">
+  <h2>🇺🇸 NATO 3.0と欧州への防衛費要求</h2>
+  <div class="now"><span class="label" style="background-color: #1a73e8; color: white; padding: 2px 8px; border-radius: 3px; font-weight: bold; margin-right: 8px;">現在</span>米国がNATO同盟国に対して、防衛費の大幅な増加を要求する方針を示している。これは「NATO 3.0」構想の一部で、ウクライナ支援の継続とEU独立防衛力構築の二者択一を迫るもののようだ。ワシントンからのメッセージには脅迫的なニュアンスも含まれており、欧州側で警戒感が高まっている。</div>
+  <div class="bg"><span class="label" style="background-color: #34a853; color: white; padding: 2px 8px; border-radius: 3px; font-weight: bold; margin-right: 8px;">背景</span>米国のウクライナ支援は大規模な財政負担となっており、国内での支援疲労が生じている。トランプ政権は孤立主義的傾向を持ち、同盟国の自己負担強化を強く主張してきた。</div>
+  <div class="outlook"><span class="label" style="background-color: #ea4335; color: white; padding: 2px 8px; border-radius: 3px; font-weight: bold; margin-right: 8px;">見通し</span>欧州はEU独立防衛力の構築加速を迫られ、EUの政治統合が進む可能性がある。ただし経済的な負担と政治的分裂のリスクも同時に高まる。</div>
+</div>
 
-const colors = { conflict:'#e74c3c', tension:'#e67e22', demand:'#f1c40f', diplomatic:'#3498db' };
+</div>
+```
 
-events.forEach(e => {
-  const color  = colors[e.category] || '#888';
-  const radius = Math.min(4 + Math.log2(Math.max(e.num_articles, 1)) * 2, 16);
-  L.circleMarker([e.lat, e.lon], {
-    radius, color, fillColor: color, fillOpacity: 0.6, weight: 1, renderer
-  }).bindPopup(
-    `<b>${e.event_label}</b><br>${e.location}<br>` +
-    `${e.actor1}${e.actor2 ? ' / ' + e.actor2 : ''}<br>` +
-    `記事数: ${e.num_articles}　トーン: ${e.avg_tone.toFixed(1)}<br>` +
-    (e.source_url ? `<a href="${e.source_url}" target="_blank" style="color:#88ccff">記事を開く</a>` : '')
-  ).addTo(map);
-});
-</script>
+<footer>データ: GDELT 2.0（約1時間遅延） · 分析: Claude AI · 毎時更新</footer>
+
 </body>
 </html>
