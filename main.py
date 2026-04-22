@@ -3,7 +3,7 @@ import os
 import datetime
 
 from fetch_gdelt import fetch_top_events
-from summarize import generate_summary
+from summarize import generate_summary, generate_event_descriptions
 from report import generate
 
 
@@ -15,12 +15,13 @@ def main():
     if not events:
         print('⚠ イベントが取得できませんでした')
 
-    print('\n📝 サマリー生成中...')
-    summary = generate_summary(events)
+    print('\n📝 サマリー・各イベント説明を生成中...')
+    summary      = generate_summary(events)
+    descriptions = generate_event_descriptions(events)
     if summary:
         print(summary[:200] + '...')
 
-    html = generate(events, summary, timestamp)
+    html = generate(events, summary, timestamp, descriptions)
     os.makedirs('docs', exist_ok=True)
     with open('docs/index.html', 'w', encoding='utf-8') as f:
         f.write(html)

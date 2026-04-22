@@ -17,10 +17,11 @@ CATEGORY_LABEL = {
 }
 
 
-def generate(events, summary, timestamp):
+def generate(events, summary, timestamp, descriptions=None):
+    descriptions = descriptions or {}
     events_json  = json.dumps(events, ensure_ascii=False)
     summary_html = _summary_html(summary)
-    cards_html   = _cards_html(events[:30])
+    cards_html   = _cards_html(events[:30], descriptions)
 
     return f'''<!DOCTYPE html>
 <html lang="ja">
@@ -53,6 +54,7 @@ header h1 {{ font-size: 17px; font-weight: 700; }}
 .location {{ font-size: 13px; font-weight: 600; flex: 1; }}
 .articles {{ font-size: 11px; color: #888; white-space: nowrap; }}
 .event-label {{ font-size: 12px; color: #aaa; margin-bottom: 4px; }}
+.desc {{ font-size: 13px; color: #ddd; margin-bottom: 4px; line-height: 1.5; }}
 .actors {{ font-size: 11px; color: #666; }}
 .source-link {{ display: inline-block; margin-top: 5px; font-size: 11px; color: #4fc3f7;
                 text-decoration: none; overflow: hidden; text-overflow: ellipsis;
@@ -122,7 +124,7 @@ def _summary_html(summary):
 </div>'''
 
 
-def _cards_html(events):
+def _cards_html(events, descriptions):
     html = []
     for e in events:
         cat   = e.get('category', 'diplomatic')
@@ -133,7 +135,9 @@ def _cards_html(events):
         a2    = e.get('actor2', '')
         actors_str = f'{a1} / {a2}' if a1 and a2 else (a1 or a2)
         src   = e.get('source_url', '')
-        link  = f'<a class="source-link" href="{src}" target="_blank">🔗 {src}</a>' if src else ''
+        link  = f'<a class="source-link" href="{src}" target="_blank">🔗 記事を開く</a>' if src else ''
+        desc  = descriptions.get(e['event_id'], '')
+        desc_html = f'<div class="desc">{desc}</div>' if desc else ''
 
         html.append(f'''<div class="card" style="border-left-color:{color}">
   <div class="card-top">
@@ -141,7 +145,7 @@ def _cards_html(events):
     <span class="location">{loc}</span>
     <span class="articles">📄 {e["num_articles"]}</span>
   </div>
-  <div class="event-label">{e.get("event_label", "")}</div>
+  {desc_html}
   <div class="actors">{actors_str}</div>
   {link}
 </div>''')
