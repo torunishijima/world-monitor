@@ -15,8 +15,8 @@ def generate(events, report_html, timestamp):
 * {{ box-sizing: border-box; margin: 0; padding: 0; }}
 body {{
   font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
-  background: #0f0f1a;
-  color: #e0e0e0;
+  background: #111118;
+  color: #f0f0f0;
   max-width: 680px;
   margin: 0 auto;
   padding: 0 16px 48px;
@@ -48,24 +48,24 @@ header h1 {{ font-size: 20px; font-weight: 700; color: #fff; }}
   line-height: 1.4;
 }}
 .now, .bg, .outlook {{
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   font-size: 14px;
-  line-height: 1.8;
-  color: #ccc;
+  line-height: 1.85;
+  color: #e8e8e8;
 }}
 .label {{
   display: inline-block;
   font-size: 10px;
   font-weight: 700;
-  padding: 2px 7px;
+  padding: 2px 8px;
   border-radius: 4px;
   margin-right: 8px;
   vertical-align: middle;
   letter-spacing: 0.5px;
 }}
-.now .label   {{ background: #1a3a5c; color: #5ab4ff; }}
-.bg .label    {{ background: #2a2a1a; color: #c8a84b; }}
-.outlook .label {{ background: #1a3a1a; color: #5aaf5a; }}
+.now .label     {{ background: #2a6496; color: #ffffff; }}
+.bg .label      {{ background: #7a6010; color: #ffffff; }}
+.outlook .label {{ background: #2a7a2a; color: #ffffff; }}
 footer {{
   padding: 24px 0;
   font-size: 11px;
