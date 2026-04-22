@@ -8,43 +8,40 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
-  background: #111118;
-  color: #f0f0f0;
+  background: #f5f5f7;
+  color: #1a1a1a;
   max-width: 680px;
   margin: 0 auto;
   padding: 0 16px 48px;
 }
 header {
   padding: 20px 0 14px;
-  border-bottom: 1px solid #2a2a4a;
-  margin-bottom: 8px;
+  border-bottom: 2px solid #ddd;
+  margin-bottom: 4px;
 }
-header h1 { font-size: 20px; font-weight: 700; color: #fff; }
-.meta {
-  font-size: 12px;
-  color: #666;
-  margin-top: 6px;
-  display: flex;
-  gap: 16px;
+header h1 { font-size: 20px; font-weight: 700; color: #111; }
+.meta { font-size: 12px; color: #888; margin-top: 5px; }
+
+/* Claudeが生成するHTML要素を強制的にスタイリング */
+.topic, div[class="topic"] {
+  background: #fff;
+  border-radius: 10px;
+  padding: 18px;
+  margin: 16px 0;
+  border-left: 4px solid #0066cc;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
 }
-.topic {
-  margin: 28px 0;
-  padding-bottom: 28px;
-  border-bottom: 1px solid #1e1e35;
-}
-.topic:last-child { border-bottom: none; }
-.topic h2 {
+.topic h2, div[class="topic"] h2 {
   font-size: 17px;
   font-weight: 700;
-  color: #fff;
+  color: #111;
   margin-bottom: 14px;
-  line-height: 1.4;
 }
 .now, .bg, .outlook {
-  margin-bottom: 12px;
+  margin-bottom: 11px;
   font-size: 14px;
   line-height: 1.85;
-  color: #e8e8e8;
+  color: #222;
 }
 .label {
   display: inline-block;
@@ -55,14 +52,16 @@ header h1 { font-size: 20px; font-weight: 700; color: #fff; }
   margin-right: 8px;
   vertical-align: middle;
   letter-spacing: 0.5px;
+  color: #fff;
 }
-.now .label     { background: #2a6496; color: #ffffff; }
-.bg .label      { background: #7a6010; color: #ffffff; }
-.outlook .label { background: #2a7a2a; color: #ffffff; }
+.now .label     { background: #c0392b; }
+.bg .label      { background: #d68910; }
+.outlook .label { background: #1e8449; }
+
 footer {
   padding: 24px 0;
   font-size: 11px;
-  color: #444;
+  color: #aaa;
   text-align: center;
 }
 </style>
@@ -71,83 +70,51 @@ footer {
 
 <header>
   <h1>🌍 World Monitor</h1>
-  <div class="meta">
-    <span>更新: 2026-04-22 23:40 UTC</span>
-    <span>イベント数: 150件（記事数最大: 100）</span>
-  </div>
+  <div class="meta">更新: 2026-04-22 23:43 UTC · 150件のイベントを分析（記事数最大: 100）</div>
 </header>
 
 ```html
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8">
-<title>国際情勢レポート</title>
-<style>
-body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.8; max-width: 900px; margin: 0 auto; padding: 20px; background-color: #f5f5f5; }
-.report-header { background-color: #2c3e50; color: white; padding: 20px; border-radius: 8px; margin-bottom: 30px; }
-.report-header h1 { margin: 0; font-size: 24px; }
-.report-header p { margin: 10px 0 0 0; font-size: 14px; opacity: 0.9; }
-.topic { background-color: white; padding: 25px; margin-bottom: 25px; border-left: 5px solid #3498db; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-.topic h2 { margin: 0 0 20px 0; font-size: 18px; color: #2c3e50; }
-.topic div { margin-bottom: 15px; }
-.label { display: inline-block; background-color: #3498db; color: white; padding: 4px 10px; border-radius: 3px; font-weight: bold; font-size: 12px; margin-right: 10px; min-width: 50px; }
-.now .label { background-color: #e74c3c; }
-.bg .label { background-color: #f39c12; }
-.outlook .label { background-color: #27ae60; }
-</style>
-</head>
-<body>
-
-<div class="report-header">
-<h1>🌍 国際情勢レポート</h1>
-<p>直近1時間のGDELTデータ分析 | 記事数順トピック抽出</p>
+<div class="topic">
+<h2>🇬🇧 英国内閣の分裂と政治混乱</h2>
+<div class="now"><span class="label">現在</span>ロンドンの首相府を中心に、内閣内の意見対立が深刻化している。高位の公務員がマンデルソン前議員に関する質問に直面しており、議員からの厳しい追及を受けている。複数の議員が民主的な議論への参加を拒否する姿勢を示すなど、政治的な亀裂が明らかになっている。</div>
+<div class="bg"><span class="label">背景</span>データでは記事数60件以上の報道量があり、トーンは-2.2と否定的である。首相と政府機関の間で「戦闘」的な関係が複数報道されており、政策決定プロセスの混乱が伺える。北アイルランドを含めた広域での政治的発言が相次いでいる。</div>
+<div class="outlook"><span class="label">見通し</span>内閣内の対立が続けば、政策決定の停滞が予想される。今後の首相の人事施策や政治姿勢の変化に注視が必要となる。</div>
 </div>
 
 <div class="topic">
-<h2>🇬🇧 英国内閣分裂と政治的混乱</h2>
-<div class="now"><span class="label">現在</span>ロンドンの首相府周辺で内閣内の深刻な分裂が報告されており、上級公務員がマンデルソン議員に関する質問に直面している。複数の記事から、政治指導部間の対立や戦闘的な対立構図が浮かび上がっている。トーンが-2.2と否定的であり、政治的な緊張が高まっていることが示唆されている。</div>
-<div class="bg"><span class="label">背景</span>英国では議員の民主的プロセスへの参加に関する議論が進行中であり、複数の下院議員が特定の民主的協議に参加しないことを表明している。これは政治的な制度や議員の役割に関する根本的な問題を反映している。</div>
-<div class="outlook"><span class="label">見通し</span>内閣内の分裂は政策決定の効率性に影響を与える可能性があり、今後の政治的安定性が注視される。議会内の協議体制の再構築が急務となるだろう。</div>
+<h2>⚠️ 英国の公衆衛生危機</h2>
+<div class="now"><span class="label">現在</span>英国で がん患者数が過去最高水準に達している。高齢化に伴う患者数の増加が指摘されており、公衆衛生システムへの深刻な負担が生じている。北アイルランドのクレイグエボンなどで特に批判の声が高まっている。</div>
+<div class="bg"><span class="label">背景</span>記事数100件で最大の報道量を記録しており、トーン-5.3という極めて否定的な評価である。英国の人口高齢化という構造的問題が背景にあり、医療資源の不足が深刻化している。</div>
+<div class="outlook"><span class="label">見通し</span>医療費の増加と治療施設の拡充が急務となる。政府の医療政策の抜本的な転換が求められるだろう。</div>
 </div>
 
 <div class="topic">
-<h2>🏥 英国の公衆衛生危機</h2>
-<div class="now"><span class="label">現在</span>英国全体でがん患者数が過去最高水準に達したことが報告されている。北アイルランド地域でも脅迫と批判の対象となっており、深刻な公衆衛生上の警告が発せられている。この傾向はトーン値-5.3と極めて悲観的な評価を受けている。</div>
-<div class="bg"><span class="label">背景</span>英国の高齢化社会が進行する中で、がん罹患率の増加は老化に伴う慢性疾患の増加と関連している。医療システムへの圧力が増大し、公衆衛生政策の見直しが求められている状況である。</div>
-<div class="outlook"><span class="label">見通し</span>医療資源の配分と予防医療の強化が今後の重要な課題となるだろう。政府は予算拡大と治療施設の充実を迫られる可能性が高い。</div>
+<h2>🛢️ 中東情勢とエネルギー危機</h2>
+<div class="now"><span class="label">現在</span>イラン情勢の悪化に伴い、国際航空業界に深刻な影響が出ている。ルフトハンザドイツ航空は燃料コスト の倍増を理由に2万便の運航削減を決定している。欧州全域でこのエネルギー危機への対応が急速に進んでいる。</div>
+<div class="bg"><span class="label">背景</span>イランとの対立が深刻化し、ホルムズ海峡の緊張が高まっている。トーン-3.8と否定的な報道が多く、経済的な影響が広がっている。ポルトガルを含むEU諸国が協議を開始している。</div>
+<div class="outlook"><span class="label">見通し</span>エネルギー価格の上昇が消費者負担につながる可能性が高い。外交的な解決が見いだされなければ、さらなる経済的混乱が予想される。</div>
 </div>
 
 <div class="topic">
-<h2>🇺🇸 米国防衛体制の転換期</h2>
-<div class="now"><span class="label">現在</span>トランプ政権下において海軍長官ジョン・フェーラン氏が職を辞任している。この決定は米国防総省内での方針転換を示唆しており、国防戦略の見直しが進行中であることが示されている。複数の地域から同様の報道が確認されており、重要性の高いイベントである。</div>
-<div class="bg"><span class="label">背景</span>米国は最近のアフガニスタン撤退やインド太平洋地域での戦略転換など、防衛政策の大幅な見直しを進めている。特に海軍運用と国防組織の人事については政治的な議論が続いていた。</div>
-<div class="outlook"><span class="label">見通し</span>新たな海軍指導部の任命によって米国の海洋戦略がどう変わるかが焦点となる。同盟国や地政学的な競争相手への影響も注視される。</div>
+<h2>🪖 米国防衛層の人事異動</h2>
+<div class="now"><span class="label">現在</span>米海軍長官ジョン・フェラン氏がトランプ政権から離職した。この人事異動は軍事指導部の重要な変化を示唆しており、防衛政策の方針転換の可能性が指摘されている。ソマリアなどの戦略地域での対応方針の見直しが懸念されている。</div>
+<div class="bg"><span class="label">背景</span>記事数32件の報道があり、トーン-3.3と否定的である。米国務省、ホワイトハウス、軍事関係者の間で意見対立が存在する。ウクライナとの軍事協力やエジプト海軍との協議など、複雑な国際軍事関係が影響している可能性がある。</div>
+<div class="outlook"><span class="label">見通し</span>新しい海軍指導部の下で、米国の海洋戦略が大きく転換される可能性がある。同盟国との軍事協力体制の再構築が急務となるだろう。</div>
 </div>
 
 <div class="topic">
-<h2>🚗 自動車安全品質問題</h2>
-<div class="now"><span class="label">現在</span>フォード社製レンジャーの配線欠陥が原因の火災リスクが報告され、自動車メーカーが大規模なリコールを実施している。ミシガン州などの複数地域で調査が進められており、トーン値-4.5の深刻な製品品質問題として扱われている。</div>
-<div class="bg"><span class="label">背景</span>自動車産業における品質管理の課題は継続的な問題であり、特に電気配線システムの故障は火災事故につながる危険性がある。消費者安全と製造責任の問題が絡み合っている。</div>
-<div class="outlook"><span class="label">見通し</span>リコール対応により一時的に費用負担が発生する見込みだが、消費者信頼の回復が長期的な課題となるだろう。業界全体の品質基準強化につながる可能性もある。</div>
+<h2>🚗 自動車リコール問題の拡大</h2>
+<div class="now"><span class="label">現在</span>フォード社のレンジャー車に配線不良による火災リスク が発見され、大規模なリコールが実施されている。ミシガン州やミシガン州デアボーン地区の所有者に対し、屋外駐車を推奨する警告が出されている。</div>
+<div class="bg"><span class="label">背景</span>記事数24件の報道があり、トーン-4.5と否定的である。自動車ディーラーが調査対象となっており、製造企業の品質管理体制に対する懸念が高まっている。</div>
+<div class="outlook"><span class="label">見通し</span>追加の技術的改善や賠償措置が講じられる見込みである。消費者の自動車安全性に対する信頼度低下が避けられないだろう。</div>
 </div>
 
 <div class="topic">
-<h2>🌏 インド太平洋地域の外交協調</h2>
-<div class="now"><span class="label">現在</span>スリランカ、マレーシア、パキスタンなどのインド太平洋地域諸国が複数の首脳会談と協議を実施している。特にスリランカのコロンボとマレーシア間での協力意向が報道されており、地域的な外交ネットワークが強化されている。</div>
-<div class="bg"><span class="label">背景</span>インド太平洋地域は地政学的に重要性が高く、米国・中国の大国競争が影響している。各国は地域内での経済的・安全保障上の協力強化を模索している段階である。</div>
-<div class="outlook"><span class="label">見通し</span>これら協議を通じてASEAN諸国と南アジア諸国の連携が深まる可能性がある。地域の経済統合と安全保障枠組みの構築が今後の焦点となるだろう。</div>
+<h2>🌏 アジア太平洋地域の外交動向</h2>
+<div class="now"><span class="label">現在</span>スリランカとマレーシアが首脳会談を開催し、協力関係の構築を進めている。パキスタンと米国の協議も進行中であり、インド太平洋地域での外交活動が活発化している。オーストラリアの牛肉輸出が中国市場へのアクセスを拡大している。</div>
+<div class="bg"><span class="label">背景</span>記事数14～20件程度の報道があり、トーン-3.2で慎重な評価がなされている。南アジアとインド太平洋地域での大国間の影響力競争が背景にある。チャイナとの貿易関係の再構築も進んでいる。</div>
+<div class="outlook"><span class="label">見通し</span>地域内の経済統合と安全保障協力がさらに進む可能性がある。米国を中心とした同盟関係との関係性が今後の重要な焦点となるだろう。</div>
 </div>
-
-<div class="topic">
-<h2>📱 デジタル規制と子どもの安全</h2>
-<div class="now"><span class="label">現在</span>米国カリフォルニア州が16歳未満の児童向けソーシャルメディア利用禁止に向けた規制を検討している。複数州で同様の動きが見られており、デジタルプラットフォームに対する政策的圧力が強化されている。トーン値-1.8と懸念を反映している。</div>
-<div class="bg"><span class="label">背景</span>ソーシャルメディアの若年層への影響、特に心理的健康や依存性に関する医学的証拠が積み重なっている。子どもの安全とプライバシー保護に対する社会的関心が急速に高まっている。</div>
-<div class="outlook"><span class="label">見通し</span>カリフォルニア州の規制が成立すれば、米国全体や他国での類似規制のモデルケースとなるだろう。デジタルプラットフォーム企業のビジネスモデル見直しを迫る可能性がある。</div>
-</div>
-
-</body>
-</html>
 ```
 
 <footer>データ: GDELT 2.0（約1時間遅延） · 分析: Claude AI · 毎時更新</footer>
