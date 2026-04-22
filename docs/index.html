@@ -72,82 +72,53 @@ footer {
 <header>
   <h1>🌍 World Monitor</h1>
   <div class="meta">
-    <span>更新: 2026-04-22 16:10 UTC</span>
-    <span>イベント数: 150件（記事数最大: 64）</span>
+    <span>更新: 2026-04-22 18:01 UTC</span>
+    <span>イベント数: 150件（記事数最大: 100）</span>
   </div>
 </header>
 
 ```html
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8">
-<title>国際ニュース日報</title>
-<style>
-body { font-family: 'Arial', sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; background-color: #f5f5f5; }
-.report-header { background-color: #2c3e50; color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
-.report-header h1 { margin: 0; font-size: 28px; }
-.report-header p { margin: 10px 0 0 0; font-size: 14px; }
-.topic { background-color: white; margin-bottom: 20px; padding: 20px; border-left: 4px solid #3498db; border-radius: 4px; }
-.topic h2 { margin-top: 0; color: #2c3e50; font-size: 20px; }
-.topic div { margin-bottom: 12px; line-height: 1.8; }
-.label { display: inline-block; background-color: #3498db; color: white; padding: 4px 12px; border-radius: 4px; font-weight: bold; margin-right: 10px; font-size: 12px; }
-.now { color: #2c3e50; }
-.bg { color: #34495e; }
-.outlook { color: #2c3e50; }
-</style>
-</head>
-<body>
-
-<div class="report-header">
-<h1>📰 国際情勢レポート</h1>
-<p>2026年4月22日 直近1時間のGDELTデータ分析</p>
+<div class="topic">
+  <h2>💼 米国の関税払戻制度始動</h2>
+  <div class="now"><span class="label">現在</span>マサチューセッツ州を中心に、米国政府が企業向けの関税払戻プロセスを開始した。この施策は記事数100件で最も注目度が高く、トーン値-1.6と若干否定的な論調が見られる。企業は払戻手続きを通じて過去に支払った関税の一部を回収できる見込みである。</div>
+  <div class="bg"><span class="label">背景</span>米国の通商政策の変化に伴い、関税制度の見直しが進められている。消費者への影響についても注目が集まっており、企業と消費者の両者における制度の透明性と公平性が課題となっている。</div>
+  <div class="outlook"><span class="label">見通し</span>払戻制度の円滑な運用が経済界の信頼を左右する可能性がある。今後、企業からの申請対応と制度の周知が重要な課題となるだろう。</div>
 </div>
 
 <div class="topic">
-  <h2>🔴 エルサルバドルのギャング取り締まり</h2>
-  <div class="now"><span class="label">現在</span>エルサルバドルのサンサルバドルで、MS-13などの暴力団の構成員約500人を対象とした大規模一括裁判が開催されている。検察と司法当局による強硬な執行が進められており、組織犯罪に対する政府の強気姿勢が貫かれている。</div>
-  <div class="bg"><span class="label">背景</span>エルサルバドルはギャング暴力による殺人件数が世界的に高い水準にあり、政府は国家的な安全保障上の脅威として対処を続けている。この一括裁判はギャング排除キャンペーンの象徴的な取り組みであり、国際的な注目を集めている。</div>
-  <div class="outlook"><span class="label">見通し</span>今後も同様の大規模裁判が継続される見込みであり、組織犯罪の根絶に向けた長期的な司法プロセスが進むと考えられる。国際的な支援や連携強化も期待される。</div>
+  <h2>🚨 ニューヨークで乳幼児遺棄事件</h2>
+  <div class="now"><span class="label">現在</span>ニューヨークのタイムズスクエア付近で、生後6ヶ月の乳幼児が横転したベビーカーに乗った状態で遺棄される事件が発生した。この事件は複数のカテゴリーで計81件の記事が報道され、トーン値-5.6と極めて否定的である。警察当局による捜査と両親の特定が進められている。</div>
+  <div class="bg"><span class="label">背景</span>米国における児童虐待および遺棄事件は社会的に重大な問題である。この事件は公開の場での事象であり、メディアと警察当局による連携報道が活発化している。</div>
+  <div class="outlook"><span class="label">見通し</span>捜査の進展に従い、両親の責任追及と児童保護に関する議論が深まる見込みである。今後の司法判断が注視される。</div>
 </div>
 
 <div class="topic">
-  <h2>🔶 イラン周辺の地政学的緊張</h2>
-  <div class="now"><span class="label">現在</span>イランがホルムズ海峡で複数の船舶に対して攻撃を加えており、海上交通の安全性が脅かされている。同時に米国はイランの兵器産業支援企業に対する経済制裁を発動し、トランプ政権が36～72時間以内での交渉開始の可能性を示唆している。</div>
-  <div class="bg"><span class="label">背景</span>米国によるイラン制裁は長年の政策であり、イランはインターネット接続の制限など国民への統制を強めている。テヘラン周辺では国民の海外流出が相次いでおり、政治的・経済的圧力下にある状況が続いている。</div>
-  <div class="outlook"><span class="label">見通し</span>短期的な軍事的緊張は続く可能性が高いが、米国の外交的関与の動きは紛争エスカレーション防止の要素となる可能性がある。中東地域全体の安定性が国際的な焦点となるだろう。</div>
+  <h2>🔒 DHS高官の財布盗難事件で服役</h2>
+  <div class="now"><span class="label">現在</span>国土安全保障省（DHS）高官クリスティ・ノエム氏に関連する財布盗難事件で、犯人が3年の懲役刑を言い渡された。複数の州（ワシントンDC、オクラホマ）で報道され、トーン値-7.3から-8.0と極めて強く否定的である。ホワイトハウスでの事件という背景から注目度が高い。</div>
+  <div class="bg"><span class="label">背景</span>このような高位職員に関連する犯罪事件は、政府機関の安全性と警備体制に関する議論を喚起する。司法手続きの透明性と公正性が国民の関心事となっている。</div>
+  <div class="outlook"><span class="label">見通し</span>この事件は政府職員の身辺警備強化に関する政策議論に波及する可能性がある。判例として今後の類似事件に参考とされるだろう。</div>
 </div>
 
 <div class="topic">
-  <h2>🔵 米国内の政治的対立と司法問題</h2>
-  <div class="now"><span class="label">現在</span>ホワイトハウス周辺でカシュ・パテル氏の飲酒に関する報告についての調査がハウス民主党によって開始されており、下院司法委員会が刑事責任の可能性を検討している。同時に、銃器所持犯の逮捕事件がルイジアナとニューヨークで相次いでおり、連邦司法当局の捜査が進行中である。</div>
-  <div class="bg"><span class="label">背景</span>米国では銃暴力による犯罪が継続的な社会問題であり、特に重罪犯による銃器供給が司法当局の追跡対象となっている。政権内の人事問題も政治的対立の一部を構成している。</div>
-  <div class="outlook"><span class="label">見通し</span>下院での調査は政治的分裂を一層深める可能性がある。銃器規制に関する議論も国会で活発化すると予想される。</div>
+  <h2>🌍 コソボのEU候補国地位申請</h2>
+  <div class="now"><span class="label">現在</span>コソボがギリシャで開催された経済フォーラムで、EU候補国地位の早期取得を要請している。記事数40件で扱われ、トーン値0.5と中立的である。コソボの大統領は反対派に対する批判も同時に展開し、国内の政治的対立が継続している。</div>
+  <div class="bg"><span class="label">背景</span>バルカン地域の安定化と欧州統合は国際社会の重要な課題である。コソボのEU統合は地域の経済成長と民主化を支援する枠組みとして機能している。</div>
+  <div class="outlook"><span class="label">見通し</span>EU側の審査プロセスの進展如何で、コソボの地政学的地位が変化する可能性がある。バルカン諸国全体の欧州統合動向にも影響を与えるだろう。</div>
 </div>
 
 <div class="topic">
-  <h2>🟡 イランの国民流出と情報統制</h2>
-  <div class="now"><span class="label">現在</span>イラン国民がインターネットアクセスを求めて国外に脱出する動向が報告されており、テヘラン、マリワン、ヤズドなど複数地域からの流出が記録されている。国内の情報統制が強化されていることを示す現象である。</div>
-  <div class="bg"><span class="label">背景</span>イランの当局は市民の情報アクセスを厳格に制限する政策を続けており、これが海外移住と直結している。経済制裁による生活困難も流出の一因と考えられる。</div>
-  <div class="outlook"><span class="label">見通し</span>イランの人材流出は国内経済に更なる悪影響を与える可能性があり、政府の統制政策とこれに対する国民抵抗の対立構図が続くと見込まれる。</div>
+  <h2>⚔️ 中東地域の軍事緊張</h2>
+  <div class="now"><span class="label">現在</span>バーレーン国防軍がイランからの攻撃で194発のミサイルと523機のドローンを迎撃したと発表した。同時にガザ地域ではイスラエルによる軍事作戦が継続中で、2人のパレスチナ人が殺害されている。トーン値-6.7から-1.2と強い否定性が見られる。</div>
+  <div class="bg"><span class="label">背景</span>イラン・イスラエル対立の長期化とそれに伴う地域の軍事化が進行している。湾岸地域の安全保障環境が急速に悪化している。レバノンでもイランとの関連で緊張が高まっている。</div>
+  <div class="outlook"><span class="label">見通し</span>軍事的エスカレーションの抑止に向けた国際的な外交努力が求められる段階にある。中東地域の政治的安定性の回復には、根本的な紛争解決メカニズムの確立が不可欠となるだろう。</div>
 </div>
 
 <div class="topic">
-  <h2>🟢 ガーナの教育支援と国際協力</h2>
-  <div class="now"><span class="label">現在</span>ガーナの教育当局がWASSCE（西アフリカ統一試験）の実技試験のための資金を配分し、アクラではEU特使との間で安全保障・投資・経済協力についての協議が進行している。教育投資と国際的なパートナーシップが同時に推進されている。</div>
-  <div class="bg"><span class="label">背景</span>ガーナはアフリカにおける相対的に安定した経済発展国として地域的な重要性を持つ。EU諸国との関係強化は貿易・安全保障上の戦略的価値を持つ。</div>
-  <div class="outlook"><span class="label">見通し</span>ガーナの教育改革と経済協力はアフリカ地域の発展モデルとなる可能性があり、今後さらなる協力協定の拡大が期待される。</div>
+  <h2>🚔 メキシコの麻薬カルテル対策</h2>
+  <div class="now"><span class="label">現在</span>メキシコのシェインバウム大統領は、CIA職員が麻薬製造施設の襲撃で殺害された事件を受けて、チワワ州への制裁を検討している。記事数40件で報道され、トーン値-2.5と否定的である。メキシコ政府とカルテル勢力の対立が深刻化している。</div>
+  <div class="bg"><span class="label">背景</span>メキシコにおける麻薬カルテルの暴力は長年の課題であり、国家主権と領土支配の問題が複雑に絡み合っている。米国との共同対策とメキシコ国内の地方政府の管理体制が課題となっている。</div>
+  <div class="outlook"><span class="label">見通し</span>チワワ州への制裁が実施される場合、地方行政と中央政府の関係が再構築される可能性がある。米メキシコ間の安全保障協力の強化が引き続き重要な課題となるだろう。</div>
 </div>
-
-<div class="topic">
-  <h2>🟣 ウクライナへの欧州連合融資承認</h2>
-  <div class="now"><span class="label">現在</span>欧州連合がウクライナに対する90億ユーロの融資をハンガリーとの対立を経て最終承認した。キイウでの融資交渉は紛争下の経済支援として重要な進展を示している。</div>
-  <div class="bg"><span class="label">背景</span>ハンガリーの反対により融資承認が遅延していたが、EU全加盟国の合意に至った。ウクライナの経済的安定はロシアとの紛争継続下での重要課題である。</div>
-  <div class="outlook"><span class="label">見通し</span>本融資はウクライナの戦争経済を支える重要な資金源となり、EU-ウクライナ関係のさらなる統合を促進する可能性がある。</div>
-</div>
-
-</body>
-</html>
 ```
 
 <footer>データ: GDELT 2.0（約1時間遅延） · 分析: Claude AI · 毎時更新</footer>
